@@ -1,3 +1,4 @@
+const WebSocket = require('ws')
 const https = require('https');
 const app = require('express');
 
