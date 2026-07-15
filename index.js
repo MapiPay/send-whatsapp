@@ -12,9 +12,13 @@ const enviarMensagem = async () => {
                 messaging_product: 'whatsapp',
                 recipient_type: 'individual',
                 to: destinatario,
-                type: 'text',
-                text: {
-                    body: 'Mensagem teste enviada pelo node'
+                type: 'template',
+                template: {
+                    name: 'hello_world',
+                    language: {
+                        code: 'en_US'
+                    },
+                    components: []
                 }
             },
             {
