@@ -13,12 +13,9 @@ const enviarMensagem = async () => {
                 recipient_type: 'individual',
                 to: destinatario,
                 type: 'template',
-                template: {
-                    name: 'hello_world',
-                    language: {
-                        code: 'en_US'
-                    },
-                    components: []
+                type: 'text',
+                text: {
+                    body: 'Mensagem teste enviada pelo Node.'
                 }
             },
             {
