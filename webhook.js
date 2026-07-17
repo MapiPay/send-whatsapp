@@ -5,7 +5,7 @@ const token = "EAAUi1ZAjBIQwBR0ZCJMMrZCaZAkHZC8ZC9GUVSePNUwzDZAOO7fsGkGOFCJXRKo0
 const idPhoneNumber = "436813806185181";
 const destinatario = "5541992314305"
 
-const enviarMensagem = async () => {
+async function enviarMensagem(){ 
     try {
         const response = await axios.post(
             `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
@@ -56,5 +56,4 @@ const enviarMensagem = async () => {
         console.log('Erro ao enviar a mensagem: ', err.response ? err.response.data : err.message);
     }
 }
-
 enviarMensagem();
