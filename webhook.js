@@ -5,6 +5,16 @@ const token = "EAAUi1ZAjBIQwBR0ZCJMMrZCaZAkHZC8ZC9GUVSePNUwzDZAOO7fsGkGOFCJXRKo0
 const idPhoneNumber = "436813806185181";
 const destinatario = "5541992314305"
 
+(() => {
+    axios.post(
+        `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
+        {
+            'messaging_product': 'whatsapp',
+            'status': 'read'
+        }
+    )
+})()
+
 async function enviarMensagem(){ 
     try {
         const response = await axios.post(
