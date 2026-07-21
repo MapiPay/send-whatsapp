@@ -59,6 +59,7 @@ app.post('/', async (req, res) => {
                         await enviarMensagem(remetente, tokenGerado);
                     } else {
                         erroEnvioToken(remetente, ddd, celular);
+                        console.log(`Correntista não encontrado para o número ${ddd} ${celular}`)
                     }
                 }
             }
