@@ -37,9 +37,21 @@ app.post('/', async (req, res) => {
 
             if (messages && messages.length > 0) {
                 const msgId = messages[0].id;
+                const remetente = messages[0].from;
                 console.log(`Nova mensagem recebida! ID: ${msgId}`);
+
+                let ddd = '';
+                let celular = '';
+
+                if(remetente.startsWith('55') && remetente >= 12){
+                    ddd = remetente.substring(2, 4);
+                    celular = remetente.substring(4);
+
+                    console.log(`DDD: ${ddd} | Celular: ${celular}`)
+                }
+
                 await marcarComoLida(msgId);
-                await enviarMensagem();
+                await enviarMensagem(remetente);
             }
         } catch (err) {
             console.log("Erro ao processar o payload da Meta: ", err)
