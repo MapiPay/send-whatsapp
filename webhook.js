@@ -32,8 +32,8 @@ async function marcarComoLida(msgId) {
 }
 
 //Gerar token
-async function gerarToken(ddd, celular){
-    try{
+async function gerarToken(ddd, celular) {
+    try {
         const response = await axios.post(
             'https://api.mapipay.com.br/api/mapi/pix/generate_token',
             {
@@ -47,15 +47,15 @@ async function gerarToken(ddd, celular){
                 }
             }
         );
-        
-        if(response.data.sucess){
+
+        if (response.data.sucess) {
             console.log(`Token gerado com sucesso: ${response.data.data.token}`);
             return response.data.data.token
         } else {
             console.log(`Erro da API: ${response.data.message}`);
             return null;
         }
-    } catch(err){
+    } catch (err) {
         console.log('Erro na requisição para a API Mapi: ', err.response ? err.response.data : err.message);
         return null;
     }
@@ -110,6 +110,49 @@ async function enviarMensagem(destinatario, tokenGerado) {
         console.log('Mensagem enviada!', response.data)
     } catch (err) {
         console.log('Erro ao enviar a mensagem: ', err.response ? err.response.data : err.message);
+    }
+}
+
+async function erroEnvioToken(destinatario, ddd, celular) {
+    try {
+        const response = await axios.post(
+            `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
+            {
+                messaging_product: 'whatsapp',
+                recipient_type: 'individual',
+                to: destinatario,
+                type: 'template',
+                template: {
+                    'name': 'erro_envio_token',
+                    'language': {
+                        code: 'pt_BR'
+                    },
+                    components: [
+                        {
+                            'type': 'body',
+                            'parameters': [
+                                {
+                                    'type': 'text',
+                                    'text': ddd
+                                },
+                                {
+                                    'type': 'text',
+                                    'text': celular
+                                }
+                            ]
+                        },
+                    ]
+                }
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            }
+        )
+    } catch (err) {
+        console.log(err)
     }
 }
 

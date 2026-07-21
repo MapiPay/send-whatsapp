@@ -45,7 +45,7 @@ app.post('/', async (req, res) => {
 
                 if(remetente.startsWith('55') && remetente >= 12){
                     ddd = remetente.substring(2, 4);
-                    celular = remetente.substring(4);
+                    celular = '9'+remetente.substring(4);
 
                     console.log(`DDD: ${ddd} | Celular: ${celular}`)
                 }
