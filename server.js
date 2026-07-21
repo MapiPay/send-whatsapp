@@ -53,7 +53,7 @@ app.post('/', async (req, res) => {
                 await marcarComoLida(msgId);
 
                 if(ddd && celular){
-                    const tokenGerado = await gerarToken(ddd, celular);
+                    const tokenGerado = await gerarToken(remetente);
                     
                     if(tokenGerado){
                         await enviarMensagem(remetente, tokenGerado);

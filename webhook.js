@@ -32,13 +32,13 @@ async function marcarComoLida(msgId) {
 }
 
 //Gerar token
-async function gerarToken(ddd, celular) {
+async function gerarToken(remetente) {
     try {
         const response = await axios.post(
             'https://api.mapipay.com.br/api/mapi/pix/generate_token',
             {
-                area_code: ddd,
-                cellphone: celular
+                area_code: remetente.substring(2, 4),
+                cellphone: remetente.substring(4)
             },
             {
                 auth: {
