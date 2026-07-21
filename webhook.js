@@ -3,19 +3,11 @@ let verificacao = false;
 
 const token = "EAAUi1ZAjBIQwBR0ZCJMMrZCaZAkHZC8ZC9GUVSePNUwzDZAOO7fsGkGOFCJXRKo0nWwas8dni7NSQJ5bRWXw9r2lkDlnmIDZA2ocP7CGfIZCDo3v6sn8vl7gRcTxFZBGWzRMwGG1rSgXdBNOXyK5oBKPpIdqQRXKo1pPtTCxz4ocm6b3ToOPGVN2UsTVmkQJQHTgZDZD";
 const idPhoneNumber = "436813806185181";
-//const destinatario = "5541992314305";
-//const messageId = 'wamid.HBgMNTU0MTkyMzE0MzA1FQIAEhggQUM2RThEQTlCQzBGOEI0Qjc5RjkzN0QxMUY3MTg0OTUA';
+const gestaoUser = 'consultamapi@mapi.com.br';
+const senhaUser = 'm6f%VWdG^ngBB1h&vMNnPiJJyR';
 
 //Marcar mensagem como lida
 async function marcarComoLida(msgId) {
-    /*const url = `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`;
-
-    const payload = {
-        'messaging_product': 'whatsapp',
-        'status': 'read',
-        'message_id': msgId
-    };*/
-
     try {
         const response = await axios.post(
             `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
@@ -39,8 +31,38 @@ async function marcarComoLida(msgId) {
 
 }
 
+//Gerar token
+async function gerarToken(ddd, celular){
+    try{
+        const response = await axios.post(
+            'https://api.mapipay.com.br/api/mapi/pix/generate_token',
+            {
+                area_code: ddd,
+                cellphone: celular
+            },
+            {
+                auth: {
+                    username: gestaoUser,
+                    passeord: senhaUser
+                }
+            }
+        );
+        
+        if(response.data.sucess){
+            console.log(`Token gerado com sucesso: ${response.data.data.token}`);
+            return response.data.data.token
+        } else {
+            console.log(`Erro da API: ${response.data.message}`);
+            return null;
+        }
+    } catch(err){
+        console.log('Erro na requisição para a API Mapi: ', err.response ? err.response.data : err.message);
+        return null;
+    }
+}
+
 //Enviar mensagem (Template)
-async function enviarMensagem(destinatario) {
+async function enviarMensagem(destinatario, tokenGerado) {
     try {
         const response = await axios.post(
             `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
@@ -49,7 +71,6 @@ async function enviarMensagem(destinatario) {
                 recipient_type: 'individual',
                 to: destinatario,
                 type: 'template',
-                //type: 'text',
                 template: {
                     'name': 'envio_token',
                     'language': {
@@ -61,7 +82,7 @@ async function enviarMensagem(destinatario) {
                             'parameters': [
                                 {
                                     'type': 'text',
-                                    'text': '12345'
+                                    'text': tokenGerado
                                 }
                             ]
                         },
@@ -72,7 +93,7 @@ async function enviarMensagem(destinatario) {
                             'parameters': [
                                 {
                                     'type': 'text',
-                                    'text': '12345'
+                                    'text': tokenGerado
                                 }
                             ]
                         }
@@ -94,5 +115,6 @@ async function enviarMensagem(destinatario) {
 
 module.exports = {
     marcarComoLida,
+    gerarToken,
     enviarMensagem
 };

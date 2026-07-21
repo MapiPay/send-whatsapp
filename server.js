@@ -1,5 +1,5 @@
 const express = require('express');
-const { marcarComoLida, enviarMensagem } = require('./webhook')
+const { marcarComoLida, gerarToken, enviarMensagem } = require('./webhook')
 
 
 const app = express();
@@ -51,7 +51,16 @@ app.post('/', async (req, res) => {
                 }
 
                 await marcarComoLida(msgId);
-                await enviarMensagem(remetente);
+
+                if(ddd && celular){
+                    const tokenGerado = await gerarToken(ddd, celular);
+                    
+                    if(tokenGerado){
+                        await enviarMensagem(remetente, tokenGerado);
+                    } else {
+                        console.log(`Operação abortada: Correntista não encontrado para o número (${ddd}) ${celular}.`)
+                    }
+                }
             }
         } catch (err) {
             console.log("Erro ao processar o payload da Meta: ", err)
