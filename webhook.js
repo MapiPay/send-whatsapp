@@ -6,7 +6,8 @@ const idPhoneNumber = "436813806185181";
 const destinatario = "5541992314305";
 //const messageId = 'wamid.HBgMNTU0MTkyMzE0MzA1FQIAEhggQUM2RThEQTlCQzBGOEI0Qjc5RjkzN0QxMUY3MTg0OTUA';
 
-(async function (msgId) {
+//Marcar mensagem como lida
+async function marcarComoLida(msgId) {
     const url = `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`;
 
     const payload = {
@@ -29,9 +30,10 @@ const destinatario = "5541992314305";
         console.log('Erro ao enviar a mensagem: ', err.response ? err.response.data : err.message);
     }
 
-})(messageId)
+}
 
-/*async function enviarMensagem() {
+//Enviar mensagem (Template)
+async function enviarMensagem() {
     try {
         const response = await axios.post(
             `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
@@ -82,4 +84,9 @@ const destinatario = "5541992314305";
         console.log('Erro ao enviar a mensagem: ', err.response ? err.response.data : err.message);
     }
 }
-enviarMensagem();*/
+//enviarMensagem();
+
+module.exports ={
+    marcarComoLida,
+    enviarMensagem
+};
