@@ -37,15 +37,18 @@ app.post('/', async (req, res) => {
 
             if (messages && messages.length > 0) {
                 const msgId = messages[0].id;
-                const remetente = messages[0].from;
+                const numeroWhats = messages[0].from;
                 console.log(`Nova mensagem recebida! ID: ${msgId}`);
+
+                const rementente = '041' + numeroWhats.slice(4);
+                console.log(remetente);
 
                 let ddd = '';
                 let celular = '';
 
-                if(remetente.startsWith('55') && remetente >= 12){
-                    ddd = remetente.substring(2, 4);
-                    celular = '0419'+remetente.substring(4);
+                if(numeroWhats.startsWith('55') && numeroWhats >= 12){
+                    ddd = numeroWhats.substring(2, 4);
+                    celular = '0419'+numeroWhats.substring(4);
 
                     console.log(`DDD: ${ddd} | Celular: ${celular}`)
                 }
