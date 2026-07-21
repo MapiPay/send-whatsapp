@@ -44,6 +44,6 @@ app.post('/', async (req, res) => {
     }
 });
 
-app.listen(3000, () => {
+app.listen(85, () => {
     console.log('Servidor rodando na porta 3000')
 })
