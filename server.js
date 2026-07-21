@@ -1,5 +1,5 @@
 const express = require('express');
-const { marcarComoLida, gerarToken, enviarMensagem } = require('./webhook')
+const { marcarComoLida, gerarToken, enviarMensagem, erroEnvioToken } = require('./webhook')
 
 
 const app = express();
@@ -58,7 +58,7 @@ app.post('/', async (req, res) => {
                     if(tokenGerado){
                         await enviarMensagem(remetente, tokenGerado);
                     } else {
-                        console.log(`Operação abortada: Correntista não encontrado para o número (${ddd}) ${celular}.`)
+                        erroEnvioToken(remetente, ddd, celular);
                     }
                 }
             }
