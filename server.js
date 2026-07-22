@@ -37,32 +37,39 @@ app.post('/', async (req, res) => {
 
             if (messages && messages.length > 0) {
                 const msgId = messages[0].id;
-                const numeroWhats = messages[0].from;
+                const remetente = messages[0].from;
                 console.log(`Nova mensagem recebida! ID: ${msgId}`);
 
-                const rementente = '041' + numeroWhats.slice(4);
-                console.log(remetente);
+                //const rementente = '0' + numeroWhats.slice(2);
+                //console.log(remetente);
+
+				const numeroWhats = '9'+remetente.slice(4)
+				//console.log(numeroWhats)
 
                 let ddd = '';
                 let celular = '';
 
-                if(numeroWhats.startsWith('55') && numeroWhats >= 12){
-                    ddd = numeroWhats.substring(2, 4);
-                    celular = '0419'+numeroWhats.substring(4);
+                if(remetente.startsWith('55') && remetente >= 12){
+                    ddd = remetente.substring(2, 4);
+                    celular = '9'+remetente.substring(4);
 
                     console.log(`DDD: ${ddd} | Celular: ${celular}`)
                 }
 
                 await marcarComoLida(msgId);
 
+				let numCliente = '0'+ ddd + numeroWhats;
+				//console.log(numCliente);
+
                 if(ddd && celular){
-                    const tokenGerado = await gerarToken(remetente);
-                    
+                    const tokenGerado = await gerarToken(numCliente, ddd, celular);
+                    //console.log(tokenGerado)
+
                     if(tokenGerado){
-                        await enviarMensagem(remetente, tokenGerado);
+                        await enviarMensagem(numCliente, tokenGerado);
                     } else {
-                        erroEnvioToken(remetente, ddd, celular);
-                        console.log(`Correntista não encontrado para o número ${remetente}`)
+                        erroEnvioToken(numCliente, ddd, celular);
+                        console.log(`Correntista não encontrado para o número ${numCliente}`)
                     }
                 }
             }
