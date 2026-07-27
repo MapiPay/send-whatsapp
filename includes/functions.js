@@ -1,4 +1,5 @@
 function envioTokenOPT(numCliente, ddd, celular) {
+    const enviarMensagem = require('../webhook').enviarMensagem
     const marcarComoLida = require('../webhook').marcarComoLida;
     const gerarToken = require('../webhook').gerarToken;
     const erroEnvioToken = require('../webhook').erroEnvioToken;
