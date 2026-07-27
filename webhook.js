@@ -3,8 +3,8 @@ let verificacao = false;
 
 const token = "EAAUi1ZAjBIQwBR0ZCJMMrZCaZAkHZC8ZC9GUVSePNUwzDZAOO7fsGkGOFCJXRKo0nWwas8dni7NSQJ5bRWXw9r2lkDlnmIDZA2ocP7CGfIZCDo3v6sn8vl7gRcTxFZBGWzRMwGG1rSgXdBNOXyK5oBKPpIdqQRXKo1pPtTCxz4ocm6b3ToOPGVN2UsTVmkQJQHTgZDZD";
 const idPhoneNumber = "436813806185181";
-const gestaoUser = 'consultamapi@mapi.com.br';
-const senhaUser = 'm6f%VWdG^ngBB1h&vMNnPiJJyR';
+// const gestaoUser = 'consultamapi@mapi.com.br';
+// const senhaUser = 'm6f%VWdG^ngBB1h&vMNnPiJJyR';
 
 //Marcar mensagem como lida
 async function marcarComoLida(msgId) {
@@ -32,23 +32,23 @@ async function marcarComoLida(msgId) {
 }
 
 //Gerar token
-async function gerarToken(remetente) {
+async function gerarToken(remetente, ddd, celular) {
     try {
         const response = await axios.post(
             'https://api.mapipay.com.br/api/mapi/pix/generate_token',
             {
-                area_code: remetente.substring(2, 4),
-                cellphone: remetente.substring(4)
+                "area_code": ddd,
+                "cellphone": celular
             },
             {
                 auth: {
-                    username: gestaoUser,
-                    passeord: senhaUser
+                    username: "consultamapi@mapi.com.br",
+                    password: "m6f%VWdG^ngBB1h&vMNnPiJJyR"
                 }
             }
         );
 
-        if (response.data.sucess) {
+        if (!response.data.sucess) {
             console.log(`Token gerado com sucesso: ${response.data.data.token}`);
             return response.data.data.token
         } else {
