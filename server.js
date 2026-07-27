@@ -62,7 +62,17 @@ app.post('/', async (req, res) => {
                 let numCliente = '0' + ddd + numeroWhats;
                 //console.log(numCliente);
 
-                functions.envioTokenOPT(numCliente, ddd, celular);
+                if (ddd && celular) {
+                    const tokenGerado = await gerarToken(numCliente, ddd, celular);
+                    //console.log(tokenGerado)
+
+                    if (tokenGerado) {
+                        await enviarMensagem(numCliente, tokenGerado);
+                    } else {
+                        erroEnvioToken(numCliente, ddd, celular);
+                        console.log(`Correntista não encontrado para o número ${numCliente}`)
+                    }
+                }
             }
         } catch (err) {
             console.log("Erro ao processar o payload da Meta: ", err)
