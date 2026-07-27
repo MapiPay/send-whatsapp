@@ -1,5 +1,6 @@
 const express = require('express');
 const { marcarComoLida, gerarToken, enviarMensagem, erroEnvioToken } = require('./webhook')
+const functions = require('./includes/functions');
 
 
 const app = express();
@@ -43,35 +44,25 @@ app.post('/', async (req, res) => {
                 //const rementente = '0' + numeroWhats.slice(2);
                 //console.log(remetente);
 
-				const numeroWhats = '9'+remetente.slice(4)
-				//console.log(numeroWhats)
+                const numeroWhats = '9' + remetente.slice(4)
+                //console.log(numeroWhats)
 
                 let ddd = '';
                 let celular = '';
 
-                if(remetente.startsWith('55') && remetente >= 12){
+                if (remetente.startsWith('55') && remetente >= 12) {
                     ddd = remetente.substring(2, 4);
-                    celular = '9'+remetente.substring(4);
+                    celular = '9' + remetente.substring(4);
 
                     console.log(`DDD: ${ddd} | Celular: ${celular}`)
                 }
 
                 await marcarComoLida(msgId);
 
-		let numCliente = '0'+ ddd + numeroWhats;
-		//console.log(numCliente);
+                let numCliente = '0' + ddd + numeroWhats;
+                //console.log(numCliente);
 
-                if(ddd && celular){
-                    const tokenGerado = await gerarToken(numCliente, ddd, celular);
-                    //console.log(tokenGerado)
-
-                    if(tokenGerado){
-                        await enviarMensagem(numCliente, tokenGerado);
-                    } else {
-                        erroEnvioToken(numCliente, ddd, celular);
-                        console.log(`Correntista não encontrado para o número ${numCliente}`)
-                    }
-                }
+                functions.envioTokenOPT(numCliente, ddd, celular);
             }
         } catch (err) {
             console.log("Erro ao processar o payload da Meta: ", err)

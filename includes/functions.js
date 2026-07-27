@@ -1,39 +1,21 @@
-const sRequest = require('sync-request');
-const jsons = require('./jsons');
+function envioTokenOPT(numCliente, ddd, celular) {
+    const marcarComoLida = require('../webhook').marcarComoLida;
+    const gerarToken = require('../webhook').gerarToken;
+    const erroEnvioToken = require('../webhook').erroEnvioToken;
 
-module.exports = {
-    getMessageData(req) {
-        message = req.body;
+    if (ddd && celular) {
+        const tokenGerado = await gerarToken(numCliente, ddd, celular);
+        //console.log(tokenGerado)
 
-        if (message.entry) {
-
-            if (message.entry[0].changes[0].value.messages) {
-                msgType = message.entry[0].changes[0].value.messages[0].type;
-                msgId = message.entry[0].changes[0].value.messages[0].id;
-                msgFromNumber = "+" + message.entry[0].changes[0].value.messages[0].from;
-                codPais = msgFromNumber.substring(0, 3);
-                codArea = msgFromNumber.substring(3, 5);
-                number = msgFromNumber.substring(5, 15);
-
-                if (number.length == 8) {
-                    number = "9" + number;
-                }
-
-                msgFromNumber = codPais + codArea + number;
-                msgFromName = message.entry[0].changes[0].value.contacts[0].profile.name;
-
-                if (msgType == 'text') {
-                    messageText = message.entry[0].changes[0].value.messages[0].text.body;
-                    dadosMessage = {
-                        msgId,
-                        'msgFromNumber': msgFromNumber,
-                        'msgFromName': msgFromName,
-                        'messageText': messageText,
-                        'msgType': msgType
-                    };
-                    return dadosMessage;
-                }
-            }
+        if (tokenGerado) {
+            await enviarMensagem(numCliente, tokenGerado);
+        } else {
+            erroEnvioToken(numCliente, ddd, celular);
+            console.log(`Correntista não encontrado para o número ${numCliente}`)
         }
     }
+}
+
+module.exports = {
+    envioTokenOPT,
 }
