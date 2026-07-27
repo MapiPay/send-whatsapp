@@ -1,6 +1,5 @@
 const express = require('express');
 const { marcarComoLida, gerarToken, enviarMensagem, erroEnvioToken } = require('./webhook')
-const functions = require('./includes/functions');
 
 
 const app = express();
