@@ -40,7 +40,6 @@ app.post('/', async (req, res) => {
                 const remetente = messages[0].from;
                 console.log(`Nova mensagem recebida! ID: ${msgId}`);
 
-
                 //const rementente = '0' + numeroWhats.slice(2);
                 //console.log(remetente);
 
@@ -59,10 +58,8 @@ app.post('/', async (req, res) => {
 
                 await marcarComoLida(msgId);
 
-				// AQUI SERIA O ÍNICO DO FLOW
-
-				let numCliente = '0'+ ddd + numeroWhats;
-				//console.log(numCliente);
+		let numCliente = '0'+ ddd + numeroWhats;
+		//console.log(numCliente);
 
                 if(ddd && celular){
                     const tokenGerado = await gerarToken(numCliente, ddd, celular);
