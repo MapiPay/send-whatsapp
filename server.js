@@ -1,5 +1,5 @@
 const express = require('express');
-const { marcarComoLida, gerarToken, enviarMensagem, erroEnvioToken } = require('./webhook')
+const { marcarComoLida, gerarToken, enviarMensagem, erroEnvioToken, solicitarDocumento } = require('./webhook')
 
 
 const app = express();
@@ -80,6 +80,7 @@ app.post('/', async (req, res) => {
                         }
                     } else {
                         console.log(`Cliente ${numCliente} solicitou o menu PJ.`);
+                        solicitarDocumento(numCliente);
                     }
                 }
             }
