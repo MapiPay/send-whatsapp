@@ -38,10 +38,16 @@ app.post('/', async (req, res) => {
             if (messages && messages.length > 0) {
                 const msgId = messages[0].id;
                 const remetente = messages[0].from;
+                const tipoMensagem = messages[0].type;
                 console.log(`Nova mensagem recebida! ID: ${msgId}`);
 
                 //const rementente = '0' + numeroWhats.slice(2);
                 //console.log(remetente);
+
+                let textoRecebido = '';
+                if (tipoMensagem === 'text') {
+                    textoRecebido = messages[0].text.body.toLowerCase();
+                }
 
                 const numeroWhats = '9' + remetente.slice(4)
                 //console.log(numeroWhats)
@@ -62,14 +68,18 @@ app.post('/', async (req, res) => {
                 //console.log(numCliente);
 
                 if (ddd && celular) {
-                    const tokenGerado = await gerarToken(numCliente, ddd, celular);
-                    //console.log(tokenGerado)
+                    if (textoRecebido === 'token') {
+                        const tokenGerado = await gerarToken(numCliente, ddd, celular);
+                        //console.log(tokenGerado)
 
-                    if (tokenGerado) {
-                        await enviarMensagem(numCliente, tokenGerado);
+                        if (tokenGerado) {
+                            await enviarMensagem(numCliente, tokenGerado);
+                        } else {
+                            erroEnvioToken(numCliente, ddd, celular);
+                            console.log(`Correntista não encontrado para o número ${numCliente}`)
+                        }
                     } else {
-                        erroEnvioToken(numCliente, ddd, celular);
-                        console.log(`Correntista não encontrado para o número ${numCliente}`)
+                        console.log(`Cliente ${numCliente} solicitou o menu PJ.`);
                     }
                 }
             }
