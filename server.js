@@ -79,7 +79,7 @@ app.post('/', async (req, res) => {
                             console.log(`Correntista não encontrado para o número ${numCliente}`)
                         }
                     } else {
-                        console.log(`Cliente ${numCliente} solicitou o menu PJ.`);
+                        console.log(`Cliente ${numCliente} iniciou atendimento.`);
                         solicitarDocumento(numCliente);
                     }
                 }
