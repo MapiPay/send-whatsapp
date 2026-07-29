@@ -25,11 +25,54 @@ async function solicitarDocumento(destinatario) {
 }
 
 async function iniciarFlow(numCliente, documento) {
-    if (documento.length == 14){
+    if (documento.length == 14) {
         console.log(`Cliente ${numCliente} iniciou o atendimento para CPF`);
+        
+        flowCpf(numCliente);
+        console.log('Início do flow CPF')
     } else {
         console.log(`Cliente ${numCliente} iniciou o atendimento para CNPJ`);
     }
+}
+
+async function flowCpf(destinatario) {
+    const response = axios.post(
+        `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
+        {
+            messaging_product: 'whatsapp',
+            to: destinatario,
+            type: 'interactive',
+            interactive: {
+                type: 'list',
+                header: {
+                    type: 'text',
+                    text: 'Atendimento Pessoa Física'
+                },
+                body: {
+                    text: 'Selecione uma das opções abaixo:'
+                },
+                footer: {
+                    text: 'Escolha uma opção para continuar',
+                },
+                action: {
+                    button: 'Ver opções',
+                    sections: [
+                        {
+                            title: 'Menu CPF',
+                            rows: [
+                                { "id": "pf_1", "title": "1 - Saldo" },
+                                { "id": "pf_2", "title": "2 - PIX" },
+                                { "id": "pf_3", "title": "3 - Cartão" },
+                                { "id": "pf_4", "title": "4 - Benefícios" },
+                                { "id": "pf_5", "title": "5 - Senha" },
+                                { "id": "pf_6", "title": "6 - Falar com atendente" }
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    )
 }
 
 module.exports = {
