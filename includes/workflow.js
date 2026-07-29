@@ -25,6 +25,15 @@ async function solicitarDocumento(destinatario) {
 }
 
 async function iniciarFlow(numCliente, documento) {
+    let cpf = '';
+    for(let i =0; i<documento.length; i++){
+        if(i == '.' || i == '-'){
+            delete i;
+        }
+        cpf+= i;
+    }
+    console.log(cpf);
+    
     if (documento.length < 15 && documento.length == 11) {
         console.log(`Cliente ${numCliente} iniciou o atendimento para CPF`);
 
