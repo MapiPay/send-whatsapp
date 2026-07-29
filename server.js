@@ -1,6 +1,6 @@
 const express = require('express');
-const { marcarComoLida, gerarToken, enviarMensagem, erroEnvioToken, solicitarDocumento } = require('./webhook')
-
+const { marcarComoLida, gerarToken, enviarMensagem, erroEnvioToken } = require('./includes/webhookToken');
+const { solicitarDocumento } = require('./includes/workflow');
 
 const app = express();
 app.use(express.json());
@@ -80,7 +80,7 @@ app.post('/', async (req, res) => {
                         }
                     } else {
                         console.log(`Cliente ${numCliente} iniciou atendimento.`);
-                        solicitarDocumento(numCliente);
+                        await solicitarDocumento(numCliente);
                     }
                 }
             }
