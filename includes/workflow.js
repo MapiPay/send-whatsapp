@@ -48,7 +48,7 @@ async function iniciarFlow(numCliente, documento) {
     } else {
         console.log("Documento inválido");
         documentoInvalido(numCliente, documento);
-        solicitarDocumento(numCliente);
+        //solicitarDocumento(numCliente);
     }
 }
 
