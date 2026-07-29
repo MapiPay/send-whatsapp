@@ -132,7 +132,6 @@ async function erroEnvioToken(destinatario, ddd, celular) {
 }
 
 module.exports = {
-    marcarComoLida,
     gerarToken,
     enviarMensagem,
     erroEnvioToken
