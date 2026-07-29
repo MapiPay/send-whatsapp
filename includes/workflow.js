@@ -40,7 +40,11 @@ async function iniciarFlow(numCliente, documento) {
             console.log("Documento inválido")
         }
     } catch(err){
-        console.log(`Erro: ${err}`)
+        if(err.response){
+            console.log("Erro da Meta:", JSON.stringify(err.response.data, null, 2));
+        } else {
+            console.log("Erro ao processar o payload da Meta: ", err);
+        }
     }
 }
 
