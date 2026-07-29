@@ -27,7 +27,7 @@ async function solicitarDocumento(destinatario) {
 async function iniciarFlow(numCliente, documento) {
     if (documento.length == 14) {
         console.log(`Cliente ${numCliente} iniciou o atendimento para CPF`);
-        
+
         flowCpf(numCliente);
         console.log('Início do flow CPF')
     } else {
@@ -70,6 +70,11 @@ async function flowCpf(destinatario) {
                         }
                     ]
                 }
+            }
+        },
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
             }
         }
     )
