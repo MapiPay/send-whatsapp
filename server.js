@@ -6,6 +6,7 @@ const app = express();
 app.use(express.json());
 
 const tokenDeVerificacao = 'tokenDeEnvio@Mapi2026';
+const clientesAguardandoDocumento = {};
 
 app.get('/', (req, res) => {
     const mode = req.query['hub.mode'];
@@ -68,7 +69,12 @@ app.post('/', async (req, res) => {
                 //console.log(numCliente);
 
                 if (ddd && celular) {
-                    if (textoRecebido === 'token') {
+                    if (clientesAguardandoDocumento[numCliente]) {
+                        const documentoRecebido = messages[0].text.body.trim();
+                        console.log(`CPF/CNPJ recebido de ${numCliente}: ${documentoRecebido}`);
+
+                        delete clientesAguardandoDocumento[numCliente];
+                    } else if (textoRecebido === 'token') {
                         const tokenGerado = await gerarToken(numCliente, ddd, celular);
                         //console.log(tokenGerado)
 
@@ -81,6 +87,7 @@ app.post('/', async (req, res) => {
                     } else {
                         console.log(`Cliente ${numCliente} iniciou atendimento.`);
                         await solicitarDocumento(numCliente);
+                        clientesAguardandoDocumento[numCliente] = true;
                     }
                 }
             }
