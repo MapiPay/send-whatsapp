@@ -30,7 +30,7 @@ async function iniciarFlow(numCliente, documento) {
 
         flowCpf(numCliente);
         console.log('Início do flow CPF')
-    } else if (documento.length >= 14 || documento.length <= 18) {
+    } else if (documento.length === 14 || documento.length <= 18) {
         console.log(`Cliente ${numCliente} iniciou o atendimento para CNPJ`);
 
         flowCNPJ(numCliente);
