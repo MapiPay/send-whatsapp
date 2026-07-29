@@ -24,6 +24,15 @@ async function solicitarDocumento(destinatario) {
     )
 }
 
+async function iniciarFlow(numCliente, documento) {
+    if (documento.length == 14){
+        console.log(`Cliente ${numCliente} iniciou o atendimento para CPF`);
+    } else {
+        console.log(`Cliente ${numCliente} iniciou o atendimento para CNPJ`);
+    }
+}
+
 module.exports = {
     solicitarDocumento,
+    iniciarFlow
 }

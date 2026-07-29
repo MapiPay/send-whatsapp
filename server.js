@@ -1,6 +1,6 @@
 const express = require('express');
 const { marcarComoLida, gerarToken, enviarMensagem, erroEnvioToken } = require('./includes/webhookToken');
-const { solicitarDocumento } = require('./includes/workflow');
+const { solicitarDocumento, iniciarFlow } = require('./includes/workflow');
 
 const app = express();
 app.use(express.json());
@@ -67,10 +67,11 @@ app.post('/', async (req, res) => {
 
                 let numCliente = '0' + ddd + numeroWhats;
                 //console.log(numCliente);
+                let documentoRecebido;
 
                 if (ddd && celular) {
                     if (clientesAguardandoDocumento[numCliente]) {
-                        const documentoRecebido = messages[0].text.body.trim();
+                        documentoRecebido = messages[0].text.body.trim();
                         console.log(`CPF/CNPJ recebido de ${numCliente}: ${documentoRecebido}`);
 
                         delete clientesAguardandoDocumento[numCliente];
@@ -88,6 +89,8 @@ app.post('/', async (req, res) => {
                         console.log(`Cliente ${numCliente} iniciou atendimento.`);
                         await solicitarDocumento(numCliente);
                         clientesAguardandoDocumento[numCliente] = true;
+
+                        await iniciarFlow(numCliente, documentoRecebido)
                     }
                 }
             }
