@@ -28,8 +28,8 @@ async function iniciarFlow(numCliente, documento) {
     let cpf = '';
     for(let i of documento){
         //console.log(i);
-        if (i === '.' || i == '-'){
-            delete i;
+        if (i === '.' || i === '-'){
+            continue;
         }
         cpf += i;
     }
