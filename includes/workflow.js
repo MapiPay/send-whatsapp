@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 async function solicitarDocumento(destinatario) {
     await axios.post(
         `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
