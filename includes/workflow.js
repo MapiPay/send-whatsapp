@@ -26,9 +26,9 @@ async function solicitarDocumento(destinatario) {
 
 async function iniciarFlow(numCliente, documento) {
     let cpfCnpj = '';
-    for(let i of documento){
+    for (let i of documento) {
         //console.log(i);
-        if (i === '.' || i === '-' || i === '/'){
+        if (i === '.' || i === '-' || i === '/') {
             continue;
         }
         cpfCnpj += i;
@@ -38,20 +38,22 @@ async function iniciarFlow(numCliente, documento) {
     if (cpfCnpj.length === 11) {
         console.log(`Cliente ${numCliente} iniciou o atendimento para CPF`);
 
-        flowCpf(numCliente);
+        inicioFlowCpf(numCliente);
         console.log('Início do flow CPF')
     } else if (cpfCnpj.length > 11) {
         console.log(`Cliente ${numCliente} iniciou o atendimento para CNPJ`);
 
-        flowCNPJ(numCliente);
+        inicioFlowCNPJ(numCliente);
         console.log('Início do flow CNPJ')
     } else {
-        console.log("Documento inválido")
+        console.log("Documento inválido");
+        documentoInvalido(numCliente, documento);
+        solicitarDocumento(numCliente);
     }
 }
 
 
-async function flowCpf(destinatario) {
+async function inicioFlowCpf(destinatario) {
     try {
         const response = axios.post(
             `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
@@ -104,7 +106,7 @@ async function flowCpf(destinatario) {
     }
 }
 
-async function flowCNPJ(destinatario) {
+async function inicioFlowCNPJ(destinatario) {
     try {
         const response = axios.post(
             `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
@@ -154,6 +156,29 @@ async function flowCNPJ(destinatario) {
         } else {
             console.log("Erro ao processar o payload da Meta: ", err);
         }
+    }
+}
+
+async function documentoInvalido(destinatario, documento) {
+    try {
+        const response = axios.post(
+            `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
+            {
+                "messaging_product": 'whatsapp',
+                "to": destinatario,
+                "type": 'text',
+                "text": {
+                    "body": "Documento inválido. Tente novamente."
+                }
+            },
+            {
+                "headers": {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+        )
+    } catch (err) {
+
     }
 }
 
