@@ -75,6 +75,8 @@ app.post('/', async (req, res) => {
                         console.log(`CPF/CNPJ recebido de ${numCliente}: ${documentoRecebido}`);
 
                         delete clientesAguardandoDocumento[numCliente];
+
+                        await iniciarFlow(numCliente, documentoRecebido)
                     } else if (textoRecebido === 'token') {
                         const tokenGerado = await gerarToken(numCliente, ddd, celular);
                         //console.log(tokenGerado)
@@ -89,8 +91,6 @@ app.post('/', async (req, res) => {
                         console.log(`Cliente ${numCliente} iniciou atendimento.`);
                         await solicitarDocumento(numCliente);
                         clientesAguardandoDocumento[numCliente] = true;
-
-                        await iniciarFlow(numCliente, documentoRecebido)
                     }
                 }
             }
