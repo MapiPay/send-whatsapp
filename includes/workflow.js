@@ -85,7 +85,7 @@ async function flowCpf(destinatario) {
 
 async function flowCNPJ(destinatario) {
     const response = axios.post(
-        ``,
+        `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
         {
             "messaging_product": "whatsapp",
             "to": "NUMERO_DO_CLIENTE",
