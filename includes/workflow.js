@@ -6,19 +6,19 @@ async function solicitarDocumento(destinatario) {
     await axios.post(
         `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
         {
-            messaging_product: 'whatsapp',
-            to: destinatario,
-            type: 'template',
-            template: {
-                name: 'solicitar_cpf_cnpj',
-                language: {
-                    code: 'pt_BR'
+            "messaging_product": 'whatsapp',
+            "to": destinatario,
+            "type": 'template',
+            "template": {
+                "name": 'solicitar_cpf_cnpj',
+                "language": {
+                    "code": 'pt_BR'
                 }
             }
         },
         {
-            headers: {
-                Authorization: `Bearer ${token}`
+            "headers": {
+                "Authorization": `Bearer ${token}`
             }
         }
     )
@@ -32,6 +32,9 @@ async function iniciarFlow(numCliente, documento) {
         console.log('Início do flow CPF')
     } else {
         console.log(`Cliente ${numCliente} iniciou o atendimento para CNPJ`);
+
+        flowCNPJ(numCliente);
+        console.log('Início do flow CNPJ')
     }
 }
 
@@ -39,27 +42,27 @@ async function flowCpf(destinatario) {
     const response = axios.post(
         `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
         {
-            messaging_product: 'whatsapp',
-            to: destinatario,
-            type: 'interactive',
-            interactive: {
-                type: 'list',
-                header: {
-                    type: 'text',
-                    text: 'Atendimento Pessoa Física'
+            "messaging_product": 'whatsapp',
+            "to": destinatario,
+            "type": 'interactive',
+            "interactive": {
+                "type": 'list',
+                "header": {
+                    "type": 'text',
+                    "text": 'Atendimento Pessoa Física'
                 },
-                body: {
-                    text: 'Selecione uma das opções abaixo:'
+                "body": {
+                    "text": 'Selecione uma das opções abaixo:'
                 },
-                footer: {
-                    text: 'Escolha uma opção para continuar',
+                "footer": {
+                    "text": 'Escolha uma opção para continuar',
                 },
-                action: {
-                    button: 'Ver opções',
-                    sections: [
+                "action": {
+                    "button": 'Ver opções',
+                    "sections": [
                         {
-                            title: 'Menu CPF',
-                            rows: [
+                            "title": 'Menu CPF',
+                            "rows": [
                                 { "id": "pf_1", "title": "1 - Saldo" },
                                 { "id": "pf_2", "title": "2 - PIX" },
                                 { "id": "pf_3", "title": "3 - Cartão" },
@@ -73,8 +76,48 @@ async function flowCpf(destinatario) {
             }
         },
         {
-            headers: {
-                Authorization: `Bearer ${token}`
+            "headers": {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+    )
+}
+
+async function flowCNPJ(destinatario) {
+    const response = axios.post(
+        ``,
+        {
+            "messaging_product": "whatsapp",
+            "to": "NUMERO_DO_CLIENTE",
+            "type": "interactive",
+            "interactive": {
+                "type": "list",
+                "header": {
+                    "type": "text",
+                    "text": "Atendimento Pessoa Jurídica"
+                },
+                "body": {
+                    "text": "Selecione uma das opções abaixo:"
+                },
+                "footer": {
+                    "text": "Escolha uma opção para continuar"
+                },
+                "action": {
+                    "button": "Ver opções",
+                    "sections": [
+                        {
+                            "title": "Menu PJ",
+                            "rows": [
+                                { "id": "pj_1", "title": "1 - Financeiro" },
+                                { "id": "pj_2", "title": "2 - PIX" },
+                                { "id": "pj_3", "title": "3 - QR Code / Pagamentos" },
+                                { "id": "pj_4", "title": "4 - Nota Fiscal" },
+                                { "id": "pj_5", "title": "5 - Comercial" },
+                                { "id": "pj_6", "title": "6 - Suporte" }
+                            ]
+                        }
+                    ]
+                }
             }
         }
     )
