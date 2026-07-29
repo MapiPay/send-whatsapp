@@ -100,7 +100,7 @@ async function flowCNPJ(destinatario) {
             `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
             {
                 "messaging_product": "whatsapp",
-                "to": "NUMERO_DO_CLIENTE",
+                "to": destinatario,
                 "type": "interactive",
                 "interactive": {
                     "type": "list",
