@@ -25,16 +25,22 @@ async function solicitarDocumento(destinatario) {
 }
 
 async function iniciarFlow(numCliente, documento) {
-    if (documento.length == 14) {
-        console.log(`Cliente ${numCliente} iniciou o atendimento para CPF`);
+    try {
+        if (documento.length <= 14) {
+            console.log(`Cliente ${numCliente} iniciou o atendimento para CPF`);
 
-        flowCpf(numCliente);
-        console.log('Início do flow CPF')
-    } else {
-        console.log(`Cliente ${numCliente} iniciou o atendimento para CNPJ`);
+            flowCpf(numCliente);
+            console.log('Início do flow CPF')
+        } else if (documento.length > 14) {
+            console.log(`Cliente ${numCliente} iniciou o atendimento para CNPJ`);
 
-        flowCNPJ(numCliente);
-        console.log('Início do flow CNPJ')
+            flowCNPJ(numCliente);
+            console.log('Início do flow CNPJ')
+        } else {
+            console.log("Documento inválido")
+        }
+    } catch(err){
+        console.log(`Erro: ${err}`)
     }
 }
 
