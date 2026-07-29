@@ -6,31 +6,6 @@ const idPhoneNumber = "436813806185181";
 // const gestaoUser = 'consultamapi@mapi.com.br';
 // const senhaUser = 'm6f%VWdG^ngBB1h&vMNnPiJJyR';
 
-//Marcar mensagem como lida
-async function marcarComoLida(msgId) {
-    try {
-        const response = await axios.post(
-            `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
-            {
-                'messaging_product': 'whatsapp',
-                'status': 'read',
-                'message_id': msgId
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-        console.log('Mensagem marcada como lida!', response.data);
-        return response.data;
-    } catch (err) {
-        console.log('Erro ao enviar a mensagem: ', err.response ? err.response.data : err.message);
-    }
-
-}
-
 //Gerar token
 async function gerarToken(remetente, ddd, celular) {
     try {

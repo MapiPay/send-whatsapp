@@ -1,5 +1,6 @@
 const express = require('express');
-const { marcarComoLida, gerarToken, enviarMensagem, erroEnvioToken } = require('./includes/webhookToken');
+const { marcarComoLida } = require('./includes/functions')
+const { gerarToken, enviarMensagem, erroEnvioToken } = require('./includes/webhookToken');
 const { solicitarDocumento, iniciarFlow } = require('./includes/workflow');
 
 const app = express();
