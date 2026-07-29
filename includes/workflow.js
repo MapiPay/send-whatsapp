@@ -25,7 +25,7 @@ async function solicitarDocumento(destinatario) {
 }
 
 async function iniciarFlow(numCliente, documento) {
-    if (documento.length <= 14 || documento.length == 11) {
+    if (documento.length < 15 || documento.length == 11) {
         console.log(`Cliente ${numCliente} iniciou o atendimento para CPF`);
 
         flowCpf(numCliente);
