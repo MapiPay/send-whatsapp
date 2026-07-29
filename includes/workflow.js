@@ -119,6 +119,11 @@ async function flowCNPJ(destinatario) {
                     ]
                 }
             }
+        },
+        {
+            "headers": {
+                "Authorization": `Bearer ${token}`
+            }
         }
     )
 }
