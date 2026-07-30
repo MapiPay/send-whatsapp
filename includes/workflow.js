@@ -33,18 +33,18 @@ async function iniciarFlow(numCliente, documento) {
         }
         cpfCnpj += i;
     }
-    console.log(cpfCnpj)  //12345678910
+    //console.log(cpfCnpj)  12345678910
 
     if (cpfCnpj.length === 11) {
         console.log(`Cliente ${numCliente} iniciou o atendimento para CPF`);
 
         inicioFlowCpf(numCliente);
-        console.log('Início do flow CPF')
+        //console.log('Início do flow CPF')
     } else if (cpfCnpj.length > 11) {
         console.log(`Cliente ${numCliente} iniciou o atendimento para CNPJ`);
 
         inicioFlowCNPJ(numCliente);
-        console.log('Início do flow CNPJ')
+        //console.log('Início do flow CNPJ')
     } else {
         console.log("Documento inválido");
         documentoInvalido(numCliente, documento);
