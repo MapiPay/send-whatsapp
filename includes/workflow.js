@@ -84,7 +84,7 @@ async function inicioFlowCpf(destinatario) {
                                     { "id": "pf_3", "title": "3 - Cartão" },
                                     { "id": "pf_4", "title": "4 - Benefícios" },
                                     { "id": "pf_5", "title": "5 - Senha" },
-                                    { "id": "pf_6", "title": "6 - Falar com atendente" }
+                                    { "id": "pf_6", "title": "6 - Falar com atendente (Via WhatsApp)" }
                                 ]
                             }
                         ]
