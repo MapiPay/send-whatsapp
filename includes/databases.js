@@ -11,7 +11,7 @@ function getData(req, res, documentNumber) {
     // const documentNumber = req.body.documentNumber;
     connection.query("SELECT dados FROM consultas WHERE documento = " + documentNumber + ";", function (err, result, fields) {
         try {
-            result.recordset.forEach(dados => {
+            results.recordset.forEach(dados => {
                 let retorno = JSON.parse(result[0].dados);
                 res.send(retorno);
             })
