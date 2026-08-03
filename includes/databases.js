@@ -15,7 +15,9 @@ function getData(req, res, documentNumber) {
                 let retorno = JSON.parse(result[0].dados);
                 res.send(retorno);
             })
-        } catch (err) { }
+        } catch (err) { 
+            console.log("Erro na query")
+        }
     })
 }
 
