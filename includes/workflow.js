@@ -26,14 +26,8 @@ async function solicitarDocumento(destinatario) {
 }
 
 async function iniciarFlow(req, res, numCliente, documento) {
-    let cpfCnpj = '';
-    for (let i of documento) {
-        //console.log(i);
-        if (i === '.' || i === '-' || i === '/') {
-            continue;
-        }
-        cpfCnpj += i;
-    }
+    const cpfCnpj = String(documento || '').replace(/\D/g, '');
+    
     //console.log(cpfCnpj)  12345678910
     console.log(query.getData(req, res, cpfCnpj));
 
