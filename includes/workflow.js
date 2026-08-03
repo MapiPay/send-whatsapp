@@ -28,24 +28,25 @@ async function solicitarDocumento(destinatario) {
 async function iniciarFlow(req, res, numCliente, documento) {
     const cpfCnpj = String(documento || '').replace(/\D/g, '');
 
-    //console.log(cpfCnpj)  12345678910
-    console.log(query.getData(req, res, documento));
+    try {
+        query.getData(req, res, documento);
 
-    if (cpfCnpj.length === 11) {
-        console.log(`Cliente ${numCliente} iniciou o atendimento para CPF`);
+        if (cpfCnpj.length === 11) {
+            console.log(`Cliente ${numCliente} iniciou o atendimento para CPF`);
 
-        inicioFlowCpf(numCliente);
-        //console.log('Início do flow CPF')
-    } else if (cpfCnpj.length > 11) {
-        console.log(`Cliente ${numCliente} iniciou o atendimento para CNPJ`);
+            inicioFlowCpf(numCliente);
+            //console.log('Início do flow CPF')
+        } else if (cpfCnpj.length > 11) {
+            console.log(`Cliente ${numCliente} iniciou o atendimento para CNPJ`);
 
-        inicioFlowCNPJ(numCliente);
-        //console.log('Início do flow CNPJ')
-    } else {
-        console.log("Documento inválido");
-        documentoInvalido(numCliente, documento);
-        //solicitarDocumento(numCliente);
-    }
+            inicioFlowCNPJ(numCliente);
+            //console.log('Início do flow CNPJ')
+        } else {
+            console.log("Documento inválido");
+            documentoInvalido(numCliente, documento);
+            //solicitarDocumento(numCliente);
+        }
+    } catch (err) { }
 }
 
 
