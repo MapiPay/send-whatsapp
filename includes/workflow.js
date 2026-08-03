@@ -35,7 +35,7 @@ async function iniciarFlow(numCliente, documento) {
         cpfCnpj += i;
     }
     //console.log(cpfCnpj)  12345678910
-    const dados = query.getData(req, res, cpfCnpj);
+    const dados = query.getData(cpfCnpj);
     console.log(dados);
 
     if (cpfCnpj.length === 11) {
