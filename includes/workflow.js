@@ -25,7 +25,7 @@ async function solicitarDocumento(destinatario) {
     )
 }
 
-async function iniciarFlow(numCliente, documento) {
+async function iniciarFlow(req, res, numCliente, documento) {
     let cpfCnpj = '';
     for (let i of documento) {
         //console.log(i);
@@ -35,7 +35,7 @@ async function iniciarFlow(numCliente, documento) {
         cpfCnpj += i;
     }
     //console.log(cpfCnpj)  12345678910
-    query.getData(req, res);
+    console.log(query.getData(req, res, cpfCnpj));
 
     if (cpfCnpj.length === 11) {
         console.log(`Cliente ${numCliente} iniciou o atendimento para CPF`);

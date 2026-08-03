@@ -7,8 +7,8 @@ const connection = mysql.createConnection({
     database: 'serpro'
 });
 
-function getData(req, res) {
-    const documentNumber = req.body.documentNumber;
+function getData(req, res, documentNumber) {
+    // const documentNumber = req.body.documentNumber;
     connection.query("SELECT dados FROM consultas WHERE documento = " + documentNumber + ";", function (err, result, fields) {
         try {
             result.recordset.forEach(dados => {
