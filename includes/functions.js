@@ -1,4 +1,5 @@
 const axios = require('axios');
+const request = require('request');
 const token = "EAAUi1ZAjBIQwBR0ZCJMMrZCaZAkHZC8ZC9GUVSePNUwzDZAOO7fsGkGOFCJXRKo0nWwas8dni7NSQJ5bRWXw9r2lkDlnmIDZA2ocP7CGfIZCDo3v6sn8vl7gRcTxFZBGWzRMwGG1rSgXdBNOXyK5oBKPpIdqQRXKo1pPtTCxz4ocm6b3ToOPGVN2UsTVmkQJQHTgZDZD";
 const idPhoneNumber = "436813806185181";
 
@@ -25,6 +26,19 @@ async function marcarComoLida(msgId) {
     }
 }
 
+function getData(req, res, documentNumber) {
+    //const documentNumber = req.body.documentNumber;
+    connection.query("SELECT dados FROM consultas WHERE documento = " + documentNumber + ";", function (err, result, fields) {
+        try {
+            result.recordset.forEach(dados => {
+                let retorno = JSON.parse(result[0].dados);
+                res.send(retorno);
+            })
+        } catch (err) { }
+    })
+}
+
 module.exports = {
-    marcarComoLida
+    marcarComoLida,
+    getData
 }

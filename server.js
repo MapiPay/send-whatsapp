@@ -1,7 +1,7 @@
 const express = require('express');
-const { marcarComoLida } = require('./includes/functions')
-const { gerarToken, enviarMensagem, erroEnvioToken } = require('./includes/webhookToken');
-const { solicitarDocumento, iniciarFlow } = require('./includes/workflow');
+const functions = require('./includes/functions')
+const webhookToken = require('./includes/webhookToken');
+const workflow = require('./includes/workflow');
 
 const app = express();
 app.use(express.json());
@@ -67,7 +67,7 @@ app.post('/', async (req, res) => {
                     //console.log(`DDD: ${ddd} | Celular: ${celular}`)
                 }
 
-                await marcarComoLida(msgId);
+                await functions.marcarComoLida(msgId);
 
                 let numCliente = '0' + ddd + numeroWhats;
                 //console.log(numCliente);
@@ -80,20 +80,20 @@ app.post('/', async (req, res) => {
 
                         delete clientesAguardandoDocumento[numCliente];
 
-                        await iniciarFlow(numCliente, documentoRecebido)
+                        await workflow.iniciarFlow(numCliente, documentoRecebido)
                     } else if (textoRecebido === 'token') {
-                        const tokenGerado = await gerarToken(numCliente, ddd, celular);
+                        const tokenGerado = await webhookToken.gerarToken(numCliente, ddd, celular);
                         //console.log(tokenGerado)
 
                         if (tokenGerado) {
-                            await enviarMensagem(numCliente, tokenGerado);
+                            await webhookToken.enviarMensagem(numCliente, tokenGerado);
                         } else {
-                            erroEnvioToken(numCliente, ddd, celular);
+                            webhookToken.erroEnvioToken(numCliente, ddd, celular);
                             console.log(`Correntista não encontrado para o número ${numCliente}`)
                         }
                     } else {
                         console.log(`Cliente ${numCliente} iniciou atendimento.`);
-                        await solicitarDocumento(numCliente);
+                        await workflow.solicitarDocumento(numCliente);
                         clientesAguardandoDocumento[numCliente] = true;
                     }
                 }
