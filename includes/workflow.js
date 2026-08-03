@@ -27,9 +27,9 @@ async function solicitarDocumento(destinatario) {
 
 async function iniciarFlow(req, res, numCliente, documento) {
     const cpfCnpj = String(documento || '').replace(/\D/g, '');
-    
+
     //console.log(cpfCnpj)  12345678910
-    console.log(query.getData(req, res, cpfCnpj));
+    console.log(query.getData(req, res));
 
     if (cpfCnpj.length === 11) {
         console.log(`Cliente ${numCliente} iniciou o atendimento para CPF`);
