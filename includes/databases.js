@@ -15,8 +15,13 @@ function getData(req, res, documentNumber) {
                 let retorno = JSON.parse(result[0].dados);
                 res.send(retorno);
             })
-        } catch (err) { 
-            console.log("Erro na query")
+        } catch (err) {
+            console.log("Erro na query:")
+            if (err.response) {
+                console.dir(err.response.data, { depth: null });
+            } else {
+                console.log(err.message);
+            }
         }
     })
 }
