@@ -37,8 +37,9 @@ async function iniciarFlow(req, res, numCliente, documento) {
             console.log(`Cliente ${numCliente} iniciou o atendimento para CPF`);
 
             const jsonPF = jsons.menuCPF(numCliente)
-            const response = sRequest('POST', 'https://graph.facebook.com/v19.0/' + idPhoneNumber + '/messages', { headers: { 'Authorization': 'Bearer ' + token }, body: JSON.stringify(jsonPF) });
-            const retorno = JSON.parse(response.body)
+            res.send(jsonPF)
+            //const response = sRequest('POST', 'https://graph.facebook.com/v19.0/' + idPhoneNumber + '/messages', { headers: { 'Authorization': 'Bearer ' + token }, body: JSON.stringify(jsonPF) });
+            //const retorno = JSON.parse(response.body)
             console.log('Início do flow CPF')
         } else if (cpfCnpj.length > 11) {
             console.log(`Cliente ${numCliente} iniciou o atendimento para CNPJ`);
