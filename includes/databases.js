@@ -21,6 +21,7 @@ function getData(req, res, documentNumber) {
 					console.log(err)
 				}
             }
+            return true;
         } catch (err) {
             console.log("Erro na query:",err,sqlQuery)
             if (err.response) {
@@ -28,6 +29,7 @@ function getData(req, res, documentNumber) {
             } else {
                 console.log(err.message);
             }
+            return false;
         }
     })
 }
