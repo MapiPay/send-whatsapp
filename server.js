@@ -25,10 +25,6 @@ app.get('/', (req, res) => {
     return res.sendStatus(400)
 })
 
-app.get('/comercial', (req, res) => {
-    res.redirect('https://wa.me/554191069081?text=Ol%C3%A1!%20Ainda%20n%C3%A3o%20sou%20cliente%20e%20gostaria%20de%20falar%20com%20a%20equipe%20comercial%20da%20MapiPay.')
-})
-
 app.post('/', async (req, res) => {
     const body = req.body;
 
@@ -103,6 +99,10 @@ app.post('/', async (req, res) => {
         }
     }
 });
+
+app.get('/comercial', (req, res) => {
+    res.redirect('https://wa.me/554191069081?text=Ol%C3%A1!%20Ainda%20n%C3%A3o%20sou%20cliente%20e%20gostaria%20de%20falar%20com%20a%20equipe%20comercial%20da%20MapiPay.')
+})
 
 app.listen(85, () => {
     console.log('Servidor rodando na porta 85')
