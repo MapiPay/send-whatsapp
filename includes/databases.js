@@ -1,5 +1,6 @@
 const mysql = require('mysql');
-const request = require('request')
+const request = require('request');
+const jsons = require('./jsons.js')
 
 const connection = mysql.createConnection({
     host: '127.0.0.1',
@@ -10,14 +11,18 @@ const connection = mysql.createConnection({
 
 function getData(req, res, documentNumber) {
     //const documentNumber = req.body.documentNumber;
-    connection.query("SELECT dados FROM consultas WHERE documento = " + documentNumber + ";", function (err, result, fields) {
+    sqlQuery = "SELECT dados FROM consultas WHERE documento = '" + documentNumber + "';"
+    connection.query(sqlQuery, function (err, result, fields) {
         try {
-            result.recordset.forEach(dados => {
+			if(result.length >= 1){
                 let retorno = JSON.parse(result[0].dados);
-                res.send(retorno);
-            })
+                try{
+                }catch(err){
+					console.log(err)
+				}
+            }
         } catch (err) {
-            console.log("Erro na query:")
+            console.log("Erro na query:",err,sqlQuery)
             if (err.response) {
                 console.dir(err.response.data, { depth: null });
             } else {

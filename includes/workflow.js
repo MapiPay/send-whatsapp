@@ -35,18 +35,20 @@ async function iniciarFlow(req, res, numCliente, documento) {
             console.log(`Cliente ${numCliente} iniciou o atendimento para CPF`);
 
             inicioFlowCpf(numCliente);
-            //console.log('Início do flow CPF')
+            console.log('Início do flow CPF')
         } else if (cpfCnpj.length > 11) {
             console.log(`Cliente ${numCliente} iniciou o atendimento para CNPJ`);
 
             inicioFlowCNPJ(numCliente);
-            //console.log('Início do flow CNPJ')
+            console.log('Início do flow CNPJ')
         } else {
             console.log("Documento inválido");
             documentoInvalido(numCliente, documento);
-            //solicitarDocumento(numCliente);
+            solicitarDocumento(numCliente);
         }
-    } catch (err) { }
+    } catch (err) {
+		console.log('iniciarFlow',err)
+	}
 }
 
 
@@ -81,7 +83,7 @@ async function inicioFlowCpf(destinatario) {
                                     { "id": "pf_3", "title": "3 - Cartão" },
                                     { "id": "pf_4", "title": "4 - Benefícios" },
                                     { "id": "pf_5", "title": "5 - Senha" },
-                                    { "id": "pf_6", "title": "6 - Falar com atendente (Via WhatsApp)" }
+                                    { "id": "pf_6", "title": "6 - Falar com atendente" }
                                 ]
                             }
                         ]

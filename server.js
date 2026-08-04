@@ -105,5 +105,6 @@ app.get('/comercial', (req, res) => {
 })
 
 app.listen(85, () => {
+	console.clear();
     console.log('Servidor rodando na porta 85')
 })
