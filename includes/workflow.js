@@ -37,7 +37,7 @@ async function iniciarFlow(req, res, numCliente, documento) {
             console.log(`Cliente ${numCliente} iniciou o atendimento para CPF`);
 
             const jsonPF = jsons.menuCPF(numCliente)
-            res.send(jsonPF)
+            axios.post(`https://graph.facebook.com/v19.0/'${idPhoneNumber}'/messages`, jsonPF)
             //const response = sRequest('POST', 'https://graph.facebook.com/v19.0/' + idPhoneNumber + '/messages', { headers: { 'Authorization': 'Bearer ' + token }, body: JSON.stringify(jsonPF) });
             //const retorno = JSON.parse(response.body)
             console.log('Início do flow CPF')

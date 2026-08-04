@@ -1,3 +1,6 @@
+const token = "EAAUi1ZAjBIQwBR0ZCJMMrZCaZAkHZC8ZC9GUVSePNUwzDZAOO7fsGkGOFCJXRKo0nWwas8dni7NSQJ5bRWXw9r2lkDlnmIDZA2ocP7CGfIZCDo3v6sn8vl7gRcTxFZBGWzRMwGG1rSgXdBNOXyK5oBKPpIdqQRXKo1pPtTCxz4ocm6b3ToOPGVN2UsTVmkQJQHTgZDZD";
+
+
 module.exports = {
     menuCPF: function (destinatario) {
         const jsonCPF = {
@@ -33,7 +36,11 @@ module.exports = {
                     ]
                 }
             }
+        },
+        {
+            //headers: { 'Authorization': 'Bearer ' + token },
         }
+
     },
 
     menuCNPJ: function (destinatario) {
