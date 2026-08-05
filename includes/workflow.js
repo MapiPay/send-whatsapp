@@ -3,10 +3,10 @@ const jsons = require('./jsons')
 const query = require('./databases');
 
 async function iniciarFlow(req, res, numCliente, documento) {
-    const cpfCnpj = String(documento || '').replace(/[a-zA-Z0-9]/);
+    const cpfCnpj = String(documento || '').replace(/[a-zA-Z0-9]/g, '');
     console.log(cpfCnpj);
     try {
-        query.getData(req, res, documento);
+        console.log(query.getData(req, res, documento));
 
         if (cpfCnpj.length === 11) {
             console.log(`Cliente ${numCliente} iniciou o atendimento para CPF`);
