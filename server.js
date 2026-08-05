@@ -1,7 +1,8 @@
 const express = require('express');
-const functions = require('./includes/functions')
+const functions = require('./includes/functions');
 const webhookToken = require('./includes/webhookToken');
 const workflow = require('./includes/workflow');
+const jsons = require('./includes/jsons');
 
 const app = express();
 app.use(express.json());
@@ -89,7 +90,7 @@ app.post('/', async (req, res) => {
                         }
                     } else {
                         console.log(`Cliente ${numCliente} iniciou atendimento.`);
-                        await workflow.solicitarDocumento(numCliente);
+                        await jsons.solicitarDocumento(numCliente);
                         clientesAguardandoDocumento[numCliente] = true;
                     }
                 }

@@ -1,31 +1,6 @@
 const axios = require('axios');
 const jsons = require('./jsons')
 const query = require('./databases');
-const sRequest = require('sync-request');
-const idPhoneNumber = "436813806185181";
-const token = "EAAUi1ZAjBIQwBR0ZCJMMrZCaZAkHZC8ZC9GUVSePNUwzDZAOO7fsGkGOFCJXRKo0nWwas8dni7NSQJ5bRWXw9r2lkDlnmIDZA2ocP7CGfIZCDo3v6sn8vl7gRcTxFZBGWzRMwGG1rSgXdBNOXyK5oBKPpIdqQRXKo1pPtTCxz4ocm6b3ToOPGVN2UsTVmkQJQHTgZDZD";
-
-async function solicitarDocumento(destinatario) {
-    await axios.post(
-        `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
-        {
-            "messaging_product": 'whatsapp',
-            "to": destinatario,
-            "type": 'template',
-            "template": {
-                "name": 'solicitar_cpf_cnpj',
-                "language": {
-                    "code": 'pt_BR'
-                }
-            }
-        },
-        {
-            "headers": {
-                "Authorization": `Bearer ${token}`
-            }
-        }
-    )
-}
 
 async function iniciarFlow(req, res, numCliente, documento) {
     const cpfCnpj = String(documento || '').replace(/\D/g, '');
@@ -42,12 +17,13 @@ async function iniciarFlow(req, res, numCliente, documento) {
         } else if (cpfCnpj.length > 11) {
             console.log(`Cliente ${numCliente} iniciou o atendimento para CNPJ`);
 
-            inicioFlowCNPJ(numCliente);
-            console.log('Início do flow CNPJ')
+            jsons.menuCNPJ(numCliente)
+
+            console.log('Início do flow CPF')
         } else {
             console.log("Documento inválido");
-            documentoInvalido(numCliente, documento);
-            solicitarDocumento(numCliente);
+            jsons.documentoInvalido(numCliente, documento);
+            jsons.solicitarDocumento(numCliente);
         }
     } catch (err) {
         console.log('iniciarFlow', err)
@@ -55,30 +31,6 @@ async function iniciarFlow(req, res, numCliente, documento) {
 }
 
 
-async function documentoInvalido(destinatario, documento) {
-    try {
-        const response = axios.post(
-            `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
-            {
-                "messaging_product": 'whatsapp',
-                "to": destinatario,
-                "type": 'text',
-                "text": {
-                    "body": "Documento inválido. Tente novamente."
-                }
-            },
-            {
-                "headers": {
-                    "Authorization": `Bearer ${token}`
-                }
-            }
-        )
-    } catch (err) {
-
-    }
-}
-
 module.exports = {
-    solicitarDocumento,
     iniciarFlow
 }
