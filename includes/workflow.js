@@ -26,7 +26,7 @@ async function iniciarFlow(req, res, numCliente, documento) {
 
             jsons.menuCNPJ(numCliente)
 
-            console.log('Início do flow CPF')
+            console.log('Início do flow CNPJ')
         } else {
             console.log("Documento inválido");
             jsons.documentoInvalido(numCliente, documento);
