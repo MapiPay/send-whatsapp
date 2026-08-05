@@ -3,7 +3,14 @@ const jsons = require('./jsons')
 const query = require('./databases');
 
 async function iniciarFlow(req, res, numCliente, documento) {
-    const cpfCnpj = String(documento || '').replace(/[a-zA-Z0-9]/g, '');
+    let cpfCnpj;
+    for(i of documento){
+        if(i === '.' || i === '-' || i === '/'){
+            continue
+        }
+        cpfCnpj += i;
+    }
+    //const cpfCnpj = String(documento || '').replace(/[a-zA-Z0-9]/g, '');
     console.log(cpfCnpj);
     try {
         console.log(query.getData(req, res, documento));
