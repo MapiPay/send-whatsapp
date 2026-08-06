@@ -1,11 +1,12 @@
 const axios = require('axios');
+const functions = require('./functions')
 const jsons = require('./jsons')
 const query = require('./databases');
 
-async function iniciarFlow(req, res, numCliente, documento) {
+async function iniciarFlow(body, req, res, numCliente, documento) {
     let cpfCnpj = '';
-    for(i of documento){
-        if(i === '.' || i === '-' || i === '/'){
+    for (i of documento) {
+        if (i === '.' || i === '-' || i === '/') {
             continue
         }
         cpfCnpj += i;
@@ -21,12 +22,20 @@ async function iniciarFlow(req, res, numCliente, documento) {
             jsons.menuCPF(numCliente);
 
             console.log('Início do flow CPF')
+
+            const opcao = functions.extrairOpcao(body);
+            console.log(opcao)
+
         } else if (cpfCnpj.length > 11) {
             console.log(`Cliente ${numCliente} iniciou o atendimento para CNPJ`);
 
             jsons.menuCNPJ(numCliente)
 
             console.log('Início do flow CNPJ')
+
+            const opcao = functions.extrairOpcao(body);
+            console.log(opcao)
+
         } else {
             console.log("Documento inválido");
             jsons.documentoInvalido(numCliente, documento);

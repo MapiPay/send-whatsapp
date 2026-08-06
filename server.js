@@ -77,7 +77,7 @@ app.post('/', async (req, res) => {
 
                         delete clientesAguardandoDocumento[numCliente];
 
-                        await workflow.iniciarFlow(req, res, numCliente, documentoRecebido);
+                        await workflow.iniciarFlow(body,req, res, numCliente, documentoRecebido);
                     } else if (textoRecebido === 'token') {
                         const tokenGerado = await webhookToken.gerarToken(numCliente, ddd, celular);
                         //console.log(tokenGerado)
