@@ -82,8 +82,8 @@ app.post('/', async (req, res) => {
 
                         if (estado === 'aguardando_menu_pf' || estado === 'aguardando_menu_pj') {
                             const opcao = await functions.extrairOpcao(message);
-                            await rotearOpcaoPF(opcao, numCliente, message);
-                            await clearEstadoCliente(numCliente);
+                            await functions.rotearOpcaoPF(opcao, numCliente, message);
+                            await estadoCliente.clearEstadoCliente(numCliente);
                             return res.sendStatus(200);
                         }
 
