@@ -3,7 +3,7 @@ const functions = require('./functions')
 const jsons = require('./jsons')
 const query = require('./databases');
 
-async function iniciarFlow(body, req, res, numCliente, documento) {
+async function iniciarFlow(message, body, req, res, numCliente, documento) {
     let cpfCnpj = '';
     for (i of documento) {
         if (i === '.' || i === '-' || i === '/') {
@@ -23,7 +23,7 @@ async function iniciarFlow(body, req, res, numCliente, documento) {
 
             console.log('Início do flow CPF')
 
-            const opcao = await functions.extrairOpcao(body);
+            const opcao = await functions.extrairOpcao(body, message);
             console.log(opcao)
 
         } else if (cpfCnpj.length > 11) {

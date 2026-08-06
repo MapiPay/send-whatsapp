@@ -25,10 +25,9 @@ async function marcarComoLida(msgId) {
         console.log('Erro ao enviar a mensagem: ', err.response ? err.response.data : err.message);
     }
 
-    async function extrairOpcao(body){
-        const value = body.entry?.changes?.[0]?.value;
-        const message = value?.message?.[0];
-        return message;
+    async function extrairOpcao(body, message){
+        const response = messages[0].text.body.trim();
+        return response;
     }
 }
 
