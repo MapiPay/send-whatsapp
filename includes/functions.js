@@ -67,7 +67,6 @@ async function rotearOpcaoPF(opcao, numCliente, message) {
     }
 
     try {
-        await marcarComoLida(message.id);
         await handler(numCliente)
         return true
     } catch (err) {
