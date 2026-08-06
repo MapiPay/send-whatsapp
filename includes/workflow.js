@@ -25,9 +25,6 @@ async function iniciarFlow(message, body, req, res, numCliente, documento) {
 
             console.log('Início do flow CPF')
 
-            const opcao = await functions.extrairOpcao(message)
-            console.log(opcao)
-
         } else if (cpfCnpj.length > 11) {
             console.log(`Cliente ${numCliente} iniciou o atendimento para CNPJ`);
 
@@ -35,9 +32,6 @@ async function iniciarFlow(message, body, req, res, numCliente, documento) {
             await estadoCliente.setEstadoCliente(numCliente, 'aguardando_menu_pj')
 
             console.log('Início do flow CNPJ')
-
-            const opcao = await functions.extrairOpcao(body);
-            console.log(opcao)
 
         } else {
             console.log("Documento inválido");
