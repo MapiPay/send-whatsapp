@@ -39,7 +39,7 @@ async function extrairOpcao(message) {
         }
 
         if (interactive.type === 'button_reply') {
-            return interactive.button.reply.id;
+            return interactive.button_reply.id;
         }
     }
 
