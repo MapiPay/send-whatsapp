@@ -11,6 +11,4 @@ client.on('error', (err) => console.log('Erro no Redis:', err));
     console.log('Redis conectado');
 })();
 
-module.exports = {
-    client
-}
+module.exports = client
