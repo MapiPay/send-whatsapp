@@ -52,12 +52,12 @@ async function extrairOpcao(message) {
 
 async function rotearOpcaoPF(opcao, numCliente, message) {
     const acoesMenuPF = {
-        pf_1: handlerSaldo,
-        pf_2: handlerPix,
-        pf_3: handlerCartao,
-        pf_4: handlerBeneficios,
-        pf_5: handlerSenha,
-        pf_6: handlerAtendente,
+        pf_1: 'handlerSaldo',
+        pf_2: 'handlerPix',
+        pf_3: 'handlerCartao',
+        pf_4: 'handlerBeneficios',
+        pf_5: 'handlerSenha',
+        pf_6: 'handlerAtendente',
     };
 
     const handler = acoesMenuPF[opcao];
