@@ -43,9 +43,9 @@ async function extrairOpcao(message) {
         }
     }
 
-    if (message.type === 'text') {
+    /*if (message.type === 'text') {
         return message.text.body.trim();
-    }
+    }*/
 
     return null;
 }
