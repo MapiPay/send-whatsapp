@@ -21,6 +21,9 @@ async function iniciarFlow(message, body, req, res, numCliente, documento) {
             console.log(`Cliente ${numCliente} iniciou o atendimento para CPF`);
 
             jsons.menuCPF(numCliente);
+            const opcao = await functions.extrairOpcao(message);
+            console.log(`Opção selecionada: ${opcao}`)
+
             await estadoCliente.setEstadoCliente(numCliente, 'aguardando_menu_pf')
 
             console.log('Início do flow CPF')
