@@ -1,6 +1,5 @@
-const redis = require('redis');
-const client = redis.createClient();
-await client.connect();
+
+const cliente = require('./redisCliente')
 
 async function setEstadoCliente(numCliente, estado) {
     await client.set(`estado:${numCliente}`, estado, { EX: 600 });
