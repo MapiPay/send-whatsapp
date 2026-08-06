@@ -3,7 +3,7 @@ const functions = require('./includes/functions');
 const webhookToken = require('./includes/webhookToken');
 const workflow = require('./includes/workflow');
 const jsons = require('./includes/jsons');
-const estadoCliente = require('./estadoCliente');
+const estadoCliente = require('./includes/estadoCliente');
 
 const app = express();
 app.use(express.json());
@@ -78,7 +78,7 @@ app.post('/', async (req, res) => {
 
                         delete clientesAguardandoDocumento[numCliente];
 
-                        const estado = await getEstadoCliente(numCliente);
+                        const estado = await estadoCliente.getEstadoCliente(numCliente);
 
                         if (estado === 'aguardando_menu_pf' || estado === 'aguardando_menu_pj') {
                             const opcao = await functions.extrairOpcao(message);

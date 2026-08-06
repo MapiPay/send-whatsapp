@@ -1,5 +1,4 @@
-
-const cliente = require('./redisCliente')
+const client = require('./redisCliente')
 
 async function setEstadoCliente(numCliente, estado) {
     await client.set(`estado:${numCliente}`, estado, { EX: 600 });
