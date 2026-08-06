@@ -23,7 +23,7 @@ async function iniciarFlow(body, req, res, numCliente, documento) {
 
             console.log('Início do flow CPF')
 
-            const opcao = functions.extrairOpcao(body);
+            const opcao = await functions.extrairOpcao(body);
             console.log(opcao)
 
         } else if (cpfCnpj.length > 11) {
@@ -33,7 +33,7 @@ async function iniciarFlow(body, req, res, numCliente, documento) {
 
             console.log('Início do flow CNPJ')
 
-            const opcao = functions.extrairOpcao(body);
+            const opcao = await functions.extrairOpcao(body);
             console.log(opcao)
 
         } else {
