@@ -2,6 +2,7 @@ const axios = require('axios');
 const functions = require('./functions')
 const jsons = require('./jsons')
 const query = require('./databases');
+const estadoCliente = require('./estadoCliente');
 
 async function iniciarFlow(message, body, req, res, numCliente, documento) {
     let cpfCnpj = '';
@@ -20,16 +21,18 @@ async function iniciarFlow(message, body, req, res, numCliente, documento) {
             console.log(`Cliente ${numCliente} iniciou o atendimento para CPF`);
 
             jsons.menuCPF(numCliente);
+            await estadoCliente.setEstadoCliente(numCliente, 'aguardando_menu_pf')
 
             console.log('Início do flow CPF')
 
-            const opcao = await functions.extrairOpcao(body, message);
+            const opcao = await functions.extrairOpcao(message)
             console.log(opcao)
 
         } else if (cpfCnpj.length > 11) {
             console.log(`Cliente ${numCliente} iniciou o atendimento para CNPJ`);
 
             jsons.menuCNPJ(numCliente)
+            await estadoCliente.setEstadoCliente(numCliente, 'aguardando_menu_pj')
 
             console.log('Início do flow CNPJ')
 

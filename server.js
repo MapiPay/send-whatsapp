@@ -3,6 +3,7 @@ const functions = require('./includes/functions');
 const webhookToken = require('./includes/webhookToken');
 const workflow = require('./includes/workflow');
 const jsons = require('./includes/jsons');
+const estadoCliente = require('./estadoCliente');
 
 const app = express();
 app.use(express.json());
@@ -77,6 +78,15 @@ app.post('/', async (req, res) => {
 
                         delete clientesAguardandoDocumento[numCliente];
 
+                        const estado = await getEstadoCliente(numCliente);
+
+                        if (estado === 'aguardando_menu_pf' || estado === 'aguardando_menu_pj') {
+                            const opcao = await functions.extrairOpcao(message);
+                            await rotearOpcaoPF(opcao, numCliente, message);
+                            await clearEstadoCliente(numCliente);
+                            return res.sendStatus(200);
+                        }
+
                         await workflow.iniciarFlow(messages, body, req, res, numCliente, documentoRecebido);
                     } else if (textoRecebido === 'token') {
                         const tokenGerado = await webhookToken.gerarToken(numCliente, ddd, celular);
@@ -106,6 +116,6 @@ app.get('/comercial', (req, res) => {
 })
 
 app.listen(85, () => {
-	console.clear();
+    console.clear();
     console.log('Servidor rodando na porta 85')
 })

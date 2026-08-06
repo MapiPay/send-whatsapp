@@ -26,6 +26,7 @@
     "http": "^0.0.1-security",
     "mysql": "^2.18.1",
     "querystring": "^0.2.1",
+    "redis": "^6.2.0",
     "request": "^2.88.2",
     "sync-request": "^6.1.0",
     "ws": "^8.21.1"
