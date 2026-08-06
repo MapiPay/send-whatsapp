@@ -24,9 +24,33 @@ async function marcarComoLida(msgId) {
     } catch (err) {
         console.log('Erro ao enviar a mensagem: ', err.response ? err.response.data : err.message);
     }
+
+    async function extrairOpcao(message){
+        if(!message){
+            return null
+        }
+
+        if(message.type === 'interactive') {
+            const { interactive } = message;
+            if (interactive.type === 'list_reply') {
+                return interactive.list_reply.id;
+            }
+
+            if(interactive.type === 'button_reply') {
+                return interactive.button.reply.id;
+            }
+        }
+
+        if(message.type === 'text'){
+            return message.text.body.trim();
+        }
+        
+        return null;
+    }
 }
 
 
 module.exports = {
     marcarComoLida,
+    extrairOpcao
 }
