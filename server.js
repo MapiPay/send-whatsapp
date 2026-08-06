@@ -78,15 +78,6 @@ app.post('/', async (req, res) => {
 
                         delete clientesAguardandoDocumento[numCliente];
 
-                        const estado = await estadoCliente.getEstadoCliente(numCliente);
-
-                        if (estado === 'aguardando_menu_pf') {
-                            const opcao = await functions.extrairOpcao(messages);
-                            console.log(`Opção selecionada: ${opcao}`)
-                            await estadoCliente.clearEstadoCliente(numCliente);
-                            return res.sendStatus(200);
-                        }
-
                         await workflow.iniciarFlow(messages, body, req, res, numCliente, documentoRecebido);
                     } else if (textoRecebido === 'token') {
                         const tokenGerado = await webhookToken.gerarToken(numCliente, ddd, celular);
