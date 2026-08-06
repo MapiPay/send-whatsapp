@@ -71,6 +71,16 @@ app.post('/', async (req, res) => {
                 //console.log(numCliente);
                 let documentoRecebido;
 
+                // Esperando o valor escolhido pelo usuário no menu
+                const estado = await estadoCliente.getEstadoCliente(numCliente);
+
+                if (estado === 'aguardando_menu_pf' || estado === 'aguardando_menu_pj') {
+                    const opcao = await functions.extrairOpcao(messages[0]);
+                    console.log(`Opção selecionada: ${opcao}`)
+                    await estadoCliente.clearEstadoCliente(numCliente);
+                    return res.sendStatus(200);
+                }
+
                 if (ddd && celular) {
                     if (clientesAguardandoDocumento[numCliente]) {
                         documentoRecebido = messages[0].text.body.trim();
