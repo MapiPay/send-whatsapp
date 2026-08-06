@@ -78,7 +78,7 @@ app.post('/', async (req, res) => {
                     const opcao = await functions.extrairOpcao(messages[0]);
                     console.log(`Opção selecionada: ${opcao}`)
                     await estadoCliente.clearEstadoCliente(numCliente);
-                    return res.sendStatus(200);
+                    return;
                 }
 
                 if (ddd && celular) {
