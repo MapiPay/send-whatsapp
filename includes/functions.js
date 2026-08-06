@@ -1,5 +1,6 @@
 const axios = require('axios');
 const request = require('request');
+const jsons = require('./jsons');
 const token = "EAAUi1ZAjBIQwBR0ZCJMMrZCaZAkHZC8ZC9GUVSePNUwzDZAOO7fsGkGOFCJXRKo0nWwas8dni7NSQJ5bRWXw9r2lkDlnmIDZA2ocP7CGfIZCDo3v6sn8vl7gRcTxFZBGWzRMwGG1rSgXdBNOXyK5oBKPpIdqQRXKo1pPtTCxz4ocm6b3ToOPGVN2UsTVmkQJQHTgZDZD";
 const idPhoneNumber = "436813806185181";
 
@@ -49,8 +50,35 @@ async function extrairOpcao(message) {
     return null;
 }
 
+async function rotearOpcaoPF(opcao, numCliente, message) {
+    const acoesMenuPF = {
+        pf_1: handlerSaldo,
+        pf_2: handlerPix,
+        pf_3: handlerCartao,
+        pf_4: handlerBeneficios,
+        pf_5: handlerSenha,
+        pf_6: handlerAtendente,
+    };
+
+    const handler = acoesMenuPF[opcao];
+    if (!handler) {
+        jsons.documentoInvalido(numCliente)
+        return false
+    }
+
+    try {
+        await marcarComoLida(message.id);
+        await handler(numCliente)
+        return true
+    } catch (err) {
+        console.error(`Erro ao executar handler da opção ${opcao}:`, err);
+        return false;
+    }
+}
+
 
 module.exports = {
     marcarComoLida,
-    extrairOpcao
+    extrairOpcao,
+    rotearOpcaoPF
 }
