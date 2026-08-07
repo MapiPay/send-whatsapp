@@ -27,7 +27,7 @@ async function iniciarFlow(message, body, req, res, numCliente, documento) {
             console.log('Início do flow CPF')
 
         } else if (cpfCnpj.length > 11) {
-            console.log(`Cliente ${numCliente} iniciou o atendimento para CNPJ`);
+            console.log(`Cliente ${consultaDb.nomeEmpresarial} iniciou o atendimento para CNPJ`);
 
             jsons.menuCNPJ(numCliente)
 
