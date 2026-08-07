@@ -15,7 +15,8 @@ async function iniciarFlow(message, body, req, res, numCliente, documento) {
     //const cpfCnpj = String(documento || '').replace(/[a-zA-Z0-9]/g, '');
     console.log(cpfCnpj);
     try {
-        query.getData(req, res, documento);
+        const consultaDb = query.consulta(documento);
+        console.log(consultaDb);
 
         if (cpfCnpj.length === 11) {
             console.log(`Cliente ${numCliente} iniciou o atendimento para CPF`);
