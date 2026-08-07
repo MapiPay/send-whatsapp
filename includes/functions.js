@@ -79,8 +79,9 @@ const sRequest = require('sync-request');
 
 function consulta(documento) {
     let reqCliente = sRequest('POST', 'http://localhost:90', { headers: { 'content-type': 'application/json' }, body: JSON.stringify({ "documentNumber": documento }) })
-    resCliente = JSON.parse(reqCliente.body);
-    return resCliente
+    let resCliente = JSON.parse(reqCliente.body);
+    const nome = resCliente.nome;
+    return nome;
 }
 
 
