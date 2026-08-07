@@ -18,7 +18,7 @@ async function iniciarFlow(message, body, req, res, numCliente, documento) {
         console.log(consultaDb);
 
         if (cpfCnpj.length === 11) {
-            console.log(`Cliente ${numCliente} iniciou o atendimento para CPF`);
+            console.log(`Cliente ${consultaDb.nome} iniciou o atendimento para CPF`);
 
             jsons.menuCPF(numCliente);
 
