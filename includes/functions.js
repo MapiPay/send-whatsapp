@@ -78,7 +78,7 @@ async function rotearOpcaoPF(opcao, numCliente, message) {
 const sRequest = require('sync-request');
 
 function consulta(documento) {
-    let reqCliente = sRequest('POST', 'http://localhost:90', { headers: { 'content-type': 'application/json' }, body: JSON.stringify({ "documentNumber": documento }) })
+    let reqCliente = sRequest('GET', 'http://localhost:90', { headers: { 'content-type': 'application/json' }, body: JSON.stringify({ "documentNumber": documento }) })
     let resCliente = JSON.parse(reqCliente.body);
     const nome = resCliente.nome;
     return nome;
