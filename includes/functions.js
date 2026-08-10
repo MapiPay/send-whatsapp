@@ -50,7 +50,7 @@ async function extrairOpcao(message) {
     return null;
 }
 
-async function rotearOpcaoPF(opcao, numCliente, message) {
+async function rotearOpcaoPF(opcao, numCliente) {
     if(opcao === 'pf_1'){
         exibirSaldo(numCliente)
     }
