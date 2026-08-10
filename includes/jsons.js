@@ -78,6 +78,29 @@ module.exports = {
 
     },
 
+    exibirSaldo: function(destinatario){
+        try {
+            const response = axios.post(
+                `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
+                {
+                    "messaging_product": "whatsapp_business_account",
+                    "to": destinatario,
+                    "type": 'text',
+                    "text": {
+                        "body": "Seu saldo Conta Digital é de R$300,00 e de Benefícios é de R$644,00"
+                    }
+                },
+                {
+                    "headers": {
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+            )
+        } catch (err) {
+            console.log('Erro ao exibir saldo PF', err)
+        }
+    },
+
     menuCNPJ: function (destinatario) {
         try {
             const response = axios.post(

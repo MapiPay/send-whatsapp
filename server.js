@@ -78,6 +78,10 @@ app.post('/', async (req, res) => {
                     const opcao = await functions.extrairOpcao(messages[0]);
                     console.log(`Opção selecionada: ${opcao}`)
                     await estadoCliente.clearEstadoCliente(numCliente);
+
+                    if(estado === 'aguardando_menu_pf'){
+                        functions.rotearOpcaoPF(opcao, numCliente)
+                    }
                     return;
                 }
 

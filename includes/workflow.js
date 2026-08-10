@@ -11,7 +11,7 @@ async function iniciarFlow(message, body, req, res, numCliente, documento) {
         }
         cpfCnpj += i;
     }
-    //const cpfCnpj = String(documento || '').replace(/[a-zA-Z0-9]/g, '');
+    
     console.log(cpfCnpj);
     try {
         const consultaDb = functions.consulta(documento);
