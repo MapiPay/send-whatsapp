@@ -57,7 +57,7 @@ async function rotearOpcaoPF(opcao, numCliente, res) {
         console.log("Opção referente ao status PIX")
     } else if(opcao === 'pf_3'){
         console.log("Opção referente a alteração de cadastro")
-    } else {
+    } else if(opcao === 'pf_4') {
         console.log("Opção referente a falar com atendente")
         res.redirect('https://wa.me/554185305944?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20atendimento.%20%5BVINDO%20DA%20URA%5D')
     }
