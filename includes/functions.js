@@ -52,7 +52,7 @@ async function extrairOpcao(message) {
 
 async function rotearOpcaoPF(opcao, numCliente) {
     if (opcao === 'pf_1') {
-        jsons.exibirSaldo(numCliente);
+        await jsons.exibirSaldo(numCliente);
     }
 }
 
