@@ -57,7 +57,9 @@ async function rotearOpcaoPF(opcao, numCliente) {
         console.log("Opção referente ao status PIX")
     } else if(opcao === 'pf_3'){
         console.log("Opção referente a alteração de cadastro")
-    } 
+    } else {
+        console.log("Opção referente a falar com atendente")
+    }
 }
 
 // CONSULTA BANCO DE DADOS
