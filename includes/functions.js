@@ -51,31 +51,19 @@ async function extrairOpcao(message) {
 }
 
 async function rotearOpcaoPF(opcao, numCliente, message) {
-    const acoesMenuPF = {
-        pf_1: 'handlerSaldo',
-        pf_2: 'handlerPix',
-        pf_3: 'handlerCartao',
-        pf_4: 'handlerBeneficios',
-        pf_5: 'handlerSenha',
-        pf_6: 'handlerAtendente',
-    };
-
-    const handler = acoesMenuPF[opcao];
-    if (!handler) {
-        jsons.documentoInvalido(numCliente)
-        return false
-    }
-
-    try {
-        await handler(numCliente)
-        return true
-    } catch (err) {
-        console.error(`Erro ao executar handler da opção ${opcao}:`, err);
-        return false;
+    if(opcao === 'pf_1'){
+        exibirSaldo(numCliente)
     }
 }
 
+function exibirSaldo(numCliente){
+    axios.post(
+        `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
+        jsons.exibirSaldo(numCliente)
+    )
+}
 
+// CONSULTA BANCO DE DADOS
 function consulta(documento) {
     let reqCliente = sRequest('GET', `http://localhost:90/?documentNumber=${documento}`, { headers: { 'content-type': 'application/json' }})
     let resCliente = JSON.parse(reqCliente.body);
