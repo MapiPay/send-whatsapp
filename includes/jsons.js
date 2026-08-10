@@ -4,9 +4,9 @@ const token = "EAAUi1ZAjBIQwBR0ZCJMMrZCaZAkHZC8ZC9GUVSePNUwzDZAOO7fsGkGOFCJXRKo0
 
 
 module.exports = {
-    solicitarDocumento: function (destinatario) {
+    solicitarDocumento: async function (destinatario) {
         try {
-            const response = axios.post(
+            const response = await axios.post(
                 `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
                 {
                     "messaging_product": 'whatsapp',
