@@ -79,8 +79,13 @@ app.post('/', async (req, res) => {
                     console.log(`Opção selecionada: ${opcao}`)
                     await estadoCliente.clearEstadoCliente(numCliente);
 
-                    if(estado === 'aguardando_menu_pf'){
-                        await functions.rotearOpcaoPF(opcao, numCliente, res)
+                    if (estado === 'aguardando_menu_pf') {
+                        await functions.rotearOpcaoPF(opcao, numCliente)
+                    }
+
+                    if (opcao === 'pf_4') {
+                        console.log("Opção referente a falar com atendente")
+                        res.redirect('https://wa.me/554185305944?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20atendimento.%20%5BVINDO%20DA%20URA%5D')
                     }
                     return;
                 }
