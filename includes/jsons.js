@@ -57,11 +57,9 @@ module.exports = {
                                     "title": 'Menu CPF',
                                     "rows": [
                                         { "id": "pf_1", "title": "1 - Saldo" },
-                                        { "id": "pf_2", "title": "2 - PIX" },
-                                        { "id": "pf_3", "title": "3 - Cartão" },
-                                        { "id": "pf_4", "title": "4 - Benefícios" },
-                                        { "id": "pf_5", "title": "5 - Senha" },
-                                        { "id": "pf_6", "title": "6 - Falar com atendente" }
+                                        { "id": "pf_2", "title": "2 - Status PIX" },
+                                        { "id": "pf_3", "title": "3 - Alterar cadastro" },
+                                        { "id": "pf_4", "title": "4 - Falar com atendente" }
                                     ]
                                 }
                             ]
