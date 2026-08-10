@@ -97,7 +97,7 @@ module.exports = {
                 }
             )
         } catch (err) {
-            console.log('Erro ao exibir saldo PF', err)
+            console.log('Erro ao exibir saldo PF', err.response?.data)
         }
     },
 
