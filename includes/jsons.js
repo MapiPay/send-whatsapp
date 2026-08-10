@@ -78,9 +78,9 @@ module.exports = {
 
     },
 
-    exibirSaldo: function (destinatario) {
+    exibirSaldo: async function (destinatario) {
         try {
-            const response = axios.post(
+            const response = await axios.post(
                 `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
                 {
                     "messaging_product": "whatsapp_business_account",
@@ -98,7 +98,7 @@ module.exports = {
                 }
             )
         } catch (err) {
-            console.log('Erro ao exibir saldo PF', err.response?.data)
+            console.log('Erro ao exibir saldo PF', JSON.stringify(err.response?.data, null, 2))
         }
     },
 
