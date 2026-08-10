@@ -78,7 +78,7 @@ module.exports = {
 
     },
 
-    exibirSaldo: function(destinatario){
+    exibirSaldo: function (destinatario) {
         try {
             const response = axios.post(
                 `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
@@ -92,7 +92,7 @@ module.exports = {
                 },
                 {
                     "headers": {
-                        "Authorization": `Bearer ${token}`
+                        "Authorization": `Bearer ${token}`,
                     }
                 }
             )
