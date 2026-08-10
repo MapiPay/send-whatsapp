@@ -51,21 +51,14 @@ async function extrairOpcao(message) {
 }
 
 async function rotearOpcaoPF(opcao, numCliente) {
-    if(opcao === 'pf_1'){
-        exibirSaldo(numCliente)
+    if (opcao === 'pf_1') {
+        jsons.exibirSaldo(numCliente);
     }
-}
-
-function exibirSaldo(numCliente){
-    axios.post(
-        `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
-        jsons.exibirSaldo(numCliente)
-    )
 }
 
 // CONSULTA BANCO DE DADOS
 function consulta(documento) {
-    let reqCliente = sRequest('GET', `http://localhost:90/?documentNumber=${documento}`, { headers: { 'content-type': 'application/json' }})
+    let reqCliente = sRequest('GET', `http://localhost:90/?documentNumber=${documento}`, { headers: { 'content-type': 'application/json' } })
     let resCliente = JSON.parse(reqCliente.body);
     return resCliente;
 }
