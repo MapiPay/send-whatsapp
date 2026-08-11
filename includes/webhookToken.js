@@ -23,7 +23,7 @@ async function gerarToken(remetente, ddd, celular) {
             }
         );
 
-        if (!response.data.sucess) {
+        if (response.data.sucess) {
             console.log(`Token gerado com sucesso: ${response.data.data.token}`);
             return response.data.data.token
         } else {
