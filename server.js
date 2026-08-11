@@ -74,7 +74,15 @@ app.post('/', async (req, res) => {
                 let documentoRecebido;
 
                 if (ddd && celular) {
-                    let msgRecebida = messages[0].text.body.toLowerCase();
+                    let msgRecebida = '';
+                    if (messages[0].type === 'text') {
+                        msgRecebida = messages[0].text.body.toLowerCase();
+                    } else if (messages[0].type === 'button') {
+                        msgRecebida = messages[0].button.text.toLowerCase();
+                    } else if (messages[0].type === 'interactive') {
+                        msgRecebida = messages[0].interactive.button_reply.title.toLowerCase();
+                    }
+
                     if (msgRecebida === 'gerar token') {
                         const tokenGerado = await webhookToken.gerarToken(numCliente, ddd, celular)
                         if (tokenGerado) {
