@@ -4,6 +4,7 @@ const webhookToken = require('./includes/webhookToken');
 const workflow = require('./includes/workflow');
 const jsons = require('./includes/jsons');
 const estadoCliente = require('./includes/estadoCliente');
+const { json } = require('body-parser');
 
 const app = express();
 app.use(express.json());
@@ -72,8 +73,16 @@ app.post('/', async (req, res) => {
                 //console.log(numCliente);
                 let documentoRecebido;
 
+                if (ddd && celular) {
+                    await jsons.solicitarDocumento(numCliente)
+                }
+
+
+                app.get('/token', (req, res, numCliente) => {
+                    jsons.solicitarToken(numCliente);
+                })
                 // Esperando o valor escolhido pelo usuário no menu
-                const estado = await estadoCliente.getEstadoCliente(numCliente);
+                /*const estado = await estadoCliente.getEstadoCliente(numCliente);
 
                 if (estado === 'aguardando_menu_pf' || estado === 'aguardando_menu_pj') {
                     const opcao = await functions.extrairOpcao(messages[0]);
@@ -113,7 +122,7 @@ app.post('/', async (req, res) => {
                         await jsons.solicitarDocumento(numCliente);
                         clientesAguardandoDocumento[numCliente] = true;
                     }
-                }
+                }*/
             }
         } catch (err) {
             console.log("Erro ao processar o payload da Meta: ", err)

@@ -4,7 +4,7 @@ const token = "EAAUi1ZAjBIQwBR0ZCJMMrZCaZAkHZC8ZC9GUVSePNUwzDZAOO7fsGkGOFCJXRKo0
 
 
 module.exports = {
-    solicitarDocumento: async function (destinatario) {
+    solicitarToken: async function (destinatario) {
         try {
             const response = await axios.post(
                 `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
@@ -14,6 +14,32 @@ module.exports = {
                     "type": 'template',
                     "template": {
                         "name": 'solicitar_cpf_cnpj',
+                        "language": {
+                            "code": 'pt_BR'
+                        }
+                    }
+                },
+                {
+                    "headers": {
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+            )
+        } catch (err) {
+            console.log('Erro solicitar documento: ', response.err)
+        }
+    },
+
+    solicitarDocumento: async function (destinatario) {
+        try {
+            const response = await axios.post(
+                `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
+                {
+                    "messaging_product": 'whatsapp',
+                    "to": destinatario,
+                    "type": 'template',
+                    "template": {
+                        "name": 'menu_principal',
                         "language": {
                             "code": 'pt_BR'
                         }
