@@ -50,6 +50,7 @@ async function extrairOpcao(message) {
     return null;
 }
 
+// VERIFICAR OPÇÃO PARA PF
 async function rotearOpcaoPF(opcao, numCliente) {
     if (opcao === 'pf_1') {
         await jsons.exibirSaldo(numCliente);
@@ -59,6 +60,23 @@ async function rotearOpcaoPF(opcao, numCliente) {
         console.log("Opção referente a alteração de cadastro")
     } else {
         console.log("Opção referente a falar com atendente")
+    }
+}
+
+//VERIFICAR OPÇÃO PARA PJ
+async function rotearOpcaoPJ(opcao, numCliente) {
+    if(opcao === 'pj_1'){
+        console.log("Opção referente ao Financeiro")
+    } else if (opcao === 'pj_2'){
+        console.log("Opção referente ao status PIX")
+    } else if(opcao === 'pj_3'){
+        console.log("Opção referente ao pagamento QRCode")
+    } else if(opcao === 'pj_4'){
+        console.log("Opção referente ao envio da nota Fiscal")
+    } else if(opcao === 'pj_5'){
+        console.log("Opção referente ao atendimento comercial")
+    } else{
+        console.log("Opção referente a falar com o Suporte")
     }
 }
 
@@ -74,5 +92,6 @@ module.exports = {
     marcarComoLida,
     extrairOpcao,
     rotearOpcaoPF,
+    rotearOpcaoPJ,
     consulta
 }

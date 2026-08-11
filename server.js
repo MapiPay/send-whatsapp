@@ -82,6 +82,10 @@ app.post('/', async (req, res) => {
                     if (estado === 'aguardando_menu_pf') {
                         await functions.rotearOpcaoPF(opcao, numCliente)
                     }
+
+                    if(estado === 'aguardando_menu_pj'){
+                        /* await */ functions.rotearOpcaoPJ(opcao, numCliente);
+                    }
                     return;
                 }
 
