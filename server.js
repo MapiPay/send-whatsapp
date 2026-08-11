@@ -79,7 +79,7 @@ app.post('/', async (req, res) => {
 
 
                 app.get('/token', async (req, res) => {
-                    const { numCliente, ddd, celular } = req.query;
+                    //const { ddd, celular } = req.query;
                     const tokenGerado = await webhookToken.gerarToken(numCliente, ddd, celular);
                     webhookToken.enviarMensagem(numCliente, tokenGerado);
                     res.send("Processando envio do Token")
