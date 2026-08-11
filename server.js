@@ -77,7 +77,7 @@ app.post('/', async (req, res) => {
                     await jsons.solicitarDocumento(numCliente)
                 }
 
-                if(textoRecebido == 'gerar token'){
+                if(textoRecebido === 'gerar token'){
                     const tokenGerado = await webhookToken.gerarToken(numCliente, ddd, celular)
                     if(tokenGerado){
                         await webhookToken.enviarMensagem(numCliente, tokenGerado)
