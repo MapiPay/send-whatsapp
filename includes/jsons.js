@@ -4,7 +4,7 @@ const token = "EAAUi1ZAjBIQwBR0ZCJMMrZCaZAkHZC8ZC9GUVSePNUwzDZAOO7fsGkGOFCJXRKo0
 
 
 module.exports = {
-    solicitarToken: async function (destinatario) {
+    menuPrincipal: async function (destinatario) {
         try {
             const response = await axios.post(
                 `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
@@ -13,7 +13,7 @@ module.exports = {
                     "to": destinatario,
                     "type": 'template',
                     "template": {
-                        "name": 'solicitar_cpf_cnpj',
+                        "name": 'menu_principal',
                         "language": {
                             "code": 'pt_BR'
                         }
@@ -39,7 +39,7 @@ module.exports = {
                     "to": destinatario,
                     "type": 'template',
                     "template": {
-                        "name": 'menu_principal',
+                        "name": 'solicitar_cpf_cnpj',
                         "language": {
                             "code": 'pt_BR'
                         }
