@@ -74,8 +74,6 @@ app.post('/', async (req, res) => {
                 let documentoRecebido;
 
                 if (ddd && celular) {
-                    await jsons.menuPrincipal(numCliente)
-
                     if (textoRecebido === 'gerar token') {
                         const tokenGerado = await webhookToken.gerarToken(numCliente, ddd, celular)
                         if (tokenGerado) {
@@ -83,6 +81,8 @@ app.post('/', async (req, res) => {
                         } else {
                             console.log("Erro no evio do token")
                         }
+                    } else {
+                        await jsons.menuPrincipal(numCliente)
                     }
                 }
 
