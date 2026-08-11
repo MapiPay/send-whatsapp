@@ -79,7 +79,8 @@ app.post('/', async (req, res) => {
 
 
                 app.get('/token', (req, res, numCliente) => {
-                    jsons.solicitarToken(numCliente);
+                    const tokenGerado = await webhookToken.gerarToken(numCliente, ddd, celular);
+                    await webhookToken.enviarMensagem(numCliente, tokenGerado);
                 })
                 // Esperando o valor escolhido pelo usuário no menu
                 /*const estado = await estadoCliente.getEstadoCliente(numCliente);
