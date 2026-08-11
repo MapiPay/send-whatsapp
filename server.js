@@ -77,13 +77,15 @@ app.post('/', async (req, res) => {
                     await jsons.solicitarDocumento(numCliente)
                 }
 
-
-                app.get('/token', async (req, res) => {
-                    //const { ddd, celular } = req.query;
-                    const tokenGerado = await webhookToken.gerarToken(numCliente, ddd, celular);
-                    webhookToken.enviarMensagem(numCliente, tokenGerado);
-                    res.send("Processando envio do Token")
-                })
+                if(textoRecebido == 'gerar token'){
+                    const tokenGerado = await webhookToken.gerarToken(numCliente, ddd, celular)
+                    if(tokenGerado){
+                        await webhookToken.enviarMensagem(numCliente, tokenGerado)
+                    } else {
+                        console.log("Erro no evio do token")
+                    }
+                }
+                
                 // Esperando o valor escolhido pelo usuário no menu
                 /*const estado = await estadoCliente.getEstadoCliente(numCliente);
 
