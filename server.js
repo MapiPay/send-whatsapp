@@ -37,6 +37,7 @@ app.post('/', async (req, res) => {
             const entry = body.entry?.[0];
             const change = entry?.changes?.[0];
             const messages = change?.value?.messages;
+            const name = change?.value?.contacts?.[0]?.profile?.name;
 
             if (messages && messages.length > 0) {
                 const msgId = messages[0].id;
