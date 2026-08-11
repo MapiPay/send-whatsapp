@@ -74,7 +74,8 @@ app.post('/', async (req, res) => {
                 let documentoRecebido;
 
                 if (ddd && celular) {
-                    if (textoRecebido === 'gerar token') {
+                    let msgRecebida = messages[0].text.body.toLowerCase();
+                    if (msgRecebida === 'gerar token') {
                         const tokenGerado = await webhookToken.gerarToken(numCliente, ddd, celular)
                         if (tokenGerado) {
                             await webhookToken.enviarMensagem(numCliente, tokenGerado)
