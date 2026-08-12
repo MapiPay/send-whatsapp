@@ -82,7 +82,7 @@ app.post('/', async (req, res) => {
                     } else if (messages[0].type === 'interactive') {
                         msgRecebida = messages[0].interactive.button_reply.title.toLowerCase();
                     }
-                    console.log(msgRecebida)
+                    //console.log(msgRecebida)
 
                     if (msgRecebida === 'gerar token') {
                         const tokenGerado = await webhookToken.gerarToken(numCliente, ddd, celular)
