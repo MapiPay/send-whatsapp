@@ -86,7 +86,7 @@ function consulta(phone_number) {
     let reqCliente = sRequest('GET', `https://api.mapipay.com.br/api/mapi/phone-number/${phone_number}`, {
         headers: {
             'content-type': 'application/json',
-            'Authorization': `Bearer ${credenciais}`
+            'Authorization': `Basic ${credenciais}`
         }
     })
     let resCliente = JSON.parse(reqCliente.body);
