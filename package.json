@@ -20,6 +20,7 @@
   "dependencies": {
     "axios": "^1.19.0",
     "body-parser": "^2.3.0",
+    "content-type": "^2.0.0",
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "fs": "^0.0.1-security",
