@@ -44,7 +44,7 @@ app.post('/', async (req, res) => {
                 const msgId = messages[0].id;
                 const remetente = messages[0].from;
                 const tipoMensagem = messages[0].type;
-                console.log(`Nova mensagem recebida! ID: ${msgId}`);
+                console.log(`${name}, ${remetente} enviou uma mensagem! ID: ${msgId}`);
 
                 //const rementente = '0' + numeroWhats.slice(2);
                 //console.log(remetente);
