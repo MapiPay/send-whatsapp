@@ -54,9 +54,9 @@ async function extrairOpcao(message) {
 async function rotearOpcaoPF(opcao, numCliente) {
     if (opcao === 'pf_1') {
         await jsons.exibirSaldo(numCliente);
-    } else if (opcao === 'pf_2'){
+    } else if (opcao === 'pf_2') {
         console.log("Opção referente ao status PIX")
-    } else if(opcao === 'pf_3'){
+    } else if (opcao === 'pf_3') {
         console.log("Opção referente a alteração de cadastro")
     } else {
         console.log("Opção referente a falar com atendente")
@@ -65,24 +65,29 @@ async function rotearOpcaoPF(opcao, numCliente) {
 
 //VERIFICAR OPÇÃO PARA PJ
 async function rotearOpcaoPJ(opcao, numCliente) {
-    if(opcao === 'pj_1'){
+    if (opcao === 'pj_1') {
         console.log("Opção referente ao Financeiro")
-    } else if (opcao === 'pj_2'){
+    } else if (opcao === 'pj_2') {
         console.log("Opção referente ao status PIX")
-    } else if(opcao === 'pj_3'){
+    } else if (opcao === 'pj_3') {
         console.log("Opção referente ao pagamento QRCode")
-    } else if(opcao === 'pj_4'){
+    } else if (opcao === 'pj_4') {
         console.log("Opção referente ao envio da nota Fiscal")
-    } else if(opcao === 'pj_5'){
+    } else if (opcao === 'pj_5') {
         console.log("Opção referente ao atendimento comercial")
-    } else{
+    } else {
         console.log("Opção referente a falar com o Suporte")
     }
 }
 
 // CONSULTA BANCO DE DADOS
 function consulta(phone_number) {
-    let reqCliente = sRequest('GET', `https://api.mapipay.com.br/api/mapi/phone-number/${phone_number}`, { headers: { 'content-type': 'application/json' } })
+    let reqCliente = sRequest('GET', `https://api.mapipay.com.br/api/mapi/phone-number/${phone_number}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            'content-type': 'application/json'
+        }
+    })
     let resCliente = JSON.parse(reqCliente.body);
     return resCliente;
 }
