@@ -81,8 +81,8 @@ async function rotearOpcaoPJ(opcao, numCliente) {
 }
 
 // CONSULTA BANCO DE DADOS
-function consulta(documento) {
-    let reqCliente = sRequest('GET', `http://localhost:90/?documentNumber=${documento}`, { headers: { 'content-type': 'application/json' } })
+function consulta(phone_number) {
+    let reqCliente = sRequest('GET', `https://api.mapipay.com.br/api/mapi/phone-number/{phone_number}`, { headers: { 'content-type': 'application/json' } })
     let resCliente = JSON.parse(reqCliente.body);
     return resCliente;
 }
