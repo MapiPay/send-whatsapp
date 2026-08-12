@@ -1,7 +1,7 @@
 const axios = require('axios');
 const functions = require('./functions')
 const jsons = require('./jsons')
-const estadoCliente = require('./estadoCliente');
+
 
 async function iniciarFlow(message, body, req, res, numCliente, documento) {
     let cpfCnpj = '';
