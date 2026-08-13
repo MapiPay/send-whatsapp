@@ -3,7 +3,6 @@ const functions = require('./includes/functions');
 const webhookToken = require('./includes/webhookToken');
 const workflow = require('./includes/workflow');
 const jsons = require('./includes/jsons');
-const estadoCliente = require('./includes/estadoCliente');
 const { json } = require('body-parser');
 
 const app = express();
@@ -97,12 +96,10 @@ app.post('/', async (req, res) => {
                 }
 
                 // Esperando o valor escolhido pelo usuário no menu
-                const estado = await estadoCliente.getEstadoCliente(numCliente);
 
                 if (estado === 'aguardando_menu_pf' || estado === 'aguardando_menu_pj') {
                     const opcao = await functions.extrairOpcao(messages[0]);
                     console.log(`Opção selecionada: ${opcao}`)
-                    await estadoCliente.clearEstadoCliente(numCliente);
 
                     if (estado === 'aguardando_menu_pf') {
                         await functions.rotearOpcaoPF(opcao, numCliente)

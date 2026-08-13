@@ -1,7 +1,6 @@
 const axios = require('axios');
 const functions = require('./functions')
 const jsons = require('./jsons')
-const estadoCliente = require('./estadoCliente');
 
 async function iniciarFlow(message, body, req, res, numCliente, documento) {
     let cpfCnpj = '';
@@ -22,16 +21,12 @@ async function iniciarFlow(message, body, req, res, numCliente, documento) {
 
             jsons.menuCPF(numCliente);
 
-            await estadoCliente.setEstadoCliente(numCliente, 'aguardando_menu_pf')
-
             console.log('Início do flow CPF')
 
         } else if (cpfCnpj.length > 11) {
             console.log(`Cliente ${consultaDb.nomeEmpresarial} iniciou o atendimento para CNPJ`);
 
             jsons.menuCNPJ(numCliente)
-
-            await estadoCliente.setEstadoCliente(numCliente, 'aguardando_menu_pj')
 
             console.log('Início do flow CNPJ')
 
