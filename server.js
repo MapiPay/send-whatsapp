@@ -83,18 +83,18 @@ app.post('/', async (req, res) => {
                     }
                     //console.log(msgRecebida)
 
-                    const consultaCliente = functions.consulta(numCliente);
+                    const consultaCliente = functions.consulta(remetente);
                     console.log(consultaCliente);
 
                     if (msgRecebida === 'gerar token') {
-                        const tokenGerado = await webhookToken.gerarToken(numCliente, ddd, celular)
+                        const tokenGerado = await webhookToken.gerarToken(remetente, ddd, celular)
                         if (tokenGerado) {
-                            await webhookToken.enviarMensagem(numCliente, tokenGerado)
+                            await webhookToken.enviarMensagem(remetente, tokenGerado)
                         } else {
                             console.log("Erro no evio do token")
                         }
                     } else {
-                        await jsons.menuPrincipal(numCliente)
+                        await jsons.menuPrincipal(remetente)
                     }
                 }
             }
