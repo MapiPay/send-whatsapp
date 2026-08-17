@@ -1,7 +1,7 @@
 const axios = require('axios');
 const sRequest = require('sync-request');
 const jsons = require('./jsons');
-const token = "EAAUi1ZAjBIQwBSDdebW6EYGtHcbkUOctZCEHgwOsuHbZCzk7OZCjaAS2hPqNnnvf8sCPbxSzjFFvrHjngE25norNqcopUT3TEGHi6zKMsfWpZABfDkDYHBCRmnoJZA2Ov8ge6OOv58NUk1noj6hQTj6mYiBihEsupI4CrWL5864sBBKjp8jkLPzZBqp45KAesix3M5aRSJNbjY6YaZCCzLUHoerRaIm0SvPx01KDztEQj1yUMrxAljd2qJqWZARVEhrPGNl2ZCrCP8H2NTZCRwDKsHE";
+const token = "EAAUi1ZAjBIQwBR0ZCJMMrZCaZAkHZC8ZC9GUVSePNUwzDZAOO7fsGkGOFCJXRKo0nWwas8dni7NSQJ5bRWXw9r2lkDlnmIDZA2ocP7CGfIZCDo3v6sn8vl7gRcTxFZBGWzRMwGG1rSgXdBNOXyK5oBKPpIdqQRXKo1pPtTCxz4ocm6b3ToOPGVN2UsTVmkQJQHTgZDZD";
 const idPhoneNumber = "467766706416009";
 
 async function marcarComoLida(msgId) {
