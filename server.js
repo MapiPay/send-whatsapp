@@ -97,47 +97,6 @@ app.post('/', async (req, res) => {
                         await jsons.menuPrincipal(numCliente)
                     }
                 }
-
-                // Esperando o valor escolhido pelo usuário no menu
-
-                if (estado === 'aguardando_menu_pf' || estado === 'aguardando_menu_pj') {
-                    const opcao = await functions.extrairOpcao(messages[0]);
-                    console.log(`Opção selecionada: ${opcao}`)
-
-                    if (estado === 'aguardando_menu_pf') {
-                        await functions.rotearOpcaoPF(opcao, numCliente)
-                    }
-
-                    if(estado === 'aguardando_menu_pj'){
-                        await  functions.rotearOpcaoPJ(opcao, numCliente);
-                    }
-                    return;
-                }
-
-                if (ddd && celular) {
-                    if (clientesAguardandoDocumento[numCliente]) {
-                        documentoRecebido = messages[0].text.body.trim();
-                        console.log(`CPF/CNPJ recebido de ${numCliente}: ${documentoRecebido}`);
-
-                        delete clientesAguardandoDocumento[numCliente];
-
-                        await workflow.iniciarFlow(messages, body, req, res, numCliente, documentoRecebido);
-                    } else if (textoRecebido === 'token') {
-                        const tokenGerado = await webhookToken.gerarToken(numCliente, ddd, celular);
-                        //console.log(tokenGerado)
-
-                        if (tokenGerado) {
-                            await webhookToken.enviarMensagem(numCliente, tokenGerado);
-                        } else {
-                            webhookToken.erroEnvioToken(numCliente, ddd, celular);
-                            console.log(`Correntista não encontrado para o número ${numCliente}`)
-                        }
-                    } else {
-                        console.log(`Cliente ${numCliente} iniciou atendimento.`);
-                        await jsons.solicitarDocumento(numCliente);
-                        clientesAguardandoDocumento[numCliente] = true;
-                    }
-                }
             }
         } catch (err) {
             console.log("Erro ao processar o payload da Meta: ", err)
