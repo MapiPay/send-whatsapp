@@ -7,7 +7,7 @@ module.exports = {
     menuPrincipal: async function (destinatario) {
         try {
             const response = await axios.post(
-                `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
+				`https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
                 {
                     "messaging_product": 'whatsapp',
                     "to": destinatario,
@@ -25,8 +25,9 @@ module.exports = {
                     }
                 }
             )
+            return response.data
         } catch (err) {
-            console.log('Erro solicitar documento: ', response.err)
+            console.log('Erro solicitar documento: ', err.response ? err.response.data : err.message)
         }
     },
 
