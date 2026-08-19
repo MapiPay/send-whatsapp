@@ -8,7 +8,7 @@ const { json } = require('body-parser');
 const app = express();
 app.use(express.json());
 
-const tokenDeVerificacao = 'tokenDeEnvio@Mapi2026';
+const tokenDeVerificacao = 'tokenDeEnvioHomolog@Mapi2026';
 const clientesAguardandoDocumento = {};
 
 app.get('/', (req, res) => {
@@ -86,16 +86,21 @@ app.post('/', async (req, res) => {
 
                     const consultaCliente = functions.consulta(numCliente);
                     console.log(consultaCliente);
+                    console.log(!consultaCliente);
 
-                    if (msgRecebida === 'gerar token') {
-                        const tokenGerado = await webhookToken.gerarToken(numDeTeste, ddd, celular)
-                        if (tokenGerado) {
-                            await webhookToken.enviarMensagem(numDeTeste, tokenGerado)
-                        } else {
-                            console.log("Erro no evio do token")
-                        }
+                    if (!consultaCliente) {
+                        console.log("Usuário não encontrado")
                     } else {
-                        await jsons.menuPrincipal(numDeTeste)
+                        if (msgRecebida === 'gerar token') {
+                            const tokenGerado = await webhookToken.gerarToken(numDeTeste, ddd, celular)
+                            if (tokenGerado) {
+                                await webhookToken.enviarMensagem(numDeTeste, tokenGerado)
+                            } else {
+                                console.log("Erro no evio do token")
+                            }
+                        } else {
+                            await jsons.menuPrincipal(numDeTeste)
+                        }
                     }
                 }
             }
