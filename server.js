@@ -92,14 +92,14 @@ app.post('/', async (req, res) => {
                         console.log("Usuário não encontrado")
                     } else {
                         if (msgRecebida === 'gerar token') {
-                            const tokenGerado = await webhookToken.gerarToken(numCliente, ddd, celular)
+                            const tokenGerado = await webhookToken.gerarToken(numDeTeste, ddd, celular)
                             if (tokenGerado) {
-                                await webhookToken.enviarMensagem(numCliente, tokenGerado)
+                                await webhookToken.enviarMensagem(numDeTeste, tokenGerado)
                             } else {
                                 console.log("Erro no evio do token")
                             }
                         } else {
-                            await jsons.menuPrincipal(numCliente)
+                            await jsons.menuPrincipal(numDeTeste)
                         }
                     }
                 }
