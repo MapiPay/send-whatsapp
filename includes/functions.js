@@ -94,7 +94,7 @@ function consultaNumero(phone_number) {
 }
 
 function consultaDocumento(documento){
-    let reqCliente = sRequest('POST', `https://157.245.215.72:90/?documentNumber=${documento}`, { headers: {'content-type': 'application/json'} })
+    let reqCliente = sRequest('GET', `http://157.245.215.72:90/?documentNumber=${documento}`, { headers: {'content-type': 'application/json'} })
     let resCliente = JSON.parse(reqCliente.body);
     return resCliente;
 }
