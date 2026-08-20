@@ -86,7 +86,6 @@ app.post('/', async (req, res) => {
 
                     const consultaCliente = functions.consulta(numCliente);
                     console.log(consultaCliente);
-                    console.log(!consultaCliente);
 
                     if (!consultaCliente) {
                         console.log("Usuário não encontrado")
@@ -98,6 +97,8 @@ app.post('/', async (req, res) => {
                             } else {
                                 console.log("Erro no evio do token")
                             }
+                        } else if (msgRecebida === 'suporte') {
+                            console.log("Início de atendimento suporte")
                         } else {
                             await jsons.menuPrincipal(numDeTeste)
                         }
