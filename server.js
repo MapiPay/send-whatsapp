@@ -90,6 +90,11 @@ app.post('/', async (req, res) => {
 
                     if (!consultaCliente) {
                         console.log("Usuário não encontrado")
+                    } else if (clientesAguardandoDocumento[numDeTeste]) {
+                        documentoRecebido = messages[0].text.body.trim();
+                        console.log(documentoRecebido);
+                        clientesAguardandoDocumento[numDeTeste] = false;
+                        await workflow.iniciarFlow(numDeTeste, documentoRecebido);
                     } else {
                         if (msgRecebida === 'gerar token') {
                             const tokenGerado = await webhookToken.gerarToken(numDeTeste, ddd, celular)
@@ -101,11 +106,7 @@ app.post('/', async (req, res) => {
                         } else if (msgRecebida === 'suporte') {
                             console.log("Início de atendimento suporte");
                             await jsons.solicitarDocumento(numDeTeste);
-                            if(clientesAguardandoDocumento[numDeTeste]){
-                                documentoRecebido = messages[0].text.body.trim();
-                                console.log(documentoRecebido);
-                            }
-                            await workflow.iniciarFlow(numDeTeste, documentoRecebido);
+                            clientesAguardandoDocumento[numDeTeste] = true;
                         } else if (msgRecebida === 'financeito') {
                             console.log("Início de atendimento financeiro")
                         } else {
