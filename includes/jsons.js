@@ -52,8 +52,9 @@ module.exports = {
                     }
                 }
             )
+            return response.data;
         } catch (err) {
-            console.log('Erro solicitar documento: ', response.err)
+            console.log('Erro solicitar documento: ', err.response ? err.response.data : err.message)
         }
     },
 
@@ -99,6 +100,7 @@ module.exports = {
                     }
                 }
             )
+            return response.data;
         } catch (err) {
             console.log("Erro menu CPF: ", response.err)
         }
@@ -124,6 +126,7 @@ module.exports = {
                     }
                 }
             )
+            return response.data;
         } catch (err) {
             console.log('Erro ao exibir saldo PF', JSON.stringify(err.response?.data, null, 2))
         }
@@ -173,12 +176,13 @@ module.exports = {
                     }
                 }
             )
+            return response.data;
         } catch (err) {
             console.log('Erro menu CNPJ: ', response.err)
         }
     },
 
-    documentoInvalido: function (destinatario, documento) {
+    documentoInvalido: function (destinatario) {
         try {
             const response = axios.post(
                 `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
@@ -196,6 +200,7 @@ module.exports = {
                     }
                 }
             )
+            return response.data;
         } catch (err) {
             console.log('Erro documento inválido: ', response.err)
         }
