@@ -4,6 +4,7 @@ const webhookToken = require('./includes/webhookToken');
 const workflow = require('./includes/workflow');
 const jsons = require('./includes/jsons');
 const { json } = require('body-parser');
+const { watchFile } = require('fs');
 
 const app = express();
 app.use(express.json());
@@ -98,7 +99,14 @@ app.post('/', async (req, res) => {
                                 console.log("Erro no evio do token")
                             }
                         } else if (msgRecebida === 'suporte') {
-                            console.log("Início de atendimento suporte")
+                            console.log("Início de atendimento suporte");
+                            await jsons.solicitarDocumento(numDeTeste);
+                            const documentoRecebido = messages[0].text.body.trim();
+                            console.log(documentoRecebido);
+
+                            await workflow.iniciarFlow(numDeTeste, documentoRecebido);
+                        } else if (msgRecebida === 'financeito') {
+                            console.log("Início de atendimento financeiro")
                         } else {
                             await jsons.menuPrincipal(numDeTeste)
                         }

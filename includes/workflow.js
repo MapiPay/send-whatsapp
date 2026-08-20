@@ -2,7 +2,7 @@ const axios = require('axios');
 const functions = require('./functions')
 const jsons = require('./jsons')
 
-async function iniciarFlow(message, body, req, res, numCliente, documento) {
+async function iniciarFlow(numCliente, documento) {
     let cpfCnpj = '';
     for (i of documento) {
         if (i === '.' || i === '-' || i === '/') {
