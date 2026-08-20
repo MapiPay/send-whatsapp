@@ -107,8 +107,10 @@ app.post('/', async (req, res) => {
                             console.log("Início de atendimento suporte");
                             await jsons.solicitarDocumento(numDeTeste);
                             clientesAguardandoDocumento[numDeTeste] = true;
-                        } else if (msgRecebida === 'financeito') {
+                        } else if (msgRecebida === 'financeiro') {
                             console.log("Início de atendimento financeiro")
+                            await jsons.solicitarDocumento(numDeTeste);
+                            clientesAguardandoDocumento[numDeTeste] = true;
                         } else {
                             await jsons.menuPrincipal(numDeTeste)
                         }
