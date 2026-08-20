@@ -101,9 +101,10 @@ app.post('/', async (req, res) => {
                         } else if (msgRecebida === 'suporte') {
                             console.log("Início de atendimento suporte");
                             await jsons.solicitarDocumento(numDeTeste);
-                            documentoRecebido = messages[0].text.body.trim();
-                            console.log(documentoRecebido);
-
+                            if(clientesAguardandoDocumento[numDeTeste]){
+                                documentoRecebido = messages[0].text.body.trim();
+                                console.log(documentoRecebido);
+                            }
                             await workflow.iniciarFlow(numDeTeste, documentoRecebido);
                         } else if (msgRecebida === 'financeito') {
                             console.log("Início de atendimento financeiro")
