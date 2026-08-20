@@ -85,7 +85,7 @@ app.post('/', async (req, res) => {
                     }
                     //console.log(msgRecebida)
 
-                    const consultaCliente = functions.consulta(numCliente);
+                    const consultaCliente = functions.consultaNumero(numCliente);
                     console.log(consultaCliente);
 
                     if (!consultaCliente) {

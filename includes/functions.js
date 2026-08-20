@@ -81,7 +81,7 @@ async function rotearOpcaoPJ(opcao, numCliente) {
 }
 
 // CONSULTA BANCO DE DADOS
-function consulta(phone_number) {
+function consultaNumero(phone_number) {
     const credenciais = Buffer.from("consultamapi@mapi.com.br:m6f%VWdG^ngBB1h&vMNnPiJJyR").toString('base64')
     let reqCliente = sRequest('GET', `https://api.mapipay.com.br/api/mapi/phone-number/${phone_number}`, {
         headers: {
@@ -93,11 +93,18 @@ function consulta(phone_number) {
     return resCliente;
 }
 
+function consultaDocumento(documento){
+    let reqCliente = sRequest('POST', `https://157.245.215.72:90/?documentNumber=${documento}`, { headers: {'content-type': 'application/json'} })
+    let resCliente = JSON.parse(reqCliente.body);
+    return resCliente;
+}
+
 
 module.exports = {
     marcarComoLida,
     extrairOpcao,
     rotearOpcaoPF,
     rotearOpcaoPJ,
-    consulta
+    consultaNumero,
+    consultaDocumento
 }

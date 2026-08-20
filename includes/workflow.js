@@ -13,7 +13,7 @@ async function iniciarFlow(numCliente, documento) {
     
     console.log(cpfCnpj);
     try {
-        const consultaDb = functions.consulta(documento);
+        const consultaDb = functions.consultaDocumento(documento);
         console.log(consultaDb);
 
         if (cpfCnpj.length === 11) {
