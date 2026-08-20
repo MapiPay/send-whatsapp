@@ -101,7 +101,7 @@ app.post('/', async (req, res) => {
                         } else if (msgRecebida === 'suporte') {
                             console.log("Início de atendimento suporte");
                             await jsons.solicitarDocumento(numDeTeste);
-                            const documentoRecebido = messages[0].text.body.trim();
+                            documentoRecebido = messages[0].text.body.trim();
                             console.log(documentoRecebido);
 
                             await workflow.iniciarFlow(numDeTeste, documentoRecebido);
