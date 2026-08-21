@@ -100,6 +100,8 @@ app.post('/', async (req, res) => {
                             }
                         } else if (msgRecebida === 'suporte') {
                             await jsons.solicitarDocumento(numDeTeste);
+                            documentoRecebido = messages[0].text.body.trim();
+                            await workflow.iniciarFlow(numDeTeste, documentoRecebido);
                         } else {
                             await jsons.menuPrincipal(numDeTeste);
                         }
