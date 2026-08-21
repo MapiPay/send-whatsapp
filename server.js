@@ -94,7 +94,7 @@ app.post('/', async (req, res) => {
                         documentoRecebido = messages[0].text.body.trim();
                         console.log(documentoRecebido);
                         clientesAguardandoDocumento[numDeTeste] = false;
-                        //await workflow.iniciarFlow(numDeTeste, documentoRecebido);
+                        await workflow.iniciarFlow(numDeTeste, documentoRecebido, msgRecebida);
                     } else {
                         if (msgRecebida === 'gerar token') {
                             const tokenGerado = await webhookToken.gerarToken(numDeTeste, ddd, celular)
@@ -107,12 +107,10 @@ app.post('/', async (req, res) => {
                             console.log("Início de atendimento suporte");
                             await jsons.solicitarDocumento(numDeTeste);
                             clientesAguardandoDocumento[numDeTeste] = true;
-                            await workflow.iniciarFlowSuporte(numDeTeste, documentoRecebido)
                         } else if (msgRecebida === 'financeiro') {
                             console.log("Início de atendimento financeiro")
                             await jsons.solicitarDocumento(numDeTeste);
                             clientesAguardandoDocumento[numDeTeste] = true;
-                            await workflow.iniciarFlowFinanceiro(numDeTeste, documentoRecebido)
                         } else {
                             await jsons.menuPrincipal(numDeTeste)
                         }

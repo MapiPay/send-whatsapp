@@ -2,7 +2,7 @@ const axios = require('axios');
 const functions = require('./functions')
 const jsons = require('./jsons')
 
-async function iniciarFlowSuporte(numCliente, documento) {
+async function iniciarFlow(numCliente, documento, msgRecebida) {
     let cpfCnpj = '';
     for (i of documento) {
         if (i === '.' || i === '-' || i === '/') {
@@ -12,6 +12,7 @@ async function iniciarFlowSuporte(numCliente, documento) {
     }
 
     console.log(cpfCnpj);
+    console.log(msgRecebida)
     try {
         const documentoCliente = functions.consultaDocumento(documento);
         console.log(documentoCliente);
@@ -52,14 +53,31 @@ async function iniciarFlowFinanceiro(numCliente, documento) {
     try {
         const documentoCliente = functions.consultaDocumento(documento);
         console.log(documentoCliente)
-        console.log(`Início do fluxo para o financeiro para ${documentoCliente.nomeEmpresarial}`)
+        console.log(`Início do fluxo do financeiro para ${documentoCliente.nomeEmpresarial}`)
     } catch (err){
         console.log('iniciarFlowFinanceiro', err)
     }
 }
 
+async function iniciarFlowSuporte(numCliente, documento) {
+    let doc = '';
+    for (i of documento) {
+        if (i === '.' || i === '-' || i === '/') {
+            continue
+        }
+        doc += i;
+    }
+
+    try {
+        const documentoCliente = functions.consultaDocumento(documento);
+        console.log(documentoCliente)
+        console.log(`Início do fluxo de suporte para ${documentoCliente.nomeEmpresarial}`)
+    } catch (err){
+        console.log('iniciarFlowSuporte', err)
+    }
+}
+
 
 module.exports = {
-    iniciarFlowSuporte,
-    iniciarFlowFinanceiro
+    iniciarFlow,
 }
