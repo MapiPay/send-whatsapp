@@ -12,20 +12,29 @@ async function iniciarFlow(numCliente, documento, msgRecebida) {
     }
 
     console.log(cpfCnpj);
-    console.log(msgRecebida)
+    
+    if(msgRecebida === 'suporte'){
+        await iniciarFlowSuporte(numCliente, documento)
+    }
+    if(msgRecebida === 'financeiro'){
+        await iniciarFlowFinanceiro(numCliente, documento)
+    }
+}
+
+async function iniciarFlowFinanceiro(numCliente, documento) {
     try {
         const documentoCliente = functions.consultaDocumento(documento);
         console.log(documentoCliente);
 
         if (cpfCnpj.length === 11) {
-            console.log(`Cliente ${documentoCliente.nome} iniciou o atendimento para CPF`);
+            console.log(`Cliente ${documentoCliente.nome} iniciou o atendimento financeiro para CPF`);
 
             jsons.menuCPF(numCliente);
 
             console.log('Início do flow CPF')
 
         } else if (cpfCnpj.length > 11) {
-            console.log(`Cliente ${documentoCliente.nomeEmpresarial} iniciou o atendimento para CNPJ`);
+            console.log(`Cliente ${documentoCliente.nomeEmpresarial} iniciou o atendimento financeiro para CNPJ`);
 
             jsons.menuCNPJ(numCliente)
 
@@ -41,38 +50,31 @@ async function iniciarFlow(numCliente, documento, msgRecebida) {
     }
 }
 
-async function iniciarFlowFinanceiro(numCliente, documento) {
-    let doc = '';
-    for (i of documento) {
-        if (i === '.' || i === '-' || i === '/') {
-            continue
-        }
-        doc += i;
-    }
-
-    try {
-        const documentoCliente = functions.consultaDocumento(documento);
-        console.log(documentoCliente)
-        console.log(`Início do fluxo do financeiro para ${documentoCliente.nomeEmpresarial}`)
-    } catch (err){
-        console.log('iniciarFlowFinanceiro', err)
-    }
-}
-
 async function iniciarFlowSuporte(numCliente, documento) {
-    let doc = '';
-    for (i of documento) {
-        if (i === '.' || i === '-' || i === '/') {
-            continue
-        }
-        doc += i;
-    }
-
     try {
         const documentoCliente = functions.consultaDocumento(documento);
-        console.log(documentoCliente)
-        console.log(`Início do fluxo de suporte para ${documentoCliente.nomeEmpresarial}`)
-    } catch (err){
+        console.log(documentoCliente);
+
+        if (cpfCnpj.length === 11) {
+            console.log(`Cliente ${documentoCliente.nome} iniciou o atendimento suporte para CPF`);
+
+            jsons.menuCPF(numCliente);
+
+            console.log('Início do flow CPF')
+
+        } else if (cpfCnpj.length > 11) {
+            console.log(`Cliente ${documentoCliente.nomeEmpresarial} iniciou o atendimento suporte para CNPJ`);
+
+            jsons.menuCNPJ(numCliente)
+
+            console.log('Início do flow CNPJ')
+
+        } else {
+            console.log("Documento inválido");
+            jsons.documentoInvalido(numCliente, documento);
+            jsons.solicitarDocumento(numCliente);
+        }
+    } catch (err) {
         console.log('iniciarFlowSuporte', err)
     }
 }
