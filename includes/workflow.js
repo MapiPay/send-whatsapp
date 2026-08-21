@@ -80,4 +80,6 @@ async function iniciarFlowSuporte(numCliente, documento) {
 
 module.exports = {
     iniciarFlow,
+    iniciarFlowSuporte,
+    iniciarFlowFinanceiro
 }

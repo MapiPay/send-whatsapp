@@ -92,9 +92,9 @@ app.post('/', async (req, res) => {
                         console.log("Usuário não encontrado")
                     } else if (clientesAguardandoDocumento[numDeTeste]) {
                         documentoRecebido = messages[0].text.body.trim();
-                        console.log(documentoRecebido);
+                        //console.log(documentoRecebido);
                         clientesAguardandoDocumento[numDeTeste] = false;
-                        await workflow.iniciarFlow(numDeTeste, documentoRecebido, msgRecebida);
+                        //await workflow.iniciarFlow(numDeTeste, documentoRecebido, msgRecebida);
                     } else {
                         if (msgRecebida === 'gerar token') {
                             const tokenGerado = await webhookToken.gerarToken(numDeTeste, ddd, celular)
@@ -105,11 +105,17 @@ app.post('/', async (req, res) => {
                             }
                         } else if (msgRecebida === 'suporte') {
                             console.log("Início de atendimento suporte");
-                            await jsons.solicitarDocumento(numDeTeste);
+                            let verificacao = await jsons.solicitarDocumento(numDeTeste);
+                            if(verificacao){
+                                await workflow.iniciarFlowSuporte(numDeTeste, documentoRecebido);
+                            }
                             clientesAguardandoDocumento[numDeTeste] = true;
                         } else if (msgRecebida === 'financeiro') {
                             console.log("Início de atendimento financeiro")
-                            await jsons.solicitarDocumento(numDeTeste);
+                            let verificacao = await jsons.solicitarDocumento(numDeTeste);
+                            if(verificacao){
+                                await workflow.iniciarFlowFinanceiro(numDeTeste, documentoRecebido);
+                            }
                             clientesAguardandoDocumento[numDeTeste] = true;
                         } else {
                             await jsons.menuPrincipal(numDeTeste)
