@@ -91,7 +91,6 @@ app.post('/', async (req, res) => {
                     if (!consultaCliente) {
                         console.log("Usuário não encontrado")
                     } else if (clientesAguardandoDocumento[numDeTeste]) {
-                        await jsons.solicitarDocumento(numDeTeste);
                         documentoRecebido = messages[0].text.body.trim();
                         console.log(`CPF/CNPJ recebido de ${numCliente}: ${documentoRecebido}`);
                         clientesAguardandoDocumento[numDeTeste] = false;
@@ -104,6 +103,7 @@ app.post('/', async (req, res) => {
                                 console.log("Erro no evio do token")
                             }
                         } else if (msgRecebida === 'suporte') {
+                            await jsons.solicitarDocumento(numDeTeste);
                             clientesAguardandoDocumento[numDeTeste] = true;
                         }
                     }
