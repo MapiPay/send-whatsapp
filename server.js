@@ -92,7 +92,7 @@ app.post('/', async (req, res) => {
                         console.log("Usuário não encontrado")
                     } else if (clientesAguardandoDocumento[numDeTeste]) {
                         documentoRecebido = messages[0].text.body.trim();
-                        //console.log(documentoRecebido);
+                        console.log(`CPF/CNPJ recebido de ${numCliente}: ${documentoRecebido}`);
                         clientesAguardandoDocumento[numDeTeste] = false;
                     } else {
                         if (msgRecebida === 'gerar token') {
