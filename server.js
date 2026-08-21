@@ -93,10 +93,8 @@ app.post('/', async (req, res) => {
                     } else {
                         consultaCliente = await functions.consultaNumero(numCliente); // não esqueça do await se for assíncrona
                         clientesConsultados[numCliente] = consultaCliente;
+                        console.log(consultaCliente);
                     }
-
-                    console.log(consultaCliente);
-
 
                     if (!consultaCliente) {
                         console.log("Usuário não encontrado")
