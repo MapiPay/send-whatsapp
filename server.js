@@ -86,16 +86,17 @@ app.post('/', async (req, res) => {
                     }
                     //console.log(msgRecebida)
 
-                    let consultaCliente = clientesConsultados[numCliente];
+                    let consultaCliente;
 
-                    if (!consultaCliente) {
-                        consultaCliente = await functions.consultaNumero(numCliente);
-                        if (consultaCliente) {
-                            clientesConsultados[numCliente] = consultaCliente;
-                        }
+                    if (clientesConsultados.hasOwnProperty(numCliente)) {
+                        consultaCliente = clientesConsultados[numCliente];
+                    } else {
+                        consultaCliente = await functions.consultaNumero(numCliente); // não esqueça do await se for assíncrona
+                        clientesConsultados[numCliente] = consultaCliente;
                     }
 
-                    console.log(consultaCliente)
+                    console.log(consultaCliente);
+
 
                     if (!consultaCliente) {
                         console.log("Usuário não encontrado")
