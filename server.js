@@ -98,7 +98,7 @@ app.post('/', async (req, res) => {
 
                         if(msgRecebida === 'suporte'){
                             await workflow.iniciarFlowSuporte(numDeTeste, documentoRecebido)
-                        } else if (msgRecebida === ''){
+                        } else if (msgRecebida === 'financeiro'){
                             await workflow.iniciarFlowFinanceiro(numDeTeste, documentoRecebido)
                         }
 
