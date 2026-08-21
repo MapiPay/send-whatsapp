@@ -10,7 +10,7 @@ async function iniciarFlowSuporte(numCliente, documento) {
         }
         cpfCnpj += i;
     }
-    
+
     console.log(cpfCnpj);
     try {
         const documentoCliente = functions.consultaDocumento(documento);
@@ -36,14 +36,26 @@ async function iniciarFlowSuporte(numCliente, documento) {
             jsons.solicitarDocumento(numCliente);
         }
     } catch (err) {
-        console.log('iniciarFlow', err)
+        console.log('iniciarFlowSuporte', err)
     }
 }
 
 async function iniciarFlowFinanceiro(numCliente, documento) {
-    const documentoCliente = functions.consultaDocumento(documento);
-    console.log(documentoCliente)
-    console.log("Início do fluxo para o financeiro")
+    let doc = '';
+    for (i of documento) {
+        if (i === '.' || i === '-' || i === '/') {
+            continue
+        }
+        doc += i;
+    }
+
+    try {
+        const documentoCliente = functions.consultaDocumento(documento);
+        console.log(documentoCliente)
+        console.log(`Início do fluxo para o financeiro para ${documentoCliente.nomeEmpresarial}`)
+    } catch (err){
+        console.log('iniciarFlowFinanceiro', err)
+    }
 }
 
 
