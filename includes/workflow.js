@@ -2,7 +2,7 @@ const axios = require('axios');
 const functions = require('./functions')
 const jsons = require('./jsons')
 
-async function iniciarFlow(numCliente, documento) {
+async function iniciarFlowSuporte(numCliente, documento) {
     let cpfCnpj = '';
     for (i of documento) {
         if (i === '.' || i === '-' || i === '/') {
@@ -13,18 +13,18 @@ async function iniciarFlow(numCliente, documento) {
     
     console.log(cpfCnpj);
     try {
-        const consultaDb = functions.consultaDocumento(documento);
-        console.log(consultaDb);
+        const documentoCliente = functions.consultaDocumento(documento);
+        console.log(documentoCliente);
 
         if (cpfCnpj.length === 11) {
-            console.log(`Cliente ${consultaDb.nome} iniciou o atendimento para CPF`);
+            console.log(`Cliente ${documentoCliente.nome} iniciou o atendimento para CPF`);
 
             jsons.menuCPF(numCliente);
 
             console.log('Início do flow CPF')
 
         } else if (cpfCnpj.length > 11) {
-            console.log(`Cliente ${consultaDb.nomeEmpresarial} iniciou o atendimento para CNPJ`);
+            console.log(`Cliente ${documentoCliente.nomeEmpresarial} iniciou o atendimento para CNPJ`);
 
             jsons.menuCNPJ(numCliente)
 
@@ -40,7 +40,14 @@ async function iniciarFlow(numCliente, documento) {
     }
 }
 
+async function iniciarFlowFinanceiro(numCliente, documento) {
+    const documentoCliente = functions.consultaDocumento(documento);
+    console.log(documentoCliente)
+    console.log("Início do fluxo para o financeiro")
+}
+
 
 module.exports = {
-    iniciarFlow
+    iniciarFlowSuporte,
+    iniciarFlowFinanceiro
 }

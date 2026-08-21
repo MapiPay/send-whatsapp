@@ -94,7 +94,14 @@ app.post('/', async (req, res) => {
                         documentoRecebido = messages[0].text.body.trim();
                         console.log(documentoRecebido);
                         clientesAguardandoDocumento[numDeTeste] = false;
-                        await workflow.iniciarFlow(numDeTeste, documentoRecebido);
+                        //await workflow.iniciarFlow(numDeTeste, documentoRecebido);
+
+                        if(msgRecebida === 'suporte'){
+                            await workflow.iniciarFlowSuporte
+                        } else {
+                            await workflow.iniciarFlowFinanceiro
+                        }
+
                     } else {
                         if (msgRecebida === 'gerar token') {
                             const tokenGerado = await webhookToken.gerarToken(numDeTeste, ddd, celular)
