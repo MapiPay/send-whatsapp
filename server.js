@@ -11,6 +11,7 @@ app.use(express.json());
 
 const tokenDeVerificacao = 'tokenDeEnvioHomolog@Mapi2026';
 const clientesAguardandoDocumento = {};
+const clientesConsultados = {};
 
 app.get('/', (req, res) => {
     const mode = req.query['hub.mode'];
@@ -85,11 +86,28 @@ app.post('/', async (req, res) => {
                     }
                     //console.log(msgRecebida)
 
-                    const consultaCliente = functions.consultaNumero(numCliente);
-                    console.log(consultaCliente);
+                    let consultaCliente = clientesConsultados[numCliente];
+
+                    if (!consultaCliente) {
+                        consultaCliente = await functions.consultaNumero(numCliente);
+                        if (consultaCliente) {
+                            clientesConsultados[numCliente] = consultaCliente;
+                        }
+                    }
+
+                    console.log(consultaCliente)
 
                     if (!consultaCliente) {
                         console.log("Usuário não encontrado")
+                    } else if (clientesAguardandoDocumento[numDeTeste]) {
+                        if (messages[0].type !== 'text') {
+                            console.log("Esperando documento em texto, mas recebeu outro tipo de mensagem");
+                        } else {
+                            documentoRecebido = messages[0].text.body.trim();
+                            console.log(`CPF/CNPJ recebido de ${numCliente}: ${documentoRecebido}`);
+                            clientesAguardandoDocumento[numDeTeste] = false;
+                            await workflow.iniciarFlow(numDeTeste, documentoRecebido);
+                        }
                     } else {
                         if (msgRecebida === 'gerar token') {
                             const tokenGerado = await webhookToken.gerarToken(numDeTeste, ddd, celular)
@@ -100,8 +118,7 @@ app.post('/', async (req, res) => {
                             }
                         } else if (msgRecebida === 'suporte') {
                             await jsons.solicitarDocumento(numDeTeste);
-                            documentoRecebido = messages[0].text.body.trim();
-                            await workflow.iniciarFlow(numDeTeste, documentoRecebido);
+                            clientesAguardandoDocumento[numDeTeste] = true;
                         } else {
                             await jsons.menuPrincipal(numDeTeste);
                         }
