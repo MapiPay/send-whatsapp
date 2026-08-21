@@ -98,8 +98,8 @@ app.post('/', async (req, res) => {
                             } else {
                                 console.log("Erro no evio do token")
                             }
-                        } else if (msgRecebida === 'suporte') {
-                            await jsons.solicitarDocumento(numDeTeste);
+                        } else {
+                            await jsons.menuPrincipal(numDeTeste);
                         }
                     }
                 }
