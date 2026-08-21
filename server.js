@@ -90,10 +90,6 @@ app.post('/', async (req, res) => {
 
                     if (!consultaCliente) {
                         console.log("Usuário não encontrado")
-                    } else if (clientesAguardandoDocumento[numDeTeste]) {
-                        documentoRecebido = messages[0].text.body.trim();
-                        console.log(`CPF/CNPJ recebido de ${numCliente}: ${documentoRecebido}`);
-                        clientesAguardandoDocumento[numDeTeste] = false;
                     } else {
                         if (msgRecebida === 'gerar token') {
                             const tokenGerado = await webhookToken.gerarToken(numDeTeste, ddd, celular)
@@ -104,7 +100,6 @@ app.post('/', async (req, res) => {
                             }
                         } else if (msgRecebida === 'suporte') {
                             await jsons.solicitarDocumento(numDeTeste);
-                            clientesAguardandoDocumento[numDeTeste] = true;
                         }
                     }
                 }
