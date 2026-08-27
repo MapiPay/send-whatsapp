@@ -77,6 +77,8 @@ app.post('/', async (req, res) => {
 
                 if (ddd && celular) {
                     let msgRecebida = '';
+                    let opcaoRoteada = false;
+
                     if (messages[0].type === 'text') {
                         msgRecebida = messages[0].text.body.toLowerCase();
                     } else if (messages[0].type === 'button') {
@@ -88,19 +90,26 @@ app.post('/', async (req, res) => {
                             const reply = interactiveType === 'button_reply' ? messages[0].interactive.button_reply : messages[0].interactive.list_reply;
 
                             const opcaoId = reply?.id;
-                            const etapa = estadoCliente.get(numCliente);
+                            const etapa = estadoCliente.get(numDeTeste);
 
                             if (etapa === 'menu_pf') {
-                                await functions.rotearOpcaoPF(opcaoId, numCliente, estadoCliente);
+                                await functions.rotearOpcaoPF(opcaoId, numDeTeste, estadoCliente);
+                                opcaoRoteada = true;
                             } else if (etapa === 'menu_pj') {
-                                await functions.rotearOpcaoPJ(opcaoId, numCliente, estadoCliente);
+                                await functions.rotearOpcaoPJ(opcaoId, numDeTeste, estadoCliente);
+                                opcaoRoteada = true;
                             } else {
                                 msgRecebida = reply?.title?.toLowerCase() ?? '';
                             }
                         } else if (interactiveType === 'nfm_reply') {
                             console.log('Resposta de Flow recebida:', messages[0].interactive.nfm_reply?.response_json);
+                            opcaoRoteada = true;
                         } else {
                             console.log('Subtipo interactive não tratado:', interactiveType);
+                        }
+
+                        if(opcaoRoteada){
+                            return;
                         }
                     }
                     //console.log(msgRecebida)
