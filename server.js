@@ -82,9 +82,17 @@ app.post('/', async (req, res) => {
                     } else if (messages[0].type === 'button') {
                         msgRecebida = messages[0].button.text.toLowerCase();
                     } else if (messages[0].type === 'interactive') {
-                        msgRecebida = messages[0].interactive.button_reply.title.toLowerCase();
+                        if (interactiveType === 'button_reply') {
+                            msgRecebida = messages[0].interactive.button_reply?.title?.toLowerCase()
+                        } else if (interactiveType === 'list_reply') {
+                            msgRecebida = messages[0].interactive.list_reply?.title?.toLowerCase() 
+                        } else if (interactiveType === 'nfm_reply') {
+                            console.log('Resposta de Flow recebida:', messages[0].interactive.nfm_reply?.response_json);
+                        } else {
+                            console.warn('Subtipo interactive não tratado:', interactiveType);
+                        }
                     }
-                    //console.log(msgRecebida)
+                    console.log(msgRecebida)
 
                     let consultaCliente;
 
