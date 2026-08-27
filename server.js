@@ -3,8 +3,6 @@ const functions = require('./includes/functions');
 const webhookToken = require('./includes/webhookToken');
 const workflow = require('./includes/workflow');
 const jsons = require('./includes/jsons');
-const { json } = require('body-parser');
-const { watchFile } = require('fs');
 
 const app = express();
 app.use(express.json());
@@ -12,6 +10,8 @@ app.use(express.json());
 const tokenDeVerificacao = 'tokenDeEnvioHomolog@Mapi2026';
 const clientesAguardandoDocumento = {};
 const clientesConsultados = {};
+
+const estadoCliente = new Map();
 
 app.get('/', (req, res) => {
     const mode = req.query['hub.mode'];
@@ -84,16 +84,27 @@ app.post('/', async (req, res) => {
                     } else if (messages[0].type === 'interactive') {
                         const interactiveType = messages[0].interactive?.type;
                         if (interactiveType === 'button_reply') {
+                            const opcaoId = messages[0].interactive.button_reply?.id;
+                            const etapa = estadoCliente.get(numCliente);
+
+                            if (etapa === 'menu_pf') {
+                                await functions.rotearOpcaoPF(opcaoId, numCliente, estadoCliente);
+                            } else if (etapa === 'menu_pj') {
+                                await functions.rotearOpcaoPJ(opcaoId, numCliente, estadoCliente); // equivalente para CNPJ, se já existir
+                            } else {
+                                msgRecebida = messages[0].interactive.button_reply?.title?.toLowerCase() ?? '';
+                            }
+
                             msgRecebida = messages[0].interactive.button_reply?.title?.toLowerCase()
                         } else if (interactiveType === 'list_reply') {
-                            msgRecebida = messages[0].interactive.list_reply?.title?.toLowerCase() 
+                            msgRecebida = messages[0].interactive.list_reply?.title?.toLowerCase()
                         } else if (interactiveType === 'nfm_reply') {
                             console.log('Resposta de Flow recebida:', messages[0].interactive.nfm_reply?.response_json);
                         } else {
                             console.warn('Subtipo interactive não tratado:', interactiveType);
                         }
                     }
-                    console.log(msgRecebida)
+                    //console.log(msgRecebida)
 
                     let consultaCliente;
 
@@ -116,7 +127,7 @@ app.post('/', async (req, res) => {
                             documentoRecebido = messages[0].text.body.trim();
                             console.log(`CPF/CNPJ recebido de ${numCliente}: ${documentoRecebido}`);
                             clientesAguardandoDocumento[numDeTeste] = false;
-                            await workflow.iniciarFlow(numDeTeste, documentoRecebido);
+                            await workflow.iniciarFlow(numDeTeste, documentoRecebido, estadoCliente);
                         }
                     } else {
                         if (msgRecebida === 'gerar token') {

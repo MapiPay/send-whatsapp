@@ -51,7 +51,7 @@ async function extrairOpcao(message) {
 }
 
 // VERIFICAR OPÇÃO PARA PF
-async function rotearOpcaoPF(opcao, numCliente) {
+async function rotearOpcaoPF(opcao, numCliente, estadoCliente) {
     if (opcao === 'pf_1') {
         await jsons.exibirSaldo(numCliente);
     } else if (opcao === 'pf_2') {
@@ -61,10 +61,12 @@ async function rotearOpcaoPF(opcao, numCliente) {
     } else {
         console.log("Opção referente a falar com atendente")
     }
+
+    estadoCliente.delete(numCliente);
 }
 
 //VERIFICAR OPÇÃO PARA PJ
-async function rotearOpcaoPJ(opcao, numCliente) {
+async function rotearOpcaoPJ(opcao, numCliente, estadoCliente) {
     if (opcao === 'pj_1') {
         console.log("Opção referente ao Financeiro")
     } else if (opcao === 'pj_2') {
@@ -78,6 +80,8 @@ async function rotearOpcaoPJ(opcao, numCliente) {
     } else {
         console.log("Opção referente a falar com o Suporte")
     }
+
+    estadoCliente.delete(numCliente);
 }
 
 // CONSULTA BANCO DE DADOS
