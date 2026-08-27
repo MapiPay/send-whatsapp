@@ -20,7 +20,7 @@ async function iniciarFlow(numCliente, documento, estadoCliente) {
         if (cpfCnpj.length === 11) {
             console.log(`Cliente ${documentoCliente.nome} iniciou o atendimento financeiro para CPF`);
 
-            await jsons.menuCPF(numCliente);
+            jsons.menuCPF(numCliente);
 
             estadoCliente.set(numCliente, 'menu_pf')
             
@@ -29,7 +29,7 @@ async function iniciarFlow(numCliente, documento, estadoCliente) {
         } else if (cpfCnpj.length > 11) {
             console.log(`Cliente ${documentoCliente.nomeEmpresarial} iniciou o atendimento financeiro para CNPJ`);
 
-            await jsons.menuCNPJ(numCliente)
+            jsons.menuCNPJ(numCliente)
 
             estadoCliente.set(numCliente, 'menu_pj')
 
