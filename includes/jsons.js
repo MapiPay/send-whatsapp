@@ -114,9 +114,12 @@ module.exports = {
                 {
                     "messaging_product": "whatsapp",
                     "to": destinatario,
-                    "type": 'text',
-                    "text": {
-                        "body": "Seu saldo Conta Digital é de R$300,00 e de Benefícios é de R$644,00"
+                    "type": 'template',
+                    "template": {
+                        "name": "saldo_conta",
+                        "language": {
+                            "code": "pt_BR"
+                        }
                     }
                 },
                 {

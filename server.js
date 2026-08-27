@@ -96,7 +96,7 @@ app.post('/', async (req, res) => {
                         console.log(consultaCliente);
                     }
                     const contaCliente = consultaCliente.data.account_number;
-                    console.log(contaCliente)
+                    //console.log(contaCliente)
 
                     if (!consultaCliente) {
                         console.log("Usuário não encontrado")
