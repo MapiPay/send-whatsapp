@@ -82,6 +82,7 @@ app.post('/', async (req, res) => {
                     } else if (messages[0].type === 'button') {
                         msgRecebida = messages[0].button.text.toLowerCase();
                     } else if (messages[0].type === 'interactive') {
+                        const interactiveType = messages[0].interactive?.type;
                         if (interactiveType === 'button_reply') {
                             msgRecebida = messages[0].interactive.button_reply?.title?.toLowerCase()
                         } else if (interactiveType === 'list_reply') {
