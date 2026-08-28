@@ -131,6 +131,8 @@ app.post('/', async (req, res) => {
                         } else {
                             console.log("Erro no envio do token")
                         }
+                    } else if (msgRecebida === 'suporte') {
+                        jsons.menu(numDeTeste);
                     } else if (clientesAguardandoDocumento[numDeTeste]) {
                         if (messages[0].type !== 'text') {
                             console.log("Esperando documento em texto, mas recebeu outro tipo de mensagem");
@@ -146,7 +148,7 @@ app.post('/', async (req, res) => {
                         await jsons.solicitarDocumento(numDeTeste)
                     } else {
                         const contaCliente = consultaCliente.data.account_number;
-                        await jsons.menu(numDeTeste, contaCliente);
+                        await jsons.menuPrincipal(numDeTeste);
                         estadoCliente.set(numDeTeste, 'menu_pf');
                     }
                 }
