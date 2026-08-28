@@ -74,6 +74,7 @@ app.post('/', async (req, res) => {
                 let numCliente = '0' + ddd + numeroWhats;
                 console.log(numCliente);
                 console.log(numDeTeste);
+                console.log(remetente);
                 let documentoRecebido;
 
                 if (ddd && celular) {
@@ -91,10 +92,10 @@ app.post('/', async (req, res) => {
                             const reply = interactiveType === 'button_reply' ? messages[0].interactive.button_reply : messages[0].interactive.list_reply;
 
                             const opcaoId = reply?.id;
-                            const etapa = estadoCliente.get(numCliente);
+                            const etapa = estadoCliente.get(remetente);
 
                             if (etapa === 'menu_pf') {
-                                await functions.rotearOpcao(opcaoId, numCliente, estadoCliente);
+                                await functions.rotearOpcao(opcaoId, remetente, estadoCliente);
                                 opcaoRoteada = true;
                             } else {
                                 msgRecebida = reply?.title?.toLowerCase() ?? '';
@@ -114,8 +115,8 @@ app.post('/', async (req, res) => {
 
                     let consultaCliente;
 
-                    if (clientesConsultados.hasOwnProperty(numCliente)) {
-                        consultaCliente = clientesConsultados[numCliente];
+                    if (clientesConsultados.hasOwnProperty(remetente)) {
+                        consultaCliente = clientesConsultados[remetente];
                     } else {
                         consultaCliente = await functions.consultaNumero(numCliente);
                         clientesConsultados[numCliente] = consultaCliente;
@@ -130,11 +131,11 @@ app.post('/', async (req, res) => {
                             console.log("Erro no envio do token")
                         }
                     } else if (msgRecebida === 'suporte') {
-                        await workflow.iniciarFlow(numCliente, estadoCliente);
+                        await workflow.iniciarFlow(remetente, estadoCliente);
                     } else {
                         const contaCliente = consultaCliente.data.account_number;
-                        await jsons.menuPrincipal(numCliente);
-                        estadoCliente.set(numCliente, 'menu_pf');
+                        await jsons.menuPrincipal(remetente);
+                        estadoCliente.set(remetente, 'menu_pf');
                     }
                 }
             }
