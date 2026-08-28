@@ -118,15 +118,15 @@ app.post('/', async (req, res) => {
                     if (clientesConsultados.hasOwnProperty(remetente)) {
                         consultaCliente = clientesConsultados[remetente];
                     } else {
-                        consultaCliente = await functions.consultaNumero(numCliente);
-                        clientesConsultados[numCliente] = consultaCliente;
+                        consultaCliente = await functions.consultaNumero(remetente);
+                        clientesConsultados[remetente] = consultaCliente;
                         console.log(consultaCliente);
                     }
 
                     if (msgRecebida === 'gerar token') {
-                        const tokenGerado = await webhookToken.gerarToken(numCliente, ddd, celular)
+                        const tokenGerado = await webhookToken.gerarToken(remetente, ddd, celular)
                         if (tokenGerado) {
-                            await webhookToken.enviarMensagem(numCliente, tokenGerado)
+                            await webhookToken.enviarMensagem(remetente, tokenGerado)
                         } else {
                             console.log("Erro no envio do token")
                         }
