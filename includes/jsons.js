@@ -124,48 +124,13 @@ module.exports = {
                             {
                                 'type': 'body',
                                 'parameters': [
-                                    {
-                                        'type': 'text',
-                                        'text': '123,00'
-                                    }
+                                    { "type": "text", "text": "123,00" },
+                                    { "type": "text", "text": "123,00" },
+                                    { "type": "text", "text": "123,00" },
+                                    { "type": "text", "text": "123,00" },
+                                    { "type": "text", "text": "123,00" }
                                 ]
                             },
-                            {
-                               'type': 'body',
-                                'parameters': [
-                                    {
-                                        'type': 'text',
-                                        'text': '123,00'
-                                    }
-                                ] 
-                            },
-                            {
-                                'type': 'body',
-                                'parameters': [
-                                    {
-                                        'type': 'text',
-                                        'text': '123,00'
-                                    }
-                                ]
-                            },
-                            {
-                                'type': 'body',
-                                'parameters': [
-                                    {
-                                        'type': 'text',
-                                        'text': '123,00'
-                                    }
-                                ]
-                            },
-                            {
-                                'type': 'body',
-                                'parameters': [
-                                    {
-                                        'type': 'text',
-                                        'text': '123,00'
-                                    }
-                                ]
-                            }
                         ]
                     }
                 },
