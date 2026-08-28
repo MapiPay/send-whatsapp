@@ -58,7 +58,7 @@ module.exports = {
         }
     },
 
-    menu: function (destinatario) {
+    menu: function (destinatario, contaCliente) {
         try {
             const response = axios.post(
                 `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,

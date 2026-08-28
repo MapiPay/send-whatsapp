@@ -108,7 +108,7 @@ app.post('/', async (req, res) => {
                             console.log('Subtipo interactive não tratado:', interactiveType);
                         }
 
-                        if(opcaoRoteada){
+                        if (opcaoRoteada) {
                             return;
                         }
                     }
@@ -119,15 +119,18 @@ app.post('/', async (req, res) => {
                     if (clientesConsultados.hasOwnProperty(numCliente)) {
                         consultaCliente = clientesConsultados[numCliente];
                     } else {
-                        consultaCliente = await functions.consultaNumero(numCliente); // não esqueça do await se for assíncrona
+                        consultaCliente = await functions.consultaNumero(numCliente);
                         clientesConsultados[numCliente] = consultaCliente;
                         console.log(consultaCliente);
                     }
-                    const contaCliente = consultaCliente.data.account_number;
-                    //console.log(contaCliente)
 
-                    if (!consultaCliente) {
-                        console.log("Usuário não encontrado")
+                    if (msgRecebida === 'gerar token') {
+                        const tokenGerado = await webhookToken.gerarToken(numDeTeste, ddd, celular)
+                        if (tokenGerado) {
+                            await webhookToken.enviarMensagem(numDeTeste, tokenGerado)
+                        } else {
+                            console.log("Erro no envio do token")
+                        }
                     } else if (clientesAguardandoDocumento[numDeTeste]) {
                         if (messages[0].type !== 'text') {
                             console.log("Esperando documento em texto, mas recebeu outro tipo de mensagem");
@@ -137,20 +140,14 @@ app.post('/', async (req, res) => {
                             clientesAguardandoDocumento[numDeTeste] = false;
                             await workflow.iniciarFlow(numDeTeste, documentoRecebido, estadoCliente);
                         }
+                    } else if (!consultaCliente) {
+                        console.log("Usuário não encontrado pelo número, solicitando documento");
+                        clientesAguardandoDocumento[numDeTeste] = true;
+                        await jsons.solicitarDocumento(numDeTeste)
                     } else {
-                        if (msgRecebida === 'gerar token') {
-                            const tokenGerado = await webhookToken.gerarToken(numDeTeste, ddd, celular)
-                            if (tokenGerado) {
-                                await webhookToken.enviarMensagem(numDeTeste, tokenGerado)
-                            } else {
-                                console.log("Erro no evio do token")
-                            }
-                        } else if (msgRecebida === 'suporte') {
-                            jsons.menu(numDeTeste);
-                            //clientesAguardandoDocumento[numDeTeste] = true;
-                        } else {
-                            await jsons.menuPrincipal(numDeTeste);
-                        }
+                        const contaCliente = consultaCliente.data.account_number;
+                        await jsons.menu(numDeTeste, contaCliente);
+                        estadoCliente.set(numDeTeste, 'menu_pf');
                     }
                 }
             }
