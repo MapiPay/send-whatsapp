@@ -58,7 +58,7 @@ module.exports = {
         }
     },
 
-    menuCPF: function (destinatario) {
+    menu: function (destinatario) {
         try {
             const response = axios.post(
                 `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
@@ -84,10 +84,12 @@ module.exports = {
                                 {
                                     "title": 'Menu CPF',
                                     "rows": [
-                                        { "id": "pf_1", "title": "1 - Saldo" },
-                                        { "id": "pf_2", "title": "2 - Status PIX" },
-                                        { "id": "pf_3", "title": "3 - Alterar cadastro" },
-                                        { "id": "pf_4", "title": "4 - Falar com atendente" }
+                                        { "id": "op_1", "title": "1 - Saldo" },
+                                        { "id": "op_2", "title": "2 - PIX" },
+                                        { "id": "op_3", "title": "3 - QR Code / Pagamentos" },
+                                        { "id": "op_4", "title": "4 - Nota Fiscal" },
+                                        { "id": "op_4", "title": "5 - Comercial" },
+                                        { "id": "op_4", "title": "6 - Suporte" }
                                     ]
                                 }
                             ]
@@ -144,56 +146,6 @@ module.exports = {
             return response.data;
         } catch (err) {
             console.log('Erro ao exibir saldo PF', JSON.stringify(err.response?.data, null, 2))
-        }
-    },
-
-    menuCNPJ: function (destinatario) {
-        try {
-            const response = axios.post(
-                `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
-                {
-                    "messaging_product": "whatsapp",
-                    "to": destinatario,
-                    "type": "interactive",
-                    "interactive": {
-                        "type": "list",
-                        "header": {
-                            "type": "text",
-                            "text": "Atendimento Pessoa Jurídica"
-                        },
-                        "body": {
-                            "text": "Selecione uma das opções abaixo:"
-                        },
-                        "footer": {
-                            "text": "Escolha uma opção para continuar"
-                        },
-                        "action": {
-                            "button": "Ver opções",
-                            "sections": [
-                                {
-                                    "title": "Menu PJ",
-                                    "rows": [
-                                        { "id": "pj_1", "title": "1 - Financeiro" },
-                                        { "id": "pj_2", "title": "2 - PIX" },
-                                        { "id": "pj_3", "title": "3 - QR Code / Pagamentos" },
-                                        { "id": "pj_4", "title": "4 - Nota Fiscal" },
-                                        { "id": "pj_5", "title": "5 - Comercial" },
-                                        { "id": "pj_6", "title": "6 - Suporte" }
-                                    ]
-                                }
-                            ]
-                        }
-                    },
-                },
-                {
-                    "headers": {
-                        "Authorization": `Bearer ${token}`
-                    }
-                }
-            )
-            return response.data;
-        } catch (err) {
-            console.log('Erro menu CNPJ: ', response.err)
         }
     },
 

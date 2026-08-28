@@ -146,8 +146,8 @@ app.post('/', async (req, res) => {
                                 console.log("Erro no evio do token")
                             }
                         } else if (msgRecebida === 'suporte') {
-                            await jsons.solicitarDocumento(numDeTeste);
-                            clientesAguardandoDocumento[numDeTeste] = true;
+                            await jsons.menu(numDeTeste);
+                            //clientesAguardandoDocumento[numDeTeste] = true;
                         } else {
                             await jsons.menuPrincipal(numDeTeste);
                         }
