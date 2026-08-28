@@ -132,8 +132,8 @@ app.post('/', async (req, res) => {
                             console.log("Erro no envio do token")
                         }
                     } else if (msgRecebida === 'suporte') {
-                        jsons.menu(numDeTeste);
-                    } else if (clientesAguardandoDocumento[numDeTeste]) {
+                        await workflow.iniciarFlow(numDeTeste, estadoCliente);
+                    } /*else if (clientesAguardandoDocumento[numDeTeste]) {
                         if (messages[0].type !== 'text') {
                             console.log("Esperando documento em texto, mas recebeu outro tipo de mensagem");
                         } else {
@@ -146,7 +146,7 @@ app.post('/', async (req, res) => {
                         console.log("Usuário não encontrado pelo número, solicitando documento");
                         clientesAguardandoDocumento[numDeTeste] = true;
                         await jsons.solicitarDocumento(numDeTeste)
-                    } else {
+                    }*/ else {
                         const contaCliente = consultaCliente.data.account_number;
                         await jsons.menuPrincipal(numDeTeste);
                         estadoCliente.set(numDeTeste, 'menu_pf');

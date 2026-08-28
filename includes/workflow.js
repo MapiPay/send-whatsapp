@@ -4,7 +4,7 @@ const jsons = require('./jsons')
 
 async function iniciarFlow(numCliente, estadoCliente) {
     try {
-        console.log(`Cliente ${documentoCliente.nome} iniciou o atendimento financeiro para CPF`);
+        console.log(`Cliente iniciou o atendimento.`);
 
         jsons.menu(numCliente);
 
