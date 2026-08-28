@@ -77,12 +77,12 @@ module.exports = {
                                 {
                                     "title": 'Menu CPF',
                                     "rows": [
-                                        { "id": "pf_1", "title": "1 - Saldo" },
-                                        { "id": "pf_2", "title": "2 - PIX" },
-                                        { "id": "pf_3", "title": "3 - QR Code/Pagamentos" },
-                                        { "id": "pf_4", "title": "4 - Nota Fiscal" },
-                                        { "id": "pf_5", "title": "5 - Comercial" },
-                                        { "id": "pf_6", "title": "6 - Suporte" }
+                                        { "id": "op_1", "title": "1 - Saldo" },
+                                        { "id": "op_2", "title": "2 - PIX" },
+                                        { "id": "op_3", "title": "3 - QR Code/Pagamentos" },
+                                        { "id": "op_4", "title": "4 - Nota Fiscal" },
+                                        { "id": "op_5", "title": "5 - Comercial" },
+                                        { "id": "op_6", "title": "6 - Suporte" }
                                     ]
                                 }
                             ]

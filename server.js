@@ -133,20 +133,7 @@ app.post('/', async (req, res) => {
                         }
                     } else if (msgRecebida === 'suporte') {
                         await workflow.iniciarFlow(numDeTeste, estadoCliente);
-                    } /*else if (clientesAguardandoDocumento[numDeTeste]) {
-                        if (messages[0].type !== 'text') {
-                            console.log("Esperando documento em texto, mas recebeu outro tipo de mensagem");
-                        } else {
-                            documentoRecebido = messages[0].text.body.trim();
-                            console.log(`CPF/CNPJ recebido de ${numCliente}: ${documentoRecebido}`);
-                            clientesAguardandoDocumento[numDeTeste] = false;
-                            await workflow.iniciarFlow(numDeTeste, documentoRecebido, estadoCliente);
-                        }
-                    } else if (!consultaCliente) {
-                        console.log("Usuário não encontrado pelo número, solicitando documento");
-                        clientesAguardandoDocumento[numDeTeste] = true;
-                        await jsons.solicitarDocumento(numDeTeste)
-                    }*/ else {
+                    } else {
                         const contaCliente = consultaCliente.data.account_number;
                         await jsons.menuPrincipal(numDeTeste);
                         estadoCliente.set(numDeTeste, 'menu_pf');

@@ -51,34 +51,19 @@ async function extrairOpcao(message) {
 }
 
 // VERIFICAR OPÇÃO PARA PF
-async function rotearOpcaoPF(opcao, numCliente, estadoCliente) {
-    if (opcao === 'pf_1') {
+async function rotearOpcao(opcao, numCliente, estadoCliente) {
+    if (opcao === 'op_1') {
         await jsons.exibirSaldo(numCliente);
-    } else if (opcao === 'pf_2') {
+    } else if (opcao === 'op_2') {
         console.log("Opção referente ao status PIX")
-    } else if (opcao === 'pf_3') {
+    } else if (opcao === 'op_3') {
         console.log("Opção referente a alteração de cadastro")
-    } else {
-        console.log("Opção referente a falar com atendente")
-    }
-
-    estadoCliente.delete(numCliente);
-}
-
-//VERIFICAR OPÇÃO PARA PJ
-async function rotearOpcaoPJ(opcao, numCliente, estadoCliente) {
-    if (opcao === 'pj_1') {
-        console.log("Opção referente ao Financeiro")
-    } else if (opcao === 'pj_2') {
-        console.log("Opção referente ao status PIX")
-    } else if (opcao === 'pj_3') {
-        console.log("Opção referente ao pagamento QRCode")
-    } else if (opcao === 'pj_4') {
-        console.log("Opção referente ao envio da nota Fiscal")
-    } else if (opcao === 'pj_5') {
-        console.log("Opção referente ao atendimento comercial")
-    } else {
-        console.log("Opção referente a falar com o Suporte")
+    } else if (opcao === 'op_4') {
+        console.log("Opção referente a nota fiscal")
+    } else if (opcao === 'op_5') {
+        console.log("Opção referente ao Comercial")
+    } else if (opcao === 'op_6') {
+        console.log("Opção referente ao Suporte")
     }
 
     estadoCliente.delete(numCliente);
@@ -97,8 +82,8 @@ function consultaNumero(phone_number) {
     return resCliente;
 }
 
-function consultaDocumento(documento){
-    let reqCliente = sRequest('GET', `http://157.245.215.72:90/?documentNumber=${documento}`, { headers: {'content-type': 'application/json'} })
+function consultaDocumento(documento) {
+    let reqCliente = sRequest('GET', `http://157.245.215.72:90/?documentNumber=${documento}`, { headers: { 'content-type': 'application/json' } })
     let resCliente = JSON.parse(reqCliente.body);
     return resCliente;
 }
@@ -108,7 +93,6 @@ module.exports = {
     marcarComoLida,
     extrairOpcao,
     rotearOpcaoPF,
-    rotearOpcaoPJ,
     consultaNumero,
     consultaDocumento
 }
