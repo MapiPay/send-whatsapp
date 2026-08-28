@@ -68,7 +68,7 @@ module.exports = {
                     "type": 'interactive',
                     "interactive": {
                         "type": 'list',
-                        "header": { "type": 'text', "text": 'Atendimento Pessoa Física' },
+                        "header": { "type": 'text', "text": 'Atendimento Ao Cliente' },
                         "body": { "text": 'Selecione uma das opções abaixo:' },
                         "footer": { "text": 'Escolha uma opção para continuar' },
                         "action": {

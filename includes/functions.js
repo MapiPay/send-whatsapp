@@ -92,6 +92,7 @@ function consultaDocumento(documento) {
 module.exports = {
     marcarComoLida,
     extrairOpcao,
+    rotearOpcao,
     consultaNumero,
     consultaDocumento
 }
