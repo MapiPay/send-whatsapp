@@ -92,10 +92,10 @@ app.post('/', async (req, res) => {
                             const reply = interactiveType === 'button_reply' ? messages[0].interactive.button_reply : messages[0].interactive.list_reply;
 
                             const opcaoId = reply?.id;
-                            const etapa = estadoCliente.get(remetente);
+                            const etapa = estadoCliente.get(numDeTeste);
 
                             if (etapa === 'menu_pf') {
-                                await functions.rotearOpcao(opcaoId, remetente, estadoCliente);
+                                await functions.rotearOpcao(opcaoId, numDeTeste, estadoCliente);
                                 opcaoRoteada = true;
                             } else {
                                 msgRecebida = reply?.title?.toLowerCase() ?? '';
@@ -115,27 +115,27 @@ app.post('/', async (req, res) => {
 
                     let consultaCliente;
 
-                    if (clientesConsultados.hasOwnProperty(remetente)) {
-                        consultaCliente = clientesConsultados[remetente];
+                    if (clientesConsultados.hasOwnProperty(numDeTeste)) {
+                        consultaCliente = clientesConsultados[numDeTeste];
                     } else {
-                        consultaCliente = await functions.consultaNumero(remetente);
-                        clientesConsultados[remetente] = consultaCliente;
+                        consultaCliente = await functions.consultaNumero(numDeTeste);
+                        clientesConsultados[numDeTeste] = consultaCliente;
                         console.log(consultaCliente);
                     }
 
                     if (msgRecebida === 'gerar token') {
-                        const tokenGerado = await webhookToken.gerarToken(remetente, ddd, celular)
+                        const tokenGerado = await webhookToken.gerarToken(numDeTeste, ddd, celular)
                         if (tokenGerado) {
-                            await webhookToken.enviarMensagem(remetente, tokenGerado)
+                            await webhookToken.enviarMensagem(numDeTeste, tokenGerado)
                         } else {
                             console.log("Erro no envio do token")
                         }
                     } else if (msgRecebida === 'suporte') {
-                        await workflow.iniciarFlow(remetente, estadoCliente);
+                        await workflow.iniciarFlow(numDeTeste, estadoCliente);
                     } else {
                         const contaCliente = consultaCliente.data.account_number;
-                        await jsons.menuPrincipal(remetente);
-                        estadoCliente.set(remetente, 'menu_pf');
+                        await jsons.menuPrincipal(numDeTeste);
+                        estadoCliente.set(numDeTeste, 'menu_pf');
                     }
                 }
             }
