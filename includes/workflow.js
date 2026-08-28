@@ -6,14 +6,14 @@ async function iniciarFlow(numCliente, estadoCliente) {
     try {
         console.log(`Cliente iniciou o atendimento.`);
 
-        jsons.menu(numCliente);
+        await jsons.menu(numCliente);
 
         estadoCliente.set(numCliente, 'menu_pf')
 
         console.log('Início do flow CPF')
 
     } catch (err) {
-        console.log('iniciarFlowSuporte', err)
+        console.log('iniciarFlowSuporte', err.message)
     }
 }
 

@@ -58,9 +58,9 @@ module.exports = {
         }
     },
 
-    menu: function (destinatario, contaCliente) {
+    menu: async function (destinatario, contaCliente) {
         try {
-            const response = axios.post(
+            const response = await axios.post(
                 `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
                 {
                     "messaging_product": 'whatsapp',
@@ -68,45 +68,33 @@ module.exports = {
                     "type": 'interactive',
                     "interactive": {
                         "type": 'list',
-                        "header": {
-                            "type": 'text',
-                            "text": 'Atendimento Pessoa Física'
-                        },
-                        "body": {
-                            "text": 'Selecione uma das opções abaixo:'
-                        },
-                        "footer": {
-                            "text": 'Escolha uma opção para continuar',
-                        },
+                        "header": { "type": 'text', "text": 'Atendimento Pessoa Física' },
+                        "body": { "text": 'Selecione uma das opções abaixo:' },
+                        "footer": { "text": 'Escolha uma opção para continuar' },
                         "action": {
                             "button": 'Ver opções',
                             "sections": [
                                 {
                                     "title": 'Menu CPF',
                                     "rows": [
-                                        { "id": "op_1", "title": "1 - Saldo" },
-                                        { "id": "op_2", "title": "2 - PIX" },
-                                        { "id": "op_3", "title": "3 - QR Code / Pagamentos" },
-                                        { "id": "op_4", "title": "4 - Nota Fiscal" },
-                                        { "id": "op_4", "title": "5 - Comercial" },
-                                        { "id": "op_4", "title": "6 - Suporte" }
+                                        { "id": "pf_1", "title": "1 - Saldo" },
+                                        { "id": "pf_2", "title": "2 - PIX" },
+                                        { "id": "pf_3", "title": "3 - QR Code/Pagamentos" },
+                                        { "id": "pf_4", "title": "4 - Nota Fiscal" },
+                                        { "id": "pf_5", "title": "5 - Comercial" },
+                                        { "id": "pf_6", "title": "6 - Suporte" }
                                     ]
                                 }
                             ]
                         }
                     }
                 },
-                {
-                    "headers": {
-                        "Authorization": `Bearer ${token}`
-                    }
-                }
+                { "headers": { "Authorization": `Bearer ${token}`, 'Content-Type': 'application/json' } }
             )
             return response.data;
         } catch (err) {
-            console.log("Erro menu CPF: ", response.err)
+            console.log("Erro menu: ", err.response ? JSON.stringify(err.response.data, null, 2) : err.message)
         }
-
     },
 
     exibirSaldo: async function (destinatario) {
