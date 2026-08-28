@@ -7,7 +7,7 @@ module.exports = {
     menuPrincipal: async function (destinatario) {
         try {
             const response = await axios.post(
-				`https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
+                `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
                 {
                     "messaging_product": 'whatsapp',
                     "to": destinatario,
@@ -119,7 +119,54 @@ module.exports = {
                         "name": "saldo_conta",
                         "language": {
                             "code": "pt_BR"
-                        }
+                        },
+                        "components": [
+                            {
+                                'type': 'body',
+                                'parameters': [
+                                    {
+                                        'type': 'text',
+                                        'text': '123,00'
+                                    }
+                                ]
+                            },
+                            {
+                               'type': 'body',
+                                'parameters': [
+                                    {
+                                        'type': 'text',
+                                        'text': '123,00'
+                                    }
+                                ] 
+                            },
+                            {
+                                'type': 'body',
+                                'parameters': [
+                                    {
+                                        'type': 'text',
+                                        'text': '123,00'
+                                    }
+                                ]
+                            },
+                            {
+                                'type': 'body',
+                                'parameters': [
+                                    {
+                                        'type': 'text',
+                                        'text': '123,00'
+                                    }
+                                ]
+                            },
+                            {
+                                'type': 'body',
+                                'parameters': [
+                                    {
+                                        'type': 'text',
+                                        'text': '123,00'
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 },
                 {
