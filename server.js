@@ -93,10 +93,7 @@ app.post('/', async (req, res) => {
                             const etapa = estadoCliente.get(numDeTeste);
 
                             if (etapa === 'menu_pf') {
-                                await functions.rotearOpcaoPF(opcaoId, numDeTeste, estadoCliente);
-                                opcaoRoteada = true;
-                            } else if (etapa === 'menu_pj') {
-                                await functions.rotearOpcaoPJ(opcaoId, numDeTeste, estadoCliente);
+                                await functions.rotearOpcao(opcaoId, numDeTeste, estadoCliente);
                                 opcaoRoteada = true;
                             } else {
                                 msgRecebida = reply?.title?.toLowerCase() ?? '';
