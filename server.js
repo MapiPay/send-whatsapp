@@ -83,7 +83,6 @@ app.post('/', async (req, res) => {
 
                 //console.log(numDeTeste);
                 //console.log(remetente);
-                let documentoRecebido;
 
                 if (ddd && celular) {
                     let msgRecebida = '';
