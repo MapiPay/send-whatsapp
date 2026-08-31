@@ -74,9 +74,9 @@ app.post('/', async (req, res) => {
                 let numCliente = '0' + ddd + numeroWhats;
                 let number = '55' + ddd + celular;
                 console.log(number);
-                console.log(numCliente);
-                console.log(numDeTeste);
-                console.log(remetente);
+                //console.log(numCliente);
+                //console.log(numDeTeste);
+                //onsole.log(remetente);
                 let documentoRecebido;
 
                 if (ddd && celular) {
@@ -94,10 +94,10 @@ app.post('/', async (req, res) => {
                             const reply = interactiveType === 'button_reply' ? messages[0].interactive.button_reply : messages[0].interactive.list_reply;
 
                             const opcaoId = reply?.id;
-                            const etapa = estadoCliente.get(remetente);
+                            const etapa = estadoCliente.get(number);
 
                             if (etapa === 'menu_pf') {
-                                await functions.rotearOpcao(opcaoId, remetente, estadoCliente);
+                                await functions.rotearOpcao(opcaoId, number, estadoCliente);
                                 opcaoRoteada = true;
                             } else {
                                 msgRecebida = reply?.title?.toLowerCase() ?? '';
@@ -117,27 +117,27 @@ app.post('/', async (req, res) => {
 
                     let consultaCliente;
 
-                    if (clientesConsultados.hasOwnProperty(remetente)) {
-                        consultaCliente = clientesConsultados[remetente];
+                    if (clientesConsultados.hasOwnProperty(number)) {
+                        consultaCliente = clientesConsultados[number];
                     } else {
-                        consultaCliente = await functions.consultaNumero(remetente);
-                        clientesConsultados[remetente] = consultaCliente;
+                        consultaCliente = await functions.consultaNumero(number);
+                        clientesConsultados[number] = consultaCliente;
                         console.log(consultaCliente);
                     }
 
                     if (msgRecebida === 'gerar token') {
-                        const tokenGerado = await webhookToken.gerarToken(remetente, ddd, celular)
+                        const tokenGerado = await webhookToken.gerarToken(number, ddd, celular)
                         if (tokenGerado) {
-                            await webhookToken.enviarMensagem(remetente, tokenGerado)
+                            await webhookToken.enviarMensagem(number, tokenGerado)
                         } else {
                             console.log("Erro no envio do token")
                         }
                     } else if (msgRecebida === 'suporte') {
-                        await workflow.iniciarFlow(remetente, estadoCliente);
+                        await workflow.iniciarFlow(number, estadoCliente);
                     } else {
                         const contaCliente = consultaCliente.data.account_number;
-                        await jsons.menuPrincipal(remetente);
-                        estadoCliente.set(remetente, 'menu_pf');
+                        await jsons.menuPrincipal(number);
+                        estadoCliente.set(number, 'menu_pf');
                     }
                 }
             }
