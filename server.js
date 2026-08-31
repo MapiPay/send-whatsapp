@@ -44,7 +44,6 @@ app.post('/', async (req, res) => {
             if (messages && messages.length > 0) {
                 const msgId = messages[0].id;
                 const remetente = messages[0].from;
-                const numDeTeste = '5541992314305'
                 const tipoMensagem = messages[0].type;
                 console.log(`${name}, ${remetente} enviou uma mensagem! ID: ${msgId}`);
 
@@ -77,11 +76,13 @@ app.post('/', async (req, res) => {
                 await functions.marcarComoLida(msgId);
 
                 let numCliente = '0' + ddd + celular; // formato para uso interno
+                console.log(numCliente);
+
                 let number = '55' + ddd + celular; // formato para uso na API da Meta
                 console.log(number);
-                console.log(numCliente);
+                
                 //console.log(numDeTeste);
-                console.log(remetente);
+                //console.log(remetente);
                 let documentoRecebido;
 
                 if (ddd && celular) {
@@ -129,6 +130,9 @@ app.post('/', async (req, res) => {
                         clientesConsultados[numCliente] = consultaCliente;
                         console.log(consultaCliente);
                     }
+
+                    let resultadoConsulta = consultaCliente.success
+                    console.log(resultadoConsulta);
 
                     if (msgRecebida === 'gerar token') {
                         const tokenGerado = await webhookToken.gerarToken(remetente, ddd, celular)
