@@ -63,21 +63,21 @@ app.post('/', async (req, res) => {
                 let celular = '';
 
                 if (remetente.startsWith('55')) {
-                    if (remetente.length >= 12) {
-                        ddd = remetente.substring(2, 4);
-                        celular = '9' + remetente.substring(4);
-                    } else {
-                        ddd = remetente.substring(2, 4);
-                        celular = remetente.substring(4);
-                    }
+                    ddd = remetente.substring(2, 4)
+                    let parteCelular = remetente.substring(4)
 
+                    if(parteCelular === 8){
+                        celular = '9' + parteCelular
+                    } else {
+                        celular = parteCelular
+                    }
                     console.log(`DDD: ${ddd} | Celular: ${celular}`)
                 }
 
                 await functions.marcarComoLida(msgId);
 
-                let numCliente = '0' + ddd + celular;
-                let number = '55' + ddd + celular;
+                let numCliente = '0' + ddd + celular; // formato para uso interno
+                let number = '55' + ddd + celular; // formato para uso na API da Meta
                 console.log(number);
                 console.log(numCliente);
                 //console.log(numDeTeste);
