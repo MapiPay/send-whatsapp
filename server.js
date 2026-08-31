@@ -131,9 +131,7 @@ app.post('/', async (req, res) => {
                         console.log(consultaCliente);
                     }
 
-                    //const resultadoConsulta = consultaCliente.success
-
-                    const resultadoConsulta = false;
+                    const resultadoConsulta = consultaCliente.success
 
                     if (resultadoConsulta) {
                         if (msgRecebida === 'gerar token') {
