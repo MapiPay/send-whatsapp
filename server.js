@@ -131,15 +131,17 @@ app.post('/', async (req, res) => {
                         console.log(consultaCliente);
                     }
 
-                    let resultadoConsulta = consultaCliente.success
+                    //let resultadoConsulta = consultaCliente.success
+
+                    let resultadoConsulta = false;
 
                     if (resultadoConsulta) {
                         if (msgRecebida === 'gerar token') {
-                            const tokenGerado = await webhookToken.gerarToken(remetente, ddd, celular)
+                            const tokenGerado = await webhookToken.gerarToken(remetente, ddd, celular);
                             if (tokenGerado) {
-                                await webhookToken.enviarMensagem(remetente, tokenGerado)
+                                await webhookToken.enviarMensagem(remetente, tokenGerado);
                             } else {
-                                console.log("Erro no envio do token")
+                                console.log("Erro no envio do token");
                             }
                         } else if (msgRecebida === 'suporte') {
                             await workflow.iniciarFlow(remetente, estadoCliente);
