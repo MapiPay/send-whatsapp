@@ -75,7 +75,7 @@ app.post('/', async (req, res) => {
                 let number = '55' + ddd + celular;
                 console.log(number);
                 console.log(numCliente);
-                console.log(numDeTeste);
+                //console.log(numDeTeste);
                 console.log(remetente);
                 let documentoRecebido;
 
