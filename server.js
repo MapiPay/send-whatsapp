@@ -72,6 +72,8 @@ app.post('/', async (req, res) => {
                 await functions.marcarComoLida(msgId);
 
                 let numCliente = '0' + ddd + numeroWhats;
+                let number = '55' + ddd + celular;
+                console.log(number);
                 console.log(numCliente);
                 console.log(numDeTeste);
                 console.log(remetente);
