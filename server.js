@@ -94,10 +94,10 @@ app.post('/', async (req, res) => {
                             const reply = interactiveType === 'button_reply' ? messages[0].interactive.button_reply : messages[0].interactive.list_reply;
 
                             const opcaoId = reply?.id;
-                            const etapa = estadoCliente.get(number);
+                            const etapa = estadoCliente.get(remetente);
 
                             if (etapa === 'menu_pf') {
-                                await functions.rotearOpcao(opcaoId, number, estadoCliente);
+                                await functions.rotearOpcao(opcaoId, remetente, estadoCliente);
                                 opcaoRoteada = true;
                             } else {
                                 msgRecebida = reply?.title?.toLowerCase() ?? '';
@@ -126,18 +126,18 @@ app.post('/', async (req, res) => {
                     }
 
                     if (msgRecebida === 'gerar token') {
-                        const tokenGerado = await webhookToken.gerarToken(number, ddd, celular)
+                        const tokenGerado = await webhookToken.gerarToken(remetente, ddd, celular)
                         if (tokenGerado) {
-                            await webhookToken.enviarMensagem(number, tokenGerado)
+                            await webhookToken.enviarMensagem(remetente, tokenGerado)
                         } else {
                             console.log("Erro no envio do token")
                         }
                     } else if (msgRecebida === 'suporte') {
-                        await workflow.iniciarFlow(number, estadoCliente);
+                        await workflow.iniciarFlow(remetente, estadoCliente);
                     } else {
                         const contaCliente = consultaCliente.data.account_number;
-                        await jsons.menuPrincipal(number);
-                        estadoCliente.set(number, 'menu_pf');
+                        await jsons.menuPrincipal(remetente);
+                        estadoCliente.set(remetente, 'menu_pf');
                     }
                 }
             }
