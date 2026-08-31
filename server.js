@@ -117,11 +117,11 @@ app.post('/', async (req, res) => {
 
                     let consultaCliente;
 
-                    if (clientesConsultados.hasOwnProperty(number)) {
-                        consultaCliente = clientesConsultados[number];
+                    if (clientesConsultados.hasOwnProperty(numCliente)) {
+                        consultaCliente = clientesConsultados[numCliente];
                     } else {
-                        consultaCliente = await functions.consultaNumero(number);
-                        clientesConsultados[number] = consultaCliente;
+                        consultaCliente = await functions.consultaNumero(numCliente);
+                        clientesConsultados[numCliente] = consultaCliente;
                         console.log(consultaCliente);
                     }
 
