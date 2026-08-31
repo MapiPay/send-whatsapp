@@ -30,6 +30,32 @@ module.exports = {
             console.log('Erro solicitar documento: ', err.response ? err.response.data : err.message)
         }
     },
+    contaNaoEncontrada: async function (destinatario) {
+        try {
+            const response = await axios.post(
+                `https://graph.facebook.com/v19.0/${idPhoneNumber}/messages`,
+                {
+                    "messaging_product": 'whatsapp',
+                    "to": destinatario,
+                    "type": 'template',
+                    "template": {
+                        "name": 'conta_nao_encontrada',
+                        "language": {
+                            "code": 'pt_BR'
+                        }
+                    }
+                },
+                {
+                    "headers": {
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+            )
+            return response.data
+        } catch (err) {
+            console.log('Erro ao enviar template conta_nao_encontrada: ', err.response ? err.response.data : err.message)
+        }
+    },
 
     solicitarDocumento: async function (destinatario) {
         try {

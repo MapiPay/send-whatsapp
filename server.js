@@ -65,7 +65,7 @@ app.post('/', async (req, res) => {
                     ddd = remetente.substring(2, 4)
                     let parteCelular = remetente.substring(4)
 
-                    if(parteCelular.length === 8){
+                    if (parteCelular.length === 8) {
                         celular = '9' + parteCelular
                     } else {
                         celular = parteCelular
@@ -80,7 +80,7 @@ app.post('/', async (req, res) => {
 
                 let number = '55' + ddd + celular; // formato para uso na API da Meta
                 console.log(number);
-                
+
                 //console.log(numDeTeste);
                 //console.log(remetente);
                 let documentoRecebido;
@@ -100,10 +100,10 @@ app.post('/', async (req, res) => {
                             const reply = interactiveType === 'button_reply' ? messages[0].interactive.button_reply : messages[0].interactive.list_reply;
 
                             const opcaoId = reply?.id;
-                            const etapa = estadoCliente.get(remetente);
+                            const etapa = estadoCliente.get(number);
 
                             if (etapa === 'menu_pf') {
-                                await functions.rotearOpcao(opcaoId, remetente, estadoCliente);
+                                await functions.rotearOpcao(opcaoId, number, estadoCliente);
                                 opcaoRoteada = true;
                             } else {
                                 msgRecebida = reply?.title?.toLowerCase() ?? '';
@@ -134,19 +134,23 @@ app.post('/', async (req, res) => {
                     let resultadoConsulta = consultaCliente.success
                     console.log(resultadoConsulta);
 
-                    if (msgRecebida === 'gerar token') {
-                        const tokenGerado = await webhookToken.gerarToken(remetente, ddd, celular)
-                        if (tokenGerado) {
-                            await webhookToken.enviarMensagem(remetente, tokenGerado)
+                    if (resultadoConsulta) {
+                        if (msgRecebida === 'gerar token') {
+                            const tokenGerado = await webhookToken.gerarToken(number, ddd, celular)
+                            if (tokenGerado) {
+                                await webhookToken.enviarMensagem(number, tokenGerado)
+                            } else {
+                                console.log("Erro no envio do token")
+                            }
+                        } else if (msgRecebida === 'suporte') {
+                            await workflow.iniciarFlow(number, estadoCliente);
                         } else {
-                            console.log("Erro no envio do token")
+                            const contaCliente = consultaCliente.data.account_number;
+                            await jsons.menuPrincipal(number);
+                            estadoCliente.set(number, 'menu_pf');
                         }
-                    } else if (msgRecebida === 'suporte') {
-                        await workflow.iniciarFlow(remetente, estadoCliente);
                     } else {
-                        const contaCliente = consultaCliente.data.account_number;
-                        await jsons.menuPrincipal(remetente);
-                        estadoCliente.set(remetente, 'menu_pf');
+                        await jsons.contaNaoEncontrada();
                     }
                 }
             }
@@ -158,6 +162,10 @@ app.post('/', async (req, res) => {
 
 app.get('/comercial', (req, res) => {
     res.redirect('https://wa.me/554191069081?text=Ol%C3%A1!%20Ainda%20n%C3%A3o%20sou%20cliente%20e%20gostaria%20de%20falar%20com%20a%20equipe%20comercial%20da%20MapiPay.')
+})
+
+app.get('/suporte', (req, res) => {
+    res.redirect('https://wa.me/554185305944?text=Ol%C3%A1!%20J%C3%A1%20sou%20cliente%20MapiPay%20e%20preciso%20de%20ajuda%20com%20o%20meu%20cadastro')
 })
 
 app.listen(85, () => {
