@@ -135,7 +135,7 @@ app.post('/', async (req, res) => {
 
                     const resultadoConsulta = false;
 
-                    if (!resultadoConsulta) {
+                    if (resultadoConsulta) {
                         if (msgRecebida === 'gerar token') {
                             const tokenGerado = await webhookToken.gerarToken(remetente, ddd, celular);
                             if (tokenGerado) {
