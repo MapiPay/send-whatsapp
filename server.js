@@ -131,11 +131,11 @@ app.post('/', async (req, res) => {
                         console.log(consultaCliente);
                     }
 
-                    //let resultadoConsulta = consultaCliente.success
+                    //const resultadoConsulta = consultaCliente.success
 
-                    let resultadoConsulta = false;
+                    const resultadoConsulta = false;
 
-                    if (resultadoConsulta) {
+                    if (!resultadoConsulta) {
                         if (msgRecebida === 'gerar token') {
                             const tokenGerado = await webhookToken.gerarToken(remetente, ddd, celular);
                             if (tokenGerado) {
