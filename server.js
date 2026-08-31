@@ -66,7 +66,7 @@ app.post('/', async (req, res) => {
                     ddd = remetente.substring(2, 4)
                     let parteCelular = remetente.substring(4)
 
-                    if(parteCelular === 8){
+                    if(parteCelular.length === 8){
                         celular = '9' + parteCelular
                     } else {
                         celular = parteCelular
