@@ -66,7 +66,7 @@ app.post('/', async (req, res) => {
                     ddd = remetente.substring(2, 4);
                     celular = '9' + remetente.substring(4);
 
-                    //console.log(`DDD: ${ddd} | Celular: ${celular}`)
+                    console.log(`DDD: ${ddd} | Celular: ${celular}`)
                 }
 
                 await functions.marcarComoLida(msgId);
