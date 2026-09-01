@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const functions = require('./includes/functions');
 const webhookToken = require('./includes/webhookToken');
