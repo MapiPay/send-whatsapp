@@ -1,10 +1,10 @@
 const axios = require('axios');
 let verificacao = false;
 
-const token = "EAAUi1ZAjBIQwBR0ZCJMMrZCaZAkHZC8ZC9GUVSePNUwzDZAOO7fsGkGOFCJXRKo0nWwas8dni7NSQJ5bRWXw9r2lkDlnmIDZA2ocP7CGfIZCDo3v6sn8vl7gRcTxFZBGWzRMwGG1rSgXdBNOXyK5oBKPpIdqQRXKo1pPtTCxz4ocm6b3ToOPGVN2UsTVmkQJQHTgZDZD";
-const idPhoneNumber = "436813806185181";
-// const gestaoUser = 'consultamapi@mapi.com.br';
-// const senhaUser = 'm6f%VWdG^ngBB1h&vMNnPiJJyR';
+const token = process.env.TOKEN;
+const idPhoneNumber = process.env.ID_PHONE_NUMBER;
+const gestaoUser = process.env.GESTAO_USER;
+const senhaUser = process.env.SENHA_USER;
 
 //Gerar token
 async function gerarToken(remetente, ddd, celular) {
@@ -17,8 +17,8 @@ async function gerarToken(remetente, ddd, celular) {
             },
             {
                 auth: {
-                    username: "consultamapi@mapi.com.br",
-                    password: "m6f%VWdG^ngBB1h&vMNnPiJJyR"
+                    username: gestaoUser,
+                    password: senhaUser
                 }
             }
         );

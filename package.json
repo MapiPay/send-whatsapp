@@ -21,6 +21,7 @@
     "axios": "^1.19.0",
     "body-parser": "^2.3.0",
     "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "fs": "^0.0.1-security",
     "http": "^0.0.1-security",

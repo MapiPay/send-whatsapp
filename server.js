@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const functions = require('./includes/functions');
 const webhookToken = require('./includes/webhookToken');
@@ -9,7 +11,7 @@ const { json } = require('body-parser');
 const app = express();
 app.use(express.json());
 
-const tokenDeVerificacao = 'tokenDeEnvio@Mapi2026';
+const tokenDeVerificacao = process.env.TOKEN_DE_VERIFICACAO;
 const clientesAguardandoDocumento = {};
 
 app.get('/', (req, res) => {
