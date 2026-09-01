@@ -167,7 +167,7 @@ app.get('/suporte', (req, res) => {
     res.redirect('https://wa.me/554185305944?text=Ol%C3%A1!%20J%C3%A1%20sou%20cliente%20MapiPay%20e%20preciso%20de%20ajuda%20com%20o%20meu%20cadastro')
 })
 
-app.listen(85, () => {
+app.listen(process.env.PORT, () => {
     console.clear();
-    console.log('Servidor rodando na porta 85')
+    console.log(`Servidor rodando na porta ${process.env.PORT}`)
 })
