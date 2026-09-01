@@ -1,10 +1,6 @@
 const axios = require("axios");
-
-const rawToken = process.env.TOKEN || '';
-const rawId = process.env.ID_PHONE_NUMBER || '';
-
-const token = rawToken.replace(/['"]/g, '').trim();
-const idPhoneNumber = rawId.replace(/['"]/g, '').trim();
+const token = process.env.TOKEN;
+const idPhoneNumber = process.env.ID_PHONE_NUMBER;
 
 module.exports = {
     menuPrincipal: async function (destinatario) {
