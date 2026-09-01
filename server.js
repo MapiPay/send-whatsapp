@@ -3,7 +3,8 @@ const functions = require('./includes/functions');
 const webhookToken = require('./includes/webhookToken');
 const workflow = require('./includes/workflow');
 const jsons = require('./includes/jsons');
-require('dotenv').config();
+
+console.log(JSON.stringify(process.env.TOKEN));
 
 const app = express();
 app.use(express.json());
