@@ -1,8 +1,8 @@
 const axios = require('axios');
 const sRequest = require('sync-request');
 const jsons = require('./jsons');
-const token = "EAAWuXznOQGsBScxwTZCi0nqMCTbXVzs7NGX1UYqZB9YH2uwzTpNYa5zyNM7bKvBZAoBu6NIVy1aedBq2uCMmB2wHqejSfrWIyriR97KwcKYQ8nHfu7nCufo89aePzcpHG43Jpr8qBp5SIX209GeWqJAEGY4zihfvqJCvJl6bzWAdrg4iUOfOmyeSvDscgZDZD";
-const idPhoneNumber = "467766706416009";
+const token = process.env.TOKEN;
+const idPhoneNumber = process.env.ID_PHONE_NUMBER;
 
 async function marcarComoLida(msgId) {
     try {

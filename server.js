@@ -3,12 +3,12 @@ const functions = require('./includes/functions');
 const webhookToken = require('./includes/webhookToken');
 const workflow = require('./includes/workflow');
 const jsons = require('./includes/jsons');
+require('dotenv').config();
 
 const app = express();
 app.use(express.json());
 
-const tokenDeVerificacao = 'tokenDeEnvioHomolog@Mapi2026';
-const clientesAguardandoDocumento = {};
+const tokenDeVerificacao = process.env.TOKEN_DE_VERIFICACAO;
 const clientesConsultados = {};
 
 const estadoCliente = new Map();
@@ -134,7 +134,7 @@ app.post('/', async (req, res) => {
 
                     if (resultadoConsulta) {
                         if (msgRecebida === 'gerar token') {
-                            const tokenGerado = await webhookToken.gerarToken(remetente, ddd, celular);
+                            const tokenGerado = await webhookToken.gerarToken(ddd, celular);
                             if (tokenGerado) {
                                 await webhookToken.enviarMensagem(remetente, tokenGerado);
                             } else {

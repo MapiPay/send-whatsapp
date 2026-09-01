@@ -1,7 +1,6 @@
 const axios = require("axios");
-const idPhoneNumber = "467766706416009";
-const token = "EAAWuXznOQGsBScxwTZCi0nqMCTbXVzs7NGX1UYqZB9YH2uwzTpNYa5zyNM7bKvBZAoBu6NIVy1aedBq2uCMmB2wHqejSfrWIyriR97KwcKYQ8nHfu7nCufo89aePzcpHG43Jpr8qBp5SIX209GeWqJAEGY4zihfvqJCvJl6bzWAdrg4iUOfOmyeSvDscgZDZD";
-
+const token = process.env.TOKEN;
+const idPhoneNumber = process.env.ID_PHONE_NUMBER;
 
 module.exports = {
     menuPrincipal: async function (destinatario) {
