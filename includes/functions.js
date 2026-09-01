@@ -57,7 +57,7 @@ async function rotearOpcao(opcao, numCliente, estadoCliente) {
     } else if (opcao === 'op_2') {
         console.log("Opção referente ao status PIX")
     } else if (opcao === 'op_3') {
-        console.log("Opção referente a alteração de cadastro")
+        console.log("Opção referente a QR Code/Pagamentos")
     } else if (opcao === 'op_4') {
         console.log("Opção referente a nota fiscal")
     } else if (opcao === 'op_5') {
@@ -67,6 +67,8 @@ async function rotearOpcao(opcao, numCliente, estadoCliente) {
     }
 
     estadoCliente.delete(numCliente);
+
+    await jsons.menu(numCliente);
 }
 
 // CONSULTA BANCO DE DADOS
