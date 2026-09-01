@@ -1,7 +1,7 @@
 const axios = require('axios');
 let verificacao = false;
-const token = process.env.TOKEN;
-const idPhoneNumber = process.env.ID_PHONE_NUMBER;
+const token = process.env.TOKEN.replace(/['"]/g, '').trim();;
+const idPhoneNumber = process.env.ID_PHONE_NUMBER.replace(/['"]/g, '').trim();;
 const gestaoUser = process.env.GESTAO_USER;
 const senhaUser = process.env.SENHA_USER;
 
