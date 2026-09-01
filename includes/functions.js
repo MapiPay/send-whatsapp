@@ -73,7 +73,7 @@ async function rotearOpcao(opcao, numCliente, estadoCliente) {
 
 // CONSULTA BANCO DE DADOS
 function consultaNumero(phone_number) {
-    const credenciais = Buffer.from("consultamapi@mapi.com.br:m6f%VWdG^ngBB1h&vMNnPiJJyR").toString('base64')
+    const credenciais = Buffer.from(`${process.env.GESTAO_USER}:${process.env.SENHA_USER}`).toString('base64')
     let reqCliente = sRequest('GET', `https://api.mapipay.com.br/api/mapi/phone-number/${phone_number}`, {
         headers: {
             'content-type': 'application/json',
