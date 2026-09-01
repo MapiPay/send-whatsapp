@@ -6,8 +6,6 @@ const webhookToken = require('./includes/webhookToken');
 const workflow = require('./includes/workflow');
 const jsons = require('./includes/jsons');
 
-console.log(JSON.stringify(process.env.TOKEN));
-
 const app = express();
 app.use(express.json());
 
