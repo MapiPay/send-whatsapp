@@ -143,6 +143,8 @@ app.post('/', async (req, res) => {
                             }
                         } else if (msgRecebida === 'suporte') {
                             await workflow.iniciarFlow(remetente, estadoCliente);
+                        } else if (msgRecebida === 'menu') {
+                            await jsons.menu(remetente);
                         } else {
                             const contaCliente = consultaCliente.data.account_remetente;
                             await jsons.menuPrincipal(remetente);
