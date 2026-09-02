@@ -27,29 +27,6 @@ async function marcarComoLida(msgId) {
     }
 }
 
-async function extrairOpcao(message) {
-    if (!message) {
-        return null
-    }
-
-    if (message.type === 'interactive') {
-        const { interactive } = message;
-        if (interactive.type === 'list_reply') {
-            return interactive.list_reply.id;
-        }
-
-        if (interactive.type === 'button_reply') {
-            return interactive.button_reply.id;
-        }
-    }
-
-    /*if (message.type === 'text') {
-        return message.text.body.trim();
-    }*/
-
-    return null;
-}
-
 // VERIFICAR OPÇÃO PARA PF
 async function rotearOpcao(opcao, numCliente, estadoCliente) {
     if (opcao === 'op_1') {
@@ -93,7 +70,6 @@ function consultaDocumento(documento) {
 
 module.exports = {
     marcarComoLida,
-    extrairOpcao,
     rotearOpcao,
     consultaNumero,
     consultaDocumento
